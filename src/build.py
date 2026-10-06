@@ -7,9 +7,9 @@ css_end = s.index('</style>')
 head = s[:css_end]
 head = head.replace('<title>The Renewal Book · Johnny Brock · The Real Insurance Group</title>',
                     '<title>The Marketing Machine · Johnny Brock · The Real Insurance Group</title>')
-new_css = open(os.path.join(ROOT, 'src/new.css'), encoding='utf-8').read()
+new_css = open(os.path.join(ROOT, 'src/new.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v2.css'), encoding='utf-8').read()
 slides = open(os.path.join(ROOT, 'src/slides.html'), encoding='utf-8').read()
-tail = s[s.index('<div class="grain"></div>'):]
+tail = s[s.index('<div class="grain"></div>') + len('<div class="grain"></div>'):]
 # notes: read from each slide's <script type="text/plain" class="notes">
 a = tail.index('const NOTES = {'); b = tail.index('};', a) + 2
 tail = tail[:a] + 'const NOTES = {};' + tail[b:]
@@ -24,6 +24,16 @@ tail = tail.replace('<span class="l">The Renewal Book</span>', '<span class="l">
 tail = tail.replace("<h3>The Renewal Book · controls</h3>", "<h3>The Marketing Machine · controls</h3>")
 tail = tail.replace("  addEventListener('storage', e=>{ if(e.key===TKEY) updateChip(); });\n", "")
 tail = tail.replace("NOTES[i+1] || ''", "(slides[i]?.querySelector('script.notes')?.textContent || '').trim()")
+TRACK = '''<script>
+/* framework tracker: replaces the brand label on teaching slides */
+(function(){ const P=['Market','Message','Media','Mechanism','Monetization'];
+  document.querySelectorAll('.slide[data-part]').forEach(s=>{ const cur=+s.dataset.part, b=s.querySelector('.c-brand'); if(!b) return;
+    const t=document.createElement('div'); t.className='c-track';
+    t.innerHTML=P.map((n,i)=>`<span class="${i+1===cur?'on':(i+1<cur?'done':'')}">${n}</span>`).join('');
+    b.replaceWith(t); }); })();
+</script>
+'''
+tail = tail.replace('</body>', TRACK + '</body>')
 out = head + new_css + '\n' + '</style>\n</head>\n<body>\n\n<div id="stage">\n' + slides + '\n' + tail
 for must in ['Renewal Book', 'SEATS', 'data-seat', 'TKEY']:
     if must in out: print('LEFTOVER:', must, out.count(must))

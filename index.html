@@ -1066,12 +1066,190 @@ body.speaker #spk{display:grid;grid-template-columns:1fr 420px;gap:0;min-height:
 .s-four .c{padding-top:40px;padding-bottom:40px}
 .s-four .c .h{font-size:44px}
 
+/* ═══════════════════════════ v2 DESIGN PASS ═══════════════════════════ */
+
+/* framework tracker, top right of every teaching slide */
+.c-track{position:absolute;right:120px;top:68px;display:flex;gap:0}
+.c-track span{position:relative;font:500 13px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--t4);padding:0 0 12px;margin-left:30px}
+.c-track span::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(242,245,249,.1)}
+.c-track span.done{color:var(--t3)}
+.c-track span.done::after{background:rgba(217,166,33,.35)}
+.c-track span.on{color:var(--gold-2)}
+.c-track span.on::after{background:var(--gold);box-shadow:0 0 12px rgba(217,166,33,.6)}
+
+/* ═══ CHAPTER OPENERS ═══ */
+.s-ch{background:#03070f}
+.s-ch .bg{position:absolute;inset:0;overflow:hidden}
+.s-ch .bg img{position:absolute;right:0;top:0;width:72%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.04) brightness(.92)}
+.slide.s-ch.active .bg img{animation:kb 14s cubic-bezier(.2,.6,.2,1) both}
+@keyframes kb{from{transform:scale(1.09)}to{transform:scale(1)}}
+.s-ch .scrim{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(90deg,#03070f 0%,#03070f 30%,rgba(3,7,15,.86) 42%,rgba(3,7,15,.35) 62%,rgba(3,7,15,0) 80%),
+  linear-gradient(0deg,rgba(3,7,15,.92) 0%,rgba(3,7,15,0) 34%),
+  linear-gradient(180deg,rgba(3,7,15,.6) 0%,rgba(3,7,15,0) 22%)}
+.s-ch .txt{position:absolute;left:120px;top:50%;transform:translateY(-58%);width:1100px;z-index:2}
+.s-ch .no{font:italic 400 230px/.8 var(--serif);color:transparent;-webkit-text-stroke:1.5px var(--gold);letter-spacing:-.02em;margin:0 0 26px;opacity:.95}
+.s-ch h1{font:400 172px/.9 var(--serif);letter-spacing:-.025em;color:var(--t1);margin:0}
+.s-ch h1 em{font-style:italic;color:var(--gold-2)}
+.s-ch p{font:400 38px/1.3 var(--sans);color:var(--t2);margin:40px 0 0;max-width:900px;letter-spacing:-.01em}
+.s-ch p em{font-family:var(--serif);font-style:italic;color:var(--gold-2);font-size:1.18em}
+.s-ch .rail5{position:absolute;left:120px;right:120px;bottom:168px;display:grid;grid-template-columns:repeat(5,1fr);z-index:2}
+.s-ch .rail5 span{font:500 14px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:rgba(242,245,249,.36);padding-top:20px;border-top:2px solid rgba(242,245,249,.16)}
+.s-ch .rail5 span i{font-style:normal;margin-right:14px;color:rgba(242,245,249,.28)}
+.s-ch .rail5 span.done{color:var(--t3);border-top-color:rgba(217,166,33,.4)}
+.s-ch .rail5 span.on{color:var(--gold-2);border-top-color:var(--gold);box-shadow:0 -1px 0 0 var(--gold)}
+.s-ch .rail5 span.on i{color:var(--gold)}
+.s-ch .c-kicker{z-index:3}
+.s-ch .c-brand{display:none}
+.s-ch .c-foot{border-top-color:rgba(242,245,249,.18)}
+
+/* ═══ AD MOCKS WITH PHOTOS ═══ */
+.ad .vis{position:relative;height:206px;padding:0;overflow:hidden;background:#0b1729}
+.ad .vis img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ad .vis .band{position:absolute;left:0;right:0;bottom:0;padding:18px 24px 18px;background:linear-gradient(0deg,rgba(6,14,27,.92),rgba(6,14,27,.55) 70%,rgba(6,14,27,0));font:400 30px/1.12 var(--serif);color:#fff;text-align:left}
+.ad .vis .band small{display:block;font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-2);margin-bottom:8px}
+.s-adx .pair{margin-top:34px}
+.s-adx .bad .ad{opacity:.7;filter:saturate(.7)}
+.s-adx .good .ad{box-shadow:0 50px 120px -40px rgba(0,0,0,.9),0 0 0 1px rgba(217,166,33,.35),0 30px 90px -30px rgba(217,166,33,.25)}
+.ad .tx{font-size:23px;margin:16px 0 18px}
+
+/* ═══ THE PATH, WITH MOCKUPS ═══ */
+.s-path .flow{margin-top:56px}
+.s-path .flow::before{top:auto;bottom:auto;top:300px}
+.s-path .flow .n{padding-right:26px}
+.s-path .flow .n .dot{position:relative;z-index:2;margin-top:24px;width:46px;height:46px;font-size:12px}
+.s-path .flow .n h3{font-size:40px;margin:22px 0 10px}
+.s-path .flow .n p{font-size:21px}
+.mk{height:250px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(180deg,#0f1f38,#0b1729);padding:16px;display:flex;flex-direction:column;gap:9px;box-shadow:0 30px 70px -30px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.06);overflow:hidden}
+.mk.ctr{align-items:center;justify-content:center;text-align:center}
+.mk .ln{display:block;height:7px;border-radius:4px;background:rgba(242,245,249,.18);width:100%;flex:none}
+.mk .ln.h{height:12px;background:rgba(242,245,249,.5)}
+.mk .ln.k{height:6px;background:rgba(217,166,33,.7)}
+.mk .w40{width:40%}.mk .w50{width:50%}.mk .w60{width:60%}.mk .w70{width:70%}.mk .w80{width:80%}.mk .w90{width:90%}
+.mk .mrow{display:flex;align-items:center;gap:8px}
+.mk .av{width:20px;height:20px;border-radius:50%;background:rgba(242,245,249,.25);flex:none}
+.mk .mimg{height:86px;border-radius:5px;background-size:cover;background-position:center 35%;flex:none}
+.mk .mbtn{display:block;margin-top:auto;padding:9px 8px;border-radius:5px;background:var(--gold);color:var(--ink-2);font:700 12px/1 var(--sans);text-align:center;letter-spacing:.01em}
+.mk .mbtn.big{padding:12px 8px;font-size:13px}
+.mk.ctr .mbtn{margin-top:14px;align-self:stretch}
+.mk .fld{display:block;padding:7px 9px;border:1px solid rgba(242,245,249,.18);border-radius:4px;font:400 12px/1 var(--sans);color:var(--t3)}
+.mk .fld.q{border-color:rgba(217,166,33,.45);color:var(--gold-2)}
+.mk .chk{width:54px;height:54px;border-radius:50%;border:2px solid var(--gold);color:var(--gold-2);display:flex;align-items:center;justify-content:center;font:600 26px/1 var(--sans);margin-bottom:14px}
+.mk .chk.g{background:var(--gold);color:var(--ink-2);margin:16px 0 0}
+.mk.ctr .ln{margin:3px auto}
+.mk .cal{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:6px}
+.mk .cal i{height:26px;border-radius:4px;background:rgba(242,245,249,.08);border:1px solid rgba(242,245,249,.08)}
+.mk .cal i.x{background:rgba(242,245,249,.02);border-style:dashed}
+.mk .cal i.g{background:var(--gold);border-color:var(--gold);box-shadow:0 0 18px rgba(217,166,33,.5)}
+.mk .slot{margin-top:auto;font:600 13px/1 var(--sans);color:var(--gold-2)}
+.mk .bub{display:block;max-width:88%;padding:9px 11px;border-radius:14px;font:400 13px/1.3 var(--sans)}
+.mk .bub.in{background:#2f7cf6;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.mk .bub.in.s{margin-top:-4px}
+.mk .bub.out{background:#2a2f38;color:#fff;align-self:flex-start;border-bottom-left-radius:4px}
+.mk .ev{display:block;width:100%;padding:14px;border-left:3px solid var(--gold);background:rgba(217,166,33,.12);border-radius:4px;text-align:left;font:600 18px/1.2 var(--sans);color:var(--t1)}
+.mk .ev small{display:block;font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-2);margin-bottom:8px}
+.mk .ev em{display:block;font:400 13px/1.3 var(--sans);font-style:normal;color:var(--t3);margin-top:6px}
+.mk.win{border-color:rgba(217,166,33,.5);box-shadow:0 30px 80px -30px rgba(217,166,33,.35)}
+
+/* ═══ FOLLOW-UP · TIMELINE + PHONE ═══ */
+.s-fu .fu{display:grid;grid-template-columns:1fr 420px;gap:96px;margin-top:22px;align-items:start}
+.s-fu .vt{border-left:2px solid var(--gold);margin-left:8px}
+.s-fu .vt .s{position:relative;display:grid;grid-template-columns:220px 1fr;gap:26px;align-items:baseline;padding:9px 0 9px 40px;border-bottom:1px solid var(--line-2)}
+.s-fu .vt .s::before{content:"";position:absolute;left:-10px;top:22px;width:14px;height:14px;border-radius:50%;background:var(--ink);border:2px solid var(--gold)}
+.s-fu .vt .w{font:500 14px/1.4 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0}
+.s-fu .vt h3{font:400 32px/1.05 var(--serif);color:var(--t1);margin:0 0 4px}
+.s-fu .vt p{font:400 20px/1.35 var(--sans);color:var(--t2);margin:0}
+.phone{position:relative;width:400px;height:620px;margin-top:-150px;border-radius:52px;padding:14px;background:linear-gradient(160deg,#2a3242,#0b0f17);box-shadow:0 60px 120px -40px rgba(0,0,0,.95),inset 0 0 0 1px rgba(255,255,255,.12)}
+.phone::before{content:"";position:absolute;left:50%;top:24px;transform:translateX(-50%);width:110px;height:30px;border-radius:20px;background:#000;z-index:3}
+.phone .ph-top{position:relative;z-index:2;height:118px;border-radius:40px 40px 0 0;background:#11151c;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.phone .ph-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(160deg,#D9A621,#a07a14);color:#060E1B;display:flex;align-items:center;justify-content:center;font:600 18px/1 var(--sans);margin-bottom:6px}
+.phone .ph-top b{font:600 15px/1.2 var(--sans);color:#fff}
+.phone .ph-top small{font:400 12px/1.2 var(--sans);color:#8a93a3}
+.phone .thread{height:474px;border-radius:0 0 40px 40px;background:#000;padding:12px 16px;display:flex;flex-direction:column;gap:7px;overflow:hidden}
+.phone .ts{align-self:center;font:500 11px/1 var(--sans);color:#8a93a3;margin:6px 0 2px}
+.phone .m{max-width:78%;margin:0;padding:9px 13px;border-radius:18px;font:400 15px/1.32 var(--sans);color:#fff}
+.phone .m.out{align-self:flex-end;background:#2f7cf6;border-bottom-right-radius:5px}
+.phone .m.in{align-self:flex-start;background:#26262a;border-bottom-left-radius:5px}
+.s-fu .fufoot{position:absolute;left:0;width:1060px;bottom:0;padding-top:24px;border-top:1px solid var(--line);font:italic 400 34px/1.3 var(--serif);color:var(--t1)}
+.s-fu .fufoot span{color:var(--gold-2)}
+
+/* ═══ UNIT ECONOMICS AS A FUNNEL ═══ */
+.s-econ2 .grid{display:grid;grid-template-columns:1120px 1fr;gap:80px;margin-top:50px}
+.s-econ2 .fn .r{display:grid;grid-template-columns:230px 1fr 110px;gap:26px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line-2);position:relative}
+.s-econ2 .fn .r:first-child{border-top:1px solid var(--line)}
+.s-econ2 .fn .t{font:500 26px/1.15 var(--sans);color:var(--t1)}
+.s-econ2 .fn .t small{display:block;font:400 17px/1.3 var(--sans);color:var(--t3);margin-top:4px}
+.s-econ2 .fn .tr{height:46px;background:rgba(242,245,249,.04);border-radius:3px;position:relative;overflow:hidden}
+.s-econ2 .fn .tr i{position:absolute;left:0;top:0;bottom:0;display:block;background:linear-gradient(90deg,rgba(242,245,249,.16),rgba(242,245,249,.34));border-radius:3px;transform-origin:left;transition:transform 1.1s cubic-bezier(.2,.8,.2,1)}
+.s-econ2 .fn .tr i.g{background:linear-gradient(90deg,#a07a14,var(--gold-2));box-shadow:0 0 24px rgba(217,166,33,.6)}
+.s-econ2 .fn .frag:not(.in) .tr i{transform:scaleX(0)}
+.s-econ2 .fn .v{font:400 64px/1 var(--serif);color:var(--t1);text-align:right;letter-spacing:-.02em}
+.s-econ2 .fn .v.g{color:var(--gold-2)}
+.s-econ2 .fn .c{position:absolute;left:256px;top:50%;transform:translateY(-50%);margin-left:0;padding-left:16px;font:500 15px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--t2);pointer-events:none}
+.s-econ2 .fn .r:last-child .c,.s-econ2 .fn .r:nth-last-child(2) .c{left:auto;right:150px;color:var(--gold-2)}
+.s-econ2 .fn .ex{margin:14px 0 0;font:400 14px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--t4)}
+.s-econ2 .res>div{padding:0 0 26px;margin-bottom:26px;border-bottom:1px solid var(--line)}
+.s-econ2 .res .k{font:500 14px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin:0 0 14px}
+.s-econ2 .res .big{font:400 150px/.85 var(--serif);color:var(--gold-2);letter-spacing:-.03em}
+.s-econ2 .res .big.w{font-size:96px;color:var(--t1)}
+.s-econ2 .res .go{font:italic 400 32px/1.3 var(--serif);color:var(--t1);margin:0}
+.s-econ2 .res .go span{color:var(--gold-2)}
+
+/* ═══ THE MACHINE AS A LOOP ═══ */
+.s-loop .ring{position:absolute;left:0;top:0;width:1680px;height:762px}
+.s-loop .ring svg{position:absolute;left:0;top:0;overflow:visible}
+.s-loop .el{fill:none;stroke:rgba(242,245,249,.12);stroke-width:1.5}
+.s-loop .el2{fill:none;stroke:var(--gold);stroke-width:2;stroke-dasharray:100;stroke-dashoffset:100;opacity:.75}
+.slide.s-loop.active .el2{animation:draw 2.6s cubic-bezier(.4,0,.2,1) .4s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.s-loop .runner{fill:var(--gold-2);filter:drop-shadow(0 0 8px rgba(235,192,74,.9))}
+.s-loop .nd{position:absolute;width:0;height:0}
+.s-loop .nd b{position:absolute;left:-11px;top:-11px;width:22px;height:22px;border-radius:50%;background:var(--ink);border:2px solid var(--gold);box-shadow:0 0 0 7px rgba(6,14,27,1)}
+.s-loop .nd.loop b{background:var(--gold)}
+.s-loop .nd span{position:absolute;left:0;transform:translateX(-50%);white-space:nowrap;text-align:center;font:400 50px/1 var(--serif);color:var(--t1);letter-spacing:-.015em}
+.s-loop .nd span i{display:block;font:500 12px/1 var(--mono);font-style:normal;letter-spacing:.22em;color:var(--gold);margin-bottom:10px}
+.s-loop .nd.up span{bottom:26px}
+.s-loop .nd.dn span{top:26px}
+.s-loop .nd.loop span{color:var(--gold-2)}
+.s-loop .mid{position:absolute;left:50%;top:445px;transform:translate(-50%,-50%);text-align:center;width:820px}
+.s-loop .mid p{font:400 24px/1.4 var(--sans);color:var(--t2);margin:0 0 14px}
+.s-loop .mid h2{font:400 88px/1 var(--serif);color:var(--t1);margin:0;letter-spacing:-.02em}
+.s-loop .mid h2 em{font-style:italic;color:var(--gold-2)}
+.s-loop .mid small{display:block;margin-top:16px;font:500 13px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--t3)}
+.s-loop .frag.nd{transform:none}
+.s-loop .frag.nd:not(.in) span,.s-loop .frag.nd:not(.in) b{opacity:0}
+.s-loop .frag.nd span,.s-loop .frag.nd b{transition:opacity .6s}
+
+/* ═══ GAP · CHECKBOXES ═══ */
+.s-gap .st .ck{position:absolute;right:22px;top:36px;width:30px;height:30px;border:1.5px solid rgba(242,245,249,.28);border-radius:5px;display:flex;align-items:center;justify-content:center;font:600 18px/1 var(--sans)}
+.s-gap .st.have .ck{background:var(--gold);border-color:var(--gold);color:var(--ink-2)}
+.s-gap .st.have h3{color:var(--t1)}
+.s-gap .st:not(.have) h3{color:var(--t2)}
+.s-gap .st small{display:block;margin-top:10px;font:500 13px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.s-gap .st:nth-child(10) h3{color:var(--t2)}
+
+/* ═══ THE DELTA AS BARS ═══ */
+.s-delta2 .bars{margin-top:70px;border-top:1px solid var(--line)}
+.s-delta2 .br{display:grid;grid-template-columns:360px 1fr 230px;gap:36px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line)}
+.s-delta2 .t{font:500 28px/1.15 var(--sans);color:var(--t1)}
+.s-delta2 .t small{display:block;font:400 19px/1.3 var(--sans);color:var(--t3);margin-top:6px}
+.s-delta2 .tr{position:relative;height:64px;background:rgba(242,245,249,.03);display:flex}
+.s-delta2 .tr i{position:relative;display:block;height:100%;transform-origin:left;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.s-delta2 .frag:not(.in) .tr i{transform:scaleX(0)}
+.s-delta2 .tr i.base{background:rgba(242,245,249,.34)}
+.s-delta2 .tr i.add{background:linear-gradient(90deg,#b8901c,var(--gold-2));box-shadow:0 0 30px rgba(217,166,33,.55)}
+.s-delta2 .tr i.add em{position:absolute;left:calc(100% + 18px);top:50%;transform:translateY(-50%);font:italic 400 44px/1 var(--serif);color:var(--gold-2);white-space:nowrap}
+.s-delta2 .tr i.ext{background:repeating-linear-gradient(135deg,rgba(242,245,249,.16) 0 2px,rgba(242,245,249,.06) 2px 14px);border:1px solid rgba(242,245,249,.2)}
+.s-delta2 .v{font:400 76px/1 var(--serif);color:var(--t1);text-align:right;letter-spacing:-.02em;white-space:nowrap}
+.s-delta2 .v small{font-size:.34em;font-style:italic;color:var(--t2)}
+.s-delta2 .v.g{color:var(--gold-2)}
+.s-delta2 .br.dim .t,.s-delta2 .br.dim .v{color:var(--t2)}
+
 </style>
 </head>
 <body>
 
 <div id="stage">
-
 <!-- ═══════════════════════ 01 TITLE ═══════════════════════ -->
 <section class="slide s-title" data-chrome="none">
   <div class="light"></div>
@@ -1175,8 +1353,25 @@ Then: "Most agents only ever work on one of these, usually media. They boost a p
 Tell them you'll come back to this slide. Every section from here has the number in the corner.</script>
 </section>
 
+<!-- ═══════════════════════ CHAPTER · Market ═══════════════════════ -->
+<section class="slide s-ch" data-kicker="Part 01">
+  <div class="bg"><img src="assets/ch-market.jpg" alt="" style="object-position:70% 30%"></div>
+  <div class="scrim"></div>
+  <div class="txt">
+    <div class="no a">01</div>
+    <h1 class="a">Market</h1>
+    <p class="a">Who, exactly, are you going after?</p>
+  </div>
+  <div class="rail5 a"><span class="on"><i>01</i>Market</span><span class=""><i>02</i>Message</span><span class=""><i>03</i>Media</span><span class=""><i>04</i>Mechanism</span><span class=""><i>05</i>Monetization</span></div>
+<script type="text/plain" class="notes">CHAPTER 01 · MARKET
+
+One breath. Read the question and move on.
+
+"Part one. Market. Who, exactly, are you going after? Because if the answer is 'everybody on Medicare', nothing after this works."</script>
+</section>
+
 <!-- ═══════════════════════ 06 MARKET · ONE PERSON ═══════════════════════ -->
-<section class="slide s-seg" data-kicker="01 · Market">
+<section data-part="1" class="slide s-seg" data-kicker="01 · Market">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a">“I sell Medicare” is <em>not a market.</em></h1>
@@ -1205,7 +1400,7 @@ The rule: one campaign, one person, one problem. If an ad is trying to talk to t
 </section>
 
 <!-- ═══════════════════════ 07 MARKET · NOBODY IS CALLING ═══════════════════════ -->
-<section class="slide s-groups" data-kicker="01 · Market">
+<section data-part="1" class="slide s-groups" data-kicker="01 · Market">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a">Three groups almost nobody is calling.</h1>
@@ -1236,8 +1431,23 @@ THE CLOSE: "Those are three examples. There are dozens." The shortage was never 
 Sources if asked: BLS 2025, CDC/NCHS, KFF and CMS 2025 enrollment.</script>
 </section>
 
+<!-- ═══════════════════════ CHAPTER · Message ═══════════════════════ -->
+<section class="slide s-ch" data-kicker="Part 02">
+  <div class="bg"><img src="assets/ch-message.jpg" alt="" style="object-position:62% 30%"></div>
+  <div class="scrim"></div>
+  <div class="txt">
+    <div class="no a">02</div>
+    <h1 class="a">Message</h1>
+    <p class="a">What makes that person stop and care?</p>
+  </div>
+  <div class="rail5 a"><span class="done"><i>01</i>Market</span><span class="on"><i>02</i>Message</span><span class=""><i>03</i>Media</span><span class=""><i>04</i>Mechanism</span><span class=""><i>05</i>Monetization</span></div>
+<script type="text/plain" class="notes">CHAPTER 02 · MESSAGE
+
+"Part two. You know who. Now, what do you say so they stop scrolling? Look at her face. That's confusion. Your message has to name it."</script>
+</section>
+
 <!-- ═══════════════════════ 08 MESSAGE · FOUR PARTS ═══════════════════════ -->
-<section class="slide s-hppc" data-kicker="02 · Message">
+<section data-part="2" class="slide s-hppc" data-kicker="02 · Message">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a">Every ad that works has<br>the same <em>four parts.</em></h1>
@@ -1264,7 +1474,7 @@ COMPLIANCE: remind them every ad goes past their compliance rules before it runs
 </section>
 
 <!-- ═══════════════════════ 09 MESSAGE · BAD VS BETTER ═══════════════════════ -->
-<section class="slide s-adx" data-kicker="02 · Message">
+<section data-part="2" class="slide s-adx" data-kicker="02 · Message">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a" style="font-size:72px">Same budget. Same audience. <em>Different ad.</em></h1>
@@ -1274,7 +1484,7 @@ COMPLIANCE: remind them every ad goes past their compliance rules before it runs
         <div class="ad">
           <div class="pg"><i></i><div><b>Your Agency</b><span>Sponsored</span></div></div>
           <p class="tx">Need help with Medicare? Our licensed agents can help! Call us today for a free quote.</p>
-          <div class="vis">Stock photo of a smiling couple</div>
+          <div class="vis"><img src="assets/ad-bad.jpg" alt="" style="object-position:center 30%"></div>
           <div class="ft"><span>yourAgency.com</span><u>Call Now</u></div>
         </div>
         <div class="why">
@@ -1288,7 +1498,7 @@ COMPLIANCE: remind them every ad goes past their compliance rules before it runs
         <div class="ad">
           <div class="pg"><i></i><div><b>Your Agency</b><span>Sponsored</span></div></div>
           <p class="tx">Turning 65 this year? There are 3 Medicare decisions you have to make before your birthday month, and most people find out about the third one too late.</p>
-          <div class="vis">The 3 Medicare Decisions Before You Turn 65</div>
+          <div class="vis"><img src="assets/ad-good.jpg" alt="" style="object-position:center 35%"><span class="band"><small>Free checklist</small>The 3 Medicare Decisions<br>Before You Turn 65</span></div>
           <div class="ft"><span>Free checklist · 2 minutes</span><u>Get The Checklist</u></div>
         </div>
         <div class="why">
@@ -1311,7 +1521,7 @@ Then the right one. Same budget, same audience. It calls out the person and the 
 </section>
 
 <!-- ═══════════════════════ 10 MESSAGE · FOUR AUDIENCES ═══════════════════════ -->
-<section class="slide s-four" data-kicker="02 · Message">
+<section data-part="2" class="slide s-four" data-kicker="02 · Message">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a" style="font-size:76px">Same formula. Four different people.</h1>
@@ -1334,8 +1544,23 @@ Tie it forward: "Part B Delay, Plan N, dental, webinar. Remember those words. Yo
 Johnny: if you have the real ad copy for any of these, swap it in. The real headline always beats the example.</script>
 </section>
 
+<!-- ═══════════════════════ CHAPTER · Media ═══════════════════════ -->
+<section class="slide s-ch" data-kicker="Part 03">
+  <div class="bg"><img src="assets/ch-media.jpg" alt="" style="object-position:66% 40%"></div>
+  <div class="scrim"></div>
+  <div class="txt">
+    <div class="no a">03</div>
+    <h1 class="a">Media</h1>
+    <p class="a">How do you put it in front of them?</p>
+  </div>
+  <div class="rail5 a"><span class="done"><i>01</i>Market</span><span class="done"><i>02</i>Message</span><span class="on"><i>03</i>Media</span><span class=""><i>04</i>Mechanism</span><span class=""><i>05</i>Monetization</span></div>
+<script type="text/plain" class="notes">CHAPTER 03 · MEDIA
+
+"Part three. Your clients are on their phones, every day, just like him. Here's how you get in front of them."</script>
+</section>
+
 <!-- ═══════════════════════ 11 MEDIA · THE 20% ═══════════════════════ -->
-<section class="slide s-media" data-kicker="03 · Media">
+<section data-part="3" class="slide s-media" data-kicker="03 · Media">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a" style="font-size:80px">Facebook ads: the 20%<br>that actually <em>matters.</em></h1>
@@ -1363,7 +1588,7 @@ Then: "Let me show you what this looks like in a real account."</script>
 </section>
 
 <!-- ═══════════════════════ 12 MEDIA · THE AD ACCOUNT ═══════════════════════ -->
-<section class="slide s-ads" data-kicker="03 · Media · The proof">
+<section data-part="3" class="slide s-ads" data-kicker="03 · Media · The proof">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a" style="font-size:64px">Here's the account. Now let me show you what built it.</h1>
@@ -1390,7 +1615,7 @@ This is spend across a long window, not one month. If asked, say so plainly.</sc
 </section>
 
 <!-- ═══════════════════════ 13 MEDIA · WHAT BUILT IT ═══════════════════════ -->
-<section class="slide s-built2" data-kicker="03 · Media · The lesson">
+<section data-part="3" class="slide s-built2" data-kicker="03 · Media · The lesson">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a" style="font-size:80px">What built <em>$5.92</em> a lead.</h1>
@@ -1421,20 +1646,35 @@ Then say the thing other gurus hide: "Some of these ads cost fifteen, twenty-thr
 This builds more trust than any screenshot of a winner.</script>
 </section>
 
+<!-- ═══════════════════════ CHAPTER · Mechanism ═══════════════════════ -->
+<section class="slide s-ch" data-kicker="Part 04">
+  <div class="bg"><img src="assets/ch-mechanism.jpg" alt="" style="object-position:64% 40%"></div>
+  <div class="scrim"></div>
+  <div class="txt">
+    <div class="no a">04</div>
+    <h1 class="a">Mechanism</h1>
+    <p class="a">What gets them to raise their hand and book?</p>
+  </div>
+  <div class="rail5 a"><span class="done"><i>01</i>Market</span><span class="done"><i>02</i>Message</span><span class="done"><i>03</i>Media</span><span class="on"><i>04</i>Mechanism</span><span class=""><i>05</i>Monetization</span></div>
+<script type="text/plain" class="notes">CHAPTER 04 · MECHANISM
+
+"Part four. They saw the ad. Now what? This is where most agents lose them."</script>
+</section>
+
 <!-- ═══════════════════════ 14 MECHANISM · AFTER THE CLICK ═══════════════════════ -->
-<section class="slide" data-kicker="04 · Mechanism">
+<section data-part="4" class="slide s-path" data-kicker="04 · Mechanism">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a">What happens <em>after the click.</em></h1>
     <p class="sub a">Most agents stop thinking at the ad. This is where the money is actually made or lost.</p>
     <div class="flow a">
-      <div class="n frag"><div class="dot">01</div><h3>Ad</h3><p>One person, one promise.</p></div>
-      <div class="n frag"><div class="dot">02</div><h3>Landing page</h3><p>Repeats the promise. One button.</p></div>
-      <div class="n frag"><div class="dot">03</div><h3>Form</h3><p>Name, phone, email, one question.</p></div>
-      <div class="n frag"><div class="dot">04</div><h3>Thank-you page</h3><p>Not “thanks.” “Book your time.”</p></div>
-      <div class="n frag"><div class="dot">05</div><h3>Calendar</h3><p>They pick the time. You don't chase.</p></div>
-      <div class="n frag"><div class="dot">06</div><h3>Text + email</h3><p>Fires in minutes, automatically.</p></div>
-      <div class="n frag"><div class="dot">07</div><h3>Appoint&shy;ment</h3><p>A conversation they asked for.</p></div>
+      <div class="n frag"><div class="dot">01</div><div class="mk"><div class="mrow"><i class="av"></i><span class="ln w50"></span></div><span class="ln"></span><span class="ln w70"></span><div class="mimg" style="background-image:url(assets/ad-good.jpg)"></div><span class="mbtn">Get The Checklist</span></div><h3>Ad</h3><p>One person, one promise.</p></div>
+      <div class="n frag"><div class="dot">02</div><div class="mk"><span class="ln k w40"></span><span class="ln h"></span><span class="ln h w80"></span><span class="ln w90"></span><span class="ln w60"></span><span class="mbtn big">Get The Checklist</span></div><h3>Landing page</h3><p>Repeats the promise. One button.</p></div>
+      <div class="n frag"><div class="dot">03</div><div class="mk"><span class="ln h w70"></span><span class="fld">Name</span><span class="fld">Phone</span><span class="fld">Email</span><span class="fld q">Turning 65 when?</span><span class="mbtn">Send It</span></div><h3>Form</h3><p>Name, phone, email, one question.</p></div>
+      <div class="n frag"><div class="dot">04</div><div class="mk ctr"><span class="chk">✓</span><span class="ln h w80"></span><span class="ln w60"></span><span class="mbtn big">Book Your Time</span></div><h3>Thank-you page</h3><p>Not “thanks.” “Book your time.”</p></div>
+      <div class="n frag"><div class="dot">05</div><div class="mk"><span class="ln h w60"></span><div class="cal"><i class=""></i><i class=""></i><i class=""></i><i class="x"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="g"></i><i class=""></i><i class="x"></i><i class=""></i><i class=""></i><i class="x"></i></div><span class="slot">Tue · 10:00 AM</span></div><h3>Calendar</h3><p>They pick the time. You don't chase.</p></div>
+      <div class="n frag"><div class="dot">06</div><div class="mk"><span class="bub out">Hi Mary, it's Johnny's office. You're booked for Tue at 10.</span><span class="bub out s">Reply C to confirm.</span><span class="bub in">C 👍</span></div><h3>Text + email</h3><p>Fires in minutes, automatically.</p></div>
+      <div class="n frag"><div class="dot">07</div><div class="mk ctr win"><span class="ev"><small>Tuesday · 10:00</small>Medicare review<em>Mary H. · confirmed</em></span><span class="chk g">✓</span></div><h3>Appoint&shy;ment</h3><p>A conversation they asked for.</p></div>
     </div>
   </div>
 <script type="text/plain" class="notes">MECHANISM: THE PATH AFTER THE CLICK.
@@ -1447,7 +1687,7 @@ The point: every arrow is a place you can lose them. The next slide is what each
 </section>
 
 <!-- ═══════════════════════ 15 MECHANISM · PAGE JOBS ═══════════════════════ -->
-<section class="slide s-jobs" data-kicker="04 · Mechanism">
+<section data-part="4" class="slide s-jobs" data-kicker="04 · Mechanism">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a" style="font-size:80px">Every page has <em>one job.</em></h1>
@@ -1469,7 +1709,7 @@ Biggest one to land: the thank-you page. "Ninety percent of agents put 'Thanks, 
 </section>
 
 <!-- ═══════════════════════ 16 MECHANISM · BUILT (VIDEO) ═══════════════════════ -->
-<section class="slide s-vid" data-kicker="04 · Mechanism · Built">
+<section data-part="4" class="slide s-vid" data-kicker="04 · Mechanism · Built">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a" style="font-size:72px">This is what it looks like built.</h1>
@@ -1494,64 +1734,86 @@ LIVE NARRATION:
 Don't sell it here. You're showing what good looks like. The offer comes later.</script>
 </section>
 
-<!-- ═══════════════════════ 17 FOLLOW-UP · STATEMENT ═══════════════════════ -->
-<section class="slide s-state paper" data-kicker="">
-  <div class="light"></div>
-  <h1 class="head a">Your ad doesn't make you money.<br><em>Your follow-up does.</em></h1>
-<script type="text/plain" class="notes">SAY IT, THEN STOP.
+<!-- ═══════════════════════ CHAPTER · Monetization ═══════════════════════ -->
+<section class="slide s-ch" data-kicker="Part 05">
+  <div class="bg"><img src="assets/ch-money.jpg" alt="" style="object-position:58% 35%"></div>
+  <div class="scrim"></div>
+  <div class="txt">
+    <div class="no a">05</div>
+    <h1 class="a">Monetization</h1>
+    <p class="a">Your ad doesn't make you money. <em>Your follow-up does.</em></p>
+  </div>
+  <div class="rail5 a"><span class="done"><i>01</i>Market</span><span class="done"><i>02</i>Message</span><span class="done"><i>03</i>Media</span><span class="done"><i>04</i>Mechanism</span><span class="on"><i>05</i>Monetization</span></div>
+<script type="text/plain" class="notes">CHAPTER 05 · MONETIZATION
 
-"Your ad doesn't make you money. Your follow-up does."
+SAY IT, THEN STOP.
 
-Pause. Let it sit. Most agents think marketing ends when the lead comes in. This is the moment that belief breaks.</script>
+"Part five. Your ad doesn't make you money. Your follow-up does."
+
+Pause. Most agents think marketing ends when the lead comes in. This is the moment that belief breaks.</script>
 </section>
 
 <!-- ═══════════════════════ 18 FOLLOW-UP · THE SCHEDULE ═══════════════════════ -->
-<section class="slide" data-kicker="05 · Monetization · Follow-up">
+<section data-part="5" class="slide s-fu" data-kicker="05 · Monetization · Follow-up">
   <div class="light"></div>
   <div class="content">
-    <h1 class="head a">The follow-up schedule<br>most agents <em>skip.</em></h1>
-    <div class="tl6 a">
-      <div class="s frag"><p class="w">First 5 minutes</p><h3>Call</h3><p>Then text if they don't pick up. They still remember filling it out.</p></div>
-      <div class="s frag"><p class="w">First 24 hours</p><h3>Touch again</h3><p>Call, text, email. One attempt is not follow-up.</p></div>
-      <div class="s frag"><p class="w">Days 2 to 7</p><h3>Nurture</h3><p>Answer the questions they were scared to ask.</p></div>
-      <div class="s frag"><p class="w">No-show</p><h3>Recover</h3><p>Text within minutes. “Still want to talk? Pick a new time.”</p></div>
-      <div class="s frag"><p class="w">90 days</p><h3>Stay close</h3><p>For the ones who weren't ready yet. Most of them will be.</p></div>
-      <div class="s frag"><p class="w">Old leads</p><h3>Reactivate</h3><p>The list you already paid for. Run a campaign to it.</p></div>
+    <h1 class="head a" style="font-size:76px">The follow-up schedule<br>most agents <em>skip.</em></h1>
+    <div class="fu a">
+      <div class="vt">
+        <div class="s frag"><p class="w">First 5 min</p><div><h3>Call, then text</h3><p>They still remember filling out the form.</p></div></div>
+        <div class="s frag"><p class="w">First 24 hrs</p><div><h3>Touch again</h3><p>Call, text, email. One attempt is not follow-up.</p></div></div>
+        <div class="s frag"><p class="w">Days 2 to 7</p><div><h3>Nurture</h3><p>Answer the questions they were scared to ask.</p></div></div>
+        <div class="s frag"><p class="w">No-show</p><div><h3>Recover</h3><p>Text within minutes. Half of them rebook.</p></div></div>
+        <div class="s frag"><p class="w">90 days</p><div><h3>Stay close</h3><p>For the ones who weren't ready yet.</p></div></div>
+        <div class="s frag"><p class="w">Old leads</p><div><h3>Reactivate</h3><p>The list you already paid for.</p></div></div>
+      </div>
+      <div class="phone">
+        <div class="ph-top"><span class="ph-av">J</span><b>Johnny's Office</b><small>Text message</small></div>
+        <div class="thread">
+          <p class="ts">Today 9:04 AM</p>
+          <p class="m in">Hi Mary, it's Johnny's office. Got your checklist request. Is now a good time for a quick call?</p>
+          <p class="m out">Can you call after 3?</p>
+          <p class="m in">You got it. Talk at 3:15.</p>
+          <p class="ts">Thursday</p>
+          <p class="m in">Quick tip: most people miss the Part B window when they retire. Want me to check yours?</p>
+          <p class="ts">Tuesday 10:12 AM</p>
+          <p class="m in">We missed you at 10. Want to pick a new time? Here's my calendar.</p>
+          <p class="m out">Sorry! Tomorrow at 2?</p>
+        </div>
+      </div>
     </div>
-    <div class="foot2 frag">None of this should depend on <span>you remembering.</span></div>
+    <div class="fufoot frag">None of this should depend on <span>you remembering.</span></div>
   </div>
 <script type="text/plain" class="notes">THE FOLLOW-UP SCHEDULE.
 
-Walk all six, but land three:
+Left is the schedule. Right is what it actually looks like on Mary's phone. Point at the phone.
 
 FIVE MINUTES: "If you call them back tomorrow, you're calling a stranger. Five minutes, they still remember filling out the form."
 
-NO-SHOW: "Half your no-shows will rebook if you just text them in the first few minutes. Most agents never send that text."
+NO-SHOW: point at the last two bubbles. "We missed you at ten. Want to pick a new time?" And she rebooks. Most agents never send that text.
 
 OLD LEADS: "Every one of you has a list of leads you paid for and gave up on. That's not a dead list. That's a campaign you haven't run yet."
 
-Close with the bottom line: none of this should depend on you remembering. That's the bridge to the backend.</script>
+Close: none of this should depend on you remembering. That's the bridge to the backend.</script>
 </section>
 
 <!-- ═══════════════════════ 19 MONETIZATION · UNIT ECONOMICS ═══════════════════════ -->
-<section class="slide s-econ" data-kicker="05 · Monetization · The math">
+<section data-part="5" class="slide s-econ2" data-kicker="05 · Monetization · The math">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a" style="font-size:76px">Know five numbers and you know<br>what a lead is <em>worth.</em></h1>
     <div class="grid a">
-      <div class="rec">
-        <div class="row frag"><div class="t">100 leads at $5.92</div><div class="r">CPL</div><div class="p">$592</div></div>
-        <div class="row frag"><div class="t">Book an appointment</div><div class="r">30%</div><div class="p">30</div></div>
-        <div class="row frag"><div class="t">Show up</div><div class="r">70%</div><div class="p">21</div></div>
-        <div class="row frag"><div class="t">Become a client</div><div class="r">40%</div><div class="p">8</div></div>
-        <div class="row frag"><div class="t">Medicare Advantage, year one</div><div class="r">× $694</div><div class="p">$5,552</div></div>
-        <div class="tot frag"><div class="t">What it cost you<br>to get each client</div><div class="p">$74</div></div>
+      <div class="fn">
+        <div class="r frag"><div class="t">Leads<small>at $5.92 each</small></div><div class="tr"><i style="width:100%"></i></div><div class="v">100</div><div class="c">$592 spent</div></div>
+        <div class="r frag"><div class="t">Booked<small>30% book a call</small></div><div class="tr"><i style="width:30%"></i></div><div class="v">30</div><div class="c"></div></div>
+        <div class="r frag"><div class="t">Showed<small>70% show up</small></div><div class="tr"><i style="width:21%"></i></div><div class="v">21</div><div class="c"></div></div>
+        <div class="r frag"><div class="t">Clients<small>40% say yes</small></div><div class="tr"><i class="g" style="width:8%"></i></div><div class="v g">8</div><div class="c">× $694 = $5,552</div></div>
         <p class="ex">Example rates. Plug in your own.</p>
       </div>
-      <div class="aside">
-        <p class="frag"><b>Most agents can't answer one of these five.</b> So they guess, and a $12 lead feels expensive.</p>
-        <p class="frag">If a client is worth $694 on day one and costs you $74 to get, <b>you can afford to pay a lot more for a lead than you think.</b></p>
-        <div class="go frag">And that's before <span>the cross-sell.</span></div>
+      <div class="res">
+        <div class="frag"><p class="k">Cost to get each client</p><div class="big">$74</div></div>
+        <div class="frag"><p class="k">Worth on day one</p><div class="big w">$694</div></div>
+        <p class="frag go">So stop asking if $12 a lead is expensive. Ask <span>what you can afford to pay for a client.</span></p>
       </div>
     </div>
   </div>
@@ -1559,21 +1821,19 @@ Close with the bottom line: none of this should depend on you remembering. That'
 
 Say clearly: these are EXAMPLE rates. Their numbers will be different. The point is the method.
 
-Walk it: "A hundred leads at $5.92 is $592. Thirty percent book. Seventy percent of those show. Forty percent of those become clients. That's eight clients. At $694 first-year on Medicare Advantage, that's $5,552. So each client cost you about seventy-four dollars."
+Walk the funnel down: "A hundred leads at $5.92 is $592. Thirty book. Twenty-one show. Eight become clients. At $694 first-year on Medicare Advantage, that's $5,552. So each client cost you about seventy-four dollars."
 
 Then the turn: "When you know this, you stop asking 'is $12 a lead expensive?' and start asking 'what can I afford to pay for a client?' That one question changes everything."
 
-Johnny: if you want, swap in your own real rates. Real beats example every time.
-
-$694 is the same MA number from the one-client slide that comes next.</script>
+Johnny: swap in your own real rates if you have them. Real beats example.</script>
 </section>
 
 <!-- ═══════════════════════ 20 MONETIZATION · ONE CLIENT ═══════════════════════ -->
-<section class="slide s-one" data-kicker="05 · Monetization">
+<section data-part="5" class="slide s-one" data-kicker="05 · Monetization">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a">What one client is actually worth.</h1>
-    <p class="sub a">The lead cost $74. Watch what the same person is worth when you do it right.</p>
+    <p class="sub a">The client cost $74. Watch what the same person is worth when you do it right.</p>
     <div class="rec a">
       <div class="row frag"><div class="t">Medicare Advantage</div><div class="p">$694</div></div>
       <div class="row frag"><div class="t">Hospital Indemnity</div><div class="p">$400</div></div>
@@ -1598,7 +1858,7 @@ Then go straight to the script.</script>
 </section>
 
 <!-- ═══════════════════════ 21 MONETIZATION · THE SCRIPT ═══════════════════════ -->
-<section class="slide s-script" data-kicker="05 · Monetization · The cross-sell">
+<section data-part="5" class="slide s-script" data-kicker="05 · Monetization · The cross-sell">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a" style="font-size:76px">The conversation, word for word.</h1>
@@ -1642,7 +1902,7 @@ TELL THEM: run this on your existing book this week. No ad spend needed. That's 
 </section>
 
 <!-- ═══════════════════════ 22 THE BACKEND ═══════════════════════ -->
-<section class="slide s-leak" data-kicker="The backend">
+<section data-part="5" class="slide s-leak" data-kicker="The backend">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a" style="font-size:72px">The front end gets the lead.<br><em>The back end decides what it's worth.</em></h1>
@@ -1674,32 +1934,22 @@ This is where GoHighLevel finally makes sense to them, and you haven't pitched i
 </section>
 
 <!-- ═══════════════════════ 23 THE WHOLE MACHINE ═══════════════════════ -->
-<section class="slide" data-kicker="The whole machine">
+<section data-part="5" class="slide s-loop" data-kicker="The whole machine">
   <div class="light"></div>
   <div class="content">
-    <h1 class="head a">This is Medicare <em>marketing.</em></h1>
-    <div class="mach a">
-      <div class="rowm">
-        <div class="m frag"><i>01</i><h3>Market</h3><span class="ar">→</span></div>
-        <div class="m frag"><i>02</i><h3>Ad</h3><span class="ar">→</span></div>
-        <div class="m frag"><i>03</i><h3>Funnel</h3><span class="ar">→</span></div>
-        <div class="m frag"><i>04</i><h3>Follow-up</h3><span class="ar">→</span></div>
-        <div class="m frag"><i>05</i><h3>Appoint&shy;ment</h3><span class="ar">↓</span></div>
-      </div>
-      <div class="rowm">
-        <div class="m frag"><i>06</i><h3>Sale</h3><span class="ar">→</span></div>
-        <div class="m frag"><i>07</i><h3>Cross-sell</h3><span class="ar">→</span></div>
-        <div class="m frag"><i>08</i><h3>Renewal</h3><span class="ar">→</span></div>
-        <div class="m frag loop"><i>09</i><h3>Referral</h3><span class="ar">↺</span></div>
-      </div>
+    <h1 class="head a" style="font-size:72px">This is Medicare <em>marketing.</em></h1>
+    <div class="ring a">
+      <svg viewBox="0 0 1680 762" width="1680" height="762"><ellipse class="el" cx="840" cy="445" rx="640" ry="228"/><ellipse class="el2" cx="840" cy="445" rx="640" ry="228" pathLength="100"/>
+        <circle r="7" class="runner"><animateMotion dur="14s" repeatCount="indefinite" path="M 840 217 A 640 228 0 1 1 839.9 217 Z"/></circle></svg>
+      <div class="nd frag up" style="left:840px;top:217px"><b></b><span><i>01</i>Market</span></div><div class="nd frag up" style="left:1251px;top:270px"><b></b><span><i>02</i>Ad</span></div><div class="nd frag up" style="left:1470px;top:405px"><b></b><span><i>03</i>Funnel</span></div><div class="nd frag dn" style="left:1394px;top:559px"><b></b><span><i>04</i>Follow-up</span></div><div class="nd frag dn" style="left:1059px;top:659px"><b></b><span><i>05</i>Appointment</span></div><div class="nd frag dn" style="left:621px;top:659px"><b></b><span><i>06</i>Sale</span></div><div class="nd frag dn" style="left:286px;top:559px"><b></b><span><i>07</i>Cross-sell</span></div><div class="nd frag up" style="left:210px;top:405px"><b></b><span><i>08</i>Renewal</span></div><div class="nd frag up loop" style="left:429px;top:270px"><b></b><span><i>09</i>Referral</span></div>
+      <div class="mid frag"><p>Not just ads. Not just a funnel. Not just a CRM.</p><h2>The whole <em>machine.</em></h2><small>Referral feeds the market. It never stops.</small></div>
     </div>
-    <div class="foot2 frag">Not just Facebook ads. Not just a funnel. Not just a CRM. <span>The whole machine.</span></div>
   </div>
 <script type="text/plain" class="notes">THE WHOLE MACHINE.
 
-Reveal each one and name it. Then the loop: "Referral feeds the market. That's why it's a machine, not a campaign."
+Reveal each one around the loop and name it. Market, ad, funnel, follow-up, appointment, sale, cross-sell, renewal, referral.
 
-Then the line at the bottom: "Not just Facebook ads. Not just a funnel. Not just a CRM. The whole machine. That's Medicare marketing."
+Then the middle: "Referral feeds the market. That's why it's a machine, not a campaign. Not just Facebook ads. Not just a funnel. Not just a CRM. The whole machine. That's Medicare marketing."
 
 This is the end of the teaching. Next slide is proof.</script>
 </section>
@@ -1760,6 +2010,21 @@ Keep it short. Then go to the three things.</script>
 Then: "I told you at the start there's an offer. This is it. If you want help building it, here's how we do it."
 
 Note the third one is gold. You'll come back to it.</script>
+</section>
+
+<!-- ═══════════════════════ CHAPTER · How we help ═══════════════════════ -->
+<section class="slide s-ch" data-kicker="How we help">
+  <div class="bg"><img src="assets/ch-offer.jpg" alt="" style="object-position:62% 40%"></div>
+  <div class="scrim"></div>
+  <div class="txt">
+    
+    <h1 class="a">How we help you <em>build it.</em></h1>
+    <p class="a">The marketing, the system, and the person who builds it. Seven parts.</p>
+  </div>
+  
+<script type="text/plain" class="notes">THE OFFER OPENS.
+
+"I told you at the start there was an offer. Here it is. Seven parts. I'll show you each one and what it's worth, and then the price."</script>
 </section>
 
 <!-- ═══════════════════════ 26 STACK 01 · PLAYBOOK ═══════════════════════ -->
@@ -1982,16 +2247,16 @@ Then reveal the last line, slowly: "But there was still one problem."</script>
   <div class="content">
     <h1 class="head a" style="font-size:80px">Knowing what to build is not<br>the same as <em>getting it built.</em></h1>
     <div class="steps10 a">
-      <div class="st frag"><i>01</i><h3>Campaign idea</h3></div>
-      <div class="st frag"><i>02</i><h3>Landing page</h3></div>
-      <div class="st frag"><i>03</i><h3>Form</h3></div>
-      <div class="st frag"><i>04</i><h3>Pipeline</h3></div>
-      <div class="st frag"><i>05</i><h3>Calendar</h3></div>
-      <div class="st frag"><i>06</i><h3>Text sequence</h3></div>
-      <div class="st frag"><i>07</i><h3>Email sequence</h3></div>
-      <div class="st frag"><i>08</i><h3>Automations</h3></div>
-      <div class="st frag"><i>09</i><h3>Testing</h3></div>
-      <div class="st frag"><i>10</i><h3>Launch</h3></div>
+      <div class="st frag have"><i>01</i><b class="ck">✓</b><h3>Campaign idea</h3><small>You have this part.</small></div>
+      <div class="st frag"><i>02</i><b class="ck"></b><h3>Landing page</h3></div>
+      <div class="st frag"><i>03</i><b class="ck"></b><h3>Form</h3></div>
+      <div class="st frag"><i>04</i><b class="ck"></b><h3>Pipeline</h3></div>
+      <div class="st frag"><i>05</i><b class="ck"></b><h3>Calendar</h3></div>
+      <div class="st frag"><i>06</i><b class="ck"></b><h3>Text sequence</h3></div>
+      <div class="st frag"><i>07</i><b class="ck"></b><h3>Email sequence</h3></div>
+      <div class="st frag"><i>08</i><b class="ck"></b><h3>Automations</h3></div>
+      <div class="st frag"><i>09</i><b class="ck"></b><h3>Testing</h3></div>
+      <div class="st frag"><i>10</i><b class="ck"></b><h3>Launch</h3></div>
     </div>
     <div class="foot2 frag">Somebody still has to build it. <span>That's where agents get stuck.</span></div>
   </div>
@@ -2084,23 +2349,26 @@ JOHNNY, BEFORE GOING LIVE: have the internal scope written down (how many reques
 </section>
 
 <!-- ═══════════════════════ 37 THE DELTA ═══════════════════════ -->
-<section class="slide s-delta" data-kicker="The math that matters">
+<section class="slide s-delta2" data-kicker="The math that matters">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a">Here's the only math<br>that <em>matters.</em></h1>
-    <div class="three a">
-      <div class="c old frag"><p class="k">Before tonight</p><div class="v">$147<small>/mo</small></div><p>Everything you saw. The playbook, the library, the community, the account, onboarding, the snapshots.</p></div>
-      <div class="c frag"><p class="k">Starting tonight</p><div class="v">$300<small>/mo</small></div><p>All of it, plus your dedicated GoHighLevel specialist.</p></div>
-      <div class="c win frag"><p class="k">The difference</p><div class="v">+$153<small>/mo</small></div><p>For about a hundred and fifty dollars more, you get the piece that costs around $1,500 a month on its own.</p><div class="vs"><span>The specialist<br>alone</span><b>~$1,500<small>/mo</small></b></div></div>
+    <div class="bars a">
+      <div class="br frag"><div class="t">Before tonight<small>Everything you just saw</small></div><div class="tr"><i class="base" style="width:9.8%"></i></div><div class="v">$147<small>/mo</small></div></div>
+      <div class="br frag"><div class="t">Starting tonight<small>All of it, plus your specialist</small></div><div class="tr"><i class="base" style="width:9.8%"></i><i class="add" style="width:10.2%"><em>+$153</em></i></div><div class="v g">$300<small>/mo</small></div></div>
+      <div class="br frag dim"><div class="t">A GHL specialist on your own<small>And they don't know Medicare</small></div><div class="tr"><i class="ext" style="width:100%"></i></div><div class="v">~$1,500<small>/mo</small></div></div>
     </div>
+    <div class="foot2 frag">For <span>$153 more</span>, you get the piece that costs about <span>$1,500 a month</span> on its own.</div>
   </div>
 <script type="text/plain" class="notes">THE DECISION MATH. THE STRONGEST MOMENT IN THE WEBINAR.
 
-"Before tonight, everything you just saw was a hundred and forty-seven a month. Starting tonight it's three hundred, and it includes your specialist."
+Reveal one bar at a time.
 
-"So the difference is a hundred and fifty-three dollars. And for that hundred and fifty-three, you get the piece that costs around fifteen hundred a month on its own."
+"Before tonight, everything you just saw was a hundred and forty-seven a month." (short bar)
+"Starting tonight it's three hundred, and it includes your specialist." Point at the gold sliver. "That gold piece is the difference. A hundred and fifty-three dollars."
+"And here's what a GoHighLevel specialist costs on your own." (the long bar) "About fifteen hundred a month. And they don't know Medicare."
 
-Say it slowly. Don't talk about the $32,000 here. This is the comparison to keep coming back to.</script>
+Let the picture do the work. Pause. Then the bottom line.</script>
 </section>
 
 <!-- ═══════════════════════ 38 THE PRICE ═══════════════════════ -->
@@ -2253,14 +2521,14 @@ Price and "the link is in the chat" stay on screen.
 
 RULE: every answer ends "...and the link's in the chat."
 
-Every three or four questions, flip back to slide 39 (the whole offer on one screen) or slide 37 (the $147 to $300 math).
+Every three or four questions, flip back to the whole-offer slide or the $147 to $300 bars.
 
 CALL THE SPECIALIST SPOTS as they go. Say names when people join.
 
 Don't close the room when questions stop. The last two sales are the people still deciding.</script>
 </section>
 
-<div class="grain"></div>
+
 </div><!-- /stage -->
 
 <!-- ───────────────────────────── HELP ───────────────────────────── -->
@@ -2457,6 +2725,14 @@ const NOTES = {};
   /* expose for render script */
   window.__deck = { show, next, prev, revealAll, N, get cur(){return cur;} };
 })();
+</script>
+<script>
+/* framework tracker: replaces the brand label on teaching slides */
+(function(){ const P=['Market','Message','Media','Mechanism','Monetization'];
+  document.querySelectorAll('.slide[data-part]').forEach(s=>{ const cur=+s.dataset.part, b=s.querySelector('.c-brand'); if(!b) return;
+    const t=document.createElement('div'); t.className='c-track';
+    t.innerHTML=P.map((n,i)=>`<span class="${i+1===cur?'on':(i+1<cur?'done':'')}">${n}</span>`).join('');
+    b.replaceWith(t); }); })();
 </script>
 </body>
 </html>
