@@ -1,0 +1,2462 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Marketing Machine · Johnny Brock · The Real Insurance Group</title>
+<style>
+/* ───────────────────────────── FONTS (bundled, works offline) ───────────────────────────── */
+@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;src:url(assets/fonts/InstrumentSerif-Regular.woff2) format('woff2');font-display:block}
+@font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;src:url(assets/fonts/InstrumentSerif-Italic.woff2) format('woff2');font-display:block}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:300 700;src:url(assets/fonts/InterTight.woff2) format('woff2');font-display:block}
+@font-face{font-family:'Inter Tight';font-style:italic;font-weight:300 700;src:url(assets/fonts/InterTight-Italic.woff2) format('woff2');font-display:block}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 500;src:url(assets/fonts/JetBrainsMono.woff2) format('woff2');font-display:block}
+
+/* ───────────────────────────── TOKENS ───────────────────────────── */
+:root{
+  --ink:#060E1B; --ink-2:#030812; --panel:#0B1A30;
+  --paper:#F2F5F9; --paper-2:#E5EDF7;
+  --t1:#F2F5F9; --t2:#B9C4D3; --t3:#7F8DA2; --t4:#55637A;
+  --gold:#D9A621; --gold-2:#EBC04A; --red:#E5342A; --sky:#4E9BE8;
+  --line:rgba(242,245,249,.14); --line-2:rgba(242,245,249,.08); --line-gold:rgba(217,166,33,.6);
+  --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight',Inter,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--ink-2);color:var(--t1);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow:hidden}
+body{cursor:none}
+body.show-cursor{cursor:default}
+
+/* ───────────────────────────── STAGE ───────────────────────────── */
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--s,1));transform-origin:center center;background:var(--ink);overflow:hidden}
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .55s cubic-bezier(.2,.7,.2,1),visibility 0s linear .55s;background:var(--ink);color:var(--t1)}
+.slide.active{opacity:1;visibility:visible;transition:opacity .55s cubic-bezier(.2,.7,.2,1),visibility 0s}
+.slide .light{position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(1400px 900px at 18% -10%, rgba(78,155,232,.085), transparent 62%),
+  radial-gradient(1000px 700px at 100% 110%, rgba(217,166,33,.05), transparent 60%)}
+.slide.paper{background:var(--paper);color:var(--ink)}
+.slide.paper .light{background:radial-gradient(1400px 900px at 18% -10%, rgba(255,255,255,.9), transparent 62%)}
+.grain{position:absolute;inset:0;pointer-events:none;z-index:50;opacity:.055;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+
+/* ───────────────────────────── CHROME ───────────────────────────── */
+.chrome{position:absolute;inset:0;pointer-events:none;z-index:5}
+.c-kicker{position:absolute;left:120px;top:76px;font:500 15px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.c-brand{position:absolute;right:120px;top:76px;font:400 15px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--t3)}
+.c-foot{position:absolute;left:120px;right:120px;bottom:64px;height:44px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-end}
+.c-foot .l{font:italic 400 22px/1 var(--serif);color:var(--t3);letter-spacing:.01em}
+.c-foot .r{font:400 15px/1 var(--mono);letter-spacing:.22em;color:var(--t3)}
+.paper .c-brand,.paper .c-foot .l,.paper .c-foot .r{color:#5B6B82}
+.paper .c-foot{border-top-color:rgba(6,14,27,.16)}
+
+/* timer chip */
+.chip{position:absolute;right:120px;bottom:124px;display:none;align-items:center;gap:18px;padding:16px 22px;border:1px solid var(--line-gold);border-radius:2px;font:500 15px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);background:rgba(6,14,27,.6);z-index:6}
+.chip b{font:400 34px/1 var(--serif);color:var(--t1);letter-spacing:.02em;min-width:96px;text-align:right}
+.chip.on{display:flex}
+.chip.zero{border-color:rgba(229,52,42,.6);color:var(--red)}
+.paper .chip{background:rgba(242,245,249,.8)} .paper .chip b{color:var(--ink)}
+#stage:has(.slide.paper.active) .chip{background:rgba(242,245,249,.88);border-color:rgba(166,124,18,.5);color:#8A6410}
+#stage:has(.slide.paper.active) .chip b{color:var(--ink)}
+
+/* ───────────────────────────── TYPE ───────────────────────────── */
+.content{position:absolute;left:120px;right:120px;top:168px;bottom:150px}
+.kicker{font:500 16px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0 0 30px}
+.head{font:400 92px/1.02 var(--serif);letter-spacing:-.012em;margin:0;max-width:1460px;color:var(--t1)}
+.head em{font-style:italic;color:var(--gold-2)}
+.head.xl{font-size:124px;max-width:1600px}
+.head.md{font-size:76px}
+.sub{font:400 30px/1.42 var(--sans);color:var(--t2);margin:30px 0 0;max-width:1180px;letter-spacing:-.005em}
+.sub em{font-style:italic;color:var(--t1)}
+.paper .head{color:var(--ink)} .paper .sub{color:#3C4A5E} .paper .kicker{color:#A67C12}
+.num{font:400 160px/0.92 var(--serif);letter-spacing:-.02em;color:var(--t1);font-variant-numeric:lining-nums}
+.num small{font-size:.42em;letter-spacing:0;color:var(--t2)}
+.label{font:400 19px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--t3)}
+.body{font:400 25px/1.48 var(--sans);color:var(--t2);margin:0}
+.body b{color:var(--t1);font-weight:500}
+.idx{font:500 15px/1 var(--mono);letter-spacing:.22em;color:var(--gold)}
+.grule{width:56px;height:1px;background:var(--gold);opacity:.9}
+.hair{height:1px;background:var(--line)}
+.it{font-family:var(--serif);font-style:italic}
+.au{color:var(--gold-2)}
+.q{font:italic 400 54px/1.22 var(--serif);color:var(--t1);letter-spacing:-.005em;margin:0}
+.qmark{position:absolute;font:400 420px/1 var(--serif);color:var(--gold);opacity:.14;pointer-events:none;user-select:none}
+
+/* ───────────────────────────── LAYOUT PRIMITIVES ───────────────────────────── */
+.cols{display:grid;gap:0}
+.cols.c2{grid-template-columns:1fr 1fr}
+.cols.c3{grid-template-columns:1fr 1fr 1fr}
+.cols.c4{grid-template-columns:repeat(4,1fr)}
+.cols.c5{grid-template-columns:repeat(5,1fr)}
+.cols>.col{padding:0 56px 0 0}
+.cols>.col+.col{border-left:1px solid var(--line);padding-left:56px}
+.cols>.col h3{font:500 30px/1.2 var(--sans);margin:22px 0 14px;color:var(--t1);letter-spacing:-.01em}
+.cols>.col p{font:400 24px/1.45 var(--sans);color:var(--t2);margin:0}
+.big3>.col h3{font-size:84px!important;margin:30px 0 28px!important}.big3>.col p{font-size:28px;line-height:1.5}
+.big2>.col h3{font-size:40px;margin:28px 0 20px}.big2>.col p{font-size:28px;line-height:1.5}.big2>.col{padding-right:96px}.big2>.col+.col{padding-left:96px}
+.ledger{border-top:1px solid var(--line)}
+.ledger .row{display:grid;grid-template-columns:520px 1fr;gap:40px;align-items:baseline;padding:28px 0;border-bottom:1px solid var(--line)}
+.ledger .row .t{font:500 30px/1.2 var(--sans);color:var(--t1);letter-spacing:-.01em}
+.ledger .row .d{font:400 24px/1.45 var(--sans);color:var(--t2)}
+.crmled .row{padding:24px 0}
+.ledger .row .p{font:400 56px/1 var(--serif);color:var(--t1);text-align:right;letter-spacing:-.01em}
+.s-skool .ledger .row{padding:18px 0}
+.stack{display:flex;flex-direction:column}
+.frame{position:relative;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#000;box-shadow:0 40px 120px -30px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.08)}
+.frame video,.frame img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.frame .bar{position:absolute;z-index:2;left:0;right:0;top:0;height:34px;border-bottom:1px solid var(--line-2);background:rgba(6,14,27,.55);backdrop-filter:blur(6px);display:flex;align-items:center;padding:0 18px;gap:8px}
+.frame .bar i{width:9px;height:9px;border-radius:50%;border:1px solid var(--line);display:block}
+.frame .bar span{margin-left:auto;font:400 12px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.frame.live::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}
+.live-dot{display:inline-flex;align-items:center;gap:10px;font:500 14px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--t3)}
+.live-dot::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(217,166,33,.6);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(217,166,33,.55)}70%{box-shadow:0 0 0 12px rgba(217,166,33,0)}100%{box-shadow:0 0 0 0 rgba(217,166,33,0)}}
+
+/* ───────────────────────────── MOTION ───────────────────────────── */
+.slide.active .a{animation:rise .9s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.frag{opacity:0;transform:translateY(10px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
+.frag.in{opacity:1;transform:none}
+.frag.dim{opacity:.38}
+.bar-grow{transform:scaleY(0);transform-origin:bottom;transition:transform 1.1s cubic-bezier(.2,.8,.2,1)}
+.in .bar-grow,.slide.active .bar-grow.go{transform:scaleY(1)}
+@media (prefers-reduced-motion:reduce){.a,.frag{animation:none!important;transition:none!important;opacity:1;transform:none}}
+.slide:not(.active) .a{animation:none}
+
+/* ───────────────────────────── SLIDE SPECIFICS ───────────────────────────── */
+/* 01 title */
+.s-title .photo{position:absolute;right:140px;bottom:0;height:1010px;width:auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,.6));
+  -webkit-mask-image:linear-gradient(to bottom,#000 78%,transparent 100%);mask-image:linear-gradient(to bottom,#000 78%,transparent 100%)}
+.s-title .glow{position:absolute;right:-100px;top:-100px;width:1300px;height:1300px;border-radius:50%;background:radial-gradient(closest-side,rgba(78,155,232,.16),rgba(78,155,232,.05) 45%,transparent 70%);pointer-events:none}
+.s-title .tb{position:absolute;left:120px;top:288px;width:1000px}
+.s-title .kicker{margin-bottom:44px}
+.s-title h1{font:400 172px/0.92 var(--serif);letter-spacing:-.02em;margin:0;color:var(--t1)}
+.s-title h1 em{font-style:italic;color:var(--gold-2)}
+.s-title .sub{font-size:34px;margin-top:48px;max-width:760px;color:var(--t2)}
+.s-title .logo{position:absolute;left:120px;bottom:92px;width:300px;opacity:.92}
+.s-title .vr{position:absolute;left:120px;right:120px;bottom:64px;border-top:1px solid var(--line)}
+.s-title .meta{position:absolute;right:120px;bottom:92px;font:400 15px/1.9 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--t3);text-align:right}
+
+/* 03 who's talking */
+.s-who .pic{position:absolute;left:120px;top:168px;width:560px;height:690px;border-radius:4px;overflow:hidden;box-shadow:0 50px 120px -40px rgba(0,0,0,.9)}
+.s-who .pic img{width:104%;height:104%;margin:-2% 0 0 -2%;object-fit:cover;object-position:center 30%;display:block;filter:saturate(.9) contrast(1.02)}
+.s-who .pic::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.s-who .pic .plate{position:absolute;left:-14px;top:14px;right:14px;bottom:-14px;border:1px solid var(--line-gold);border-radius:4px;pointer-events:none;z-index:-1}
+.s-who .txt{position:absolute;left:780px;right:120px;top:168px}
+.s-who .stats{margin-top:64px;border-top:1px solid var(--line)}
+.s-who .stat{display:grid;grid-template-columns:400px 1fr;align-items:baseline;padding:26px 0;border-bottom:1px solid var(--line)}
+.s-who .stat .num{font-size:112px}
+.s-who .stat .label{font-size:20px}
+
+/* 04 eleven thousand */
+.s-11k .big{font:400 300px/0.88 var(--serif);letter-spacing:-.03em;color:var(--t1);margin:-10px 0 0}
+.s-11k .big small{font-size:92px;letter-spacing:-.01em;color:var(--t2);margin-left:24px}
+.s-11k .why{margin-top:64px}
+.s-11k .cond{position:absolute;left:0;right:0;bottom:0;font:italic 400 28px/1.4 var(--serif);color:var(--t2)}
+.s-11k .cond b{font-style:normal;font-family:var(--sans);font-weight:500;color:var(--gold-2);font-size:22px;letter-spacing:.12em;text-transform:uppercase;margin-right:14px}
+
+/* 05 three groups */
+.s-groups .g .num{font-size:120px;margin-bottom:18px}
+.s-groups .g p{font-size:22px!important;line-height:1.42!important}
+.s-groups .head{font-size:80px}
+.s-groups .sub{font-size:27px;margin-top:22px}
+.s-groups .g h3{margin-top:0}
+.s-groups .close{position:absolute;left:0;right:0;bottom:0}
+.s-groups .close .big{font:italic 400 40px/1.2 var(--serif);color:var(--t1);margin:0 0 12px}
+.s-groups .close p{margin:0;font-size:24px;color:var(--t2)}
+.s-groups .src{margin-top:18px;font:400 13px/1 var(--mono);letter-spacing:.1em;color:var(--t4)}
+
+/* 06 fifty fifty */
+.s-ltv .split{display:grid;grid-template-columns:1fr 1fr;margin-top:48px;height:12px;gap:6px}
+.s-ltv .split i{display:block;height:14px;background:var(--gold)}
+.s-ltv .split i+i{background:rgba(242,245,249,.18)}
+.s-ltv .halves{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:38px}
+.s-ltv .halves .col .num{font-size:136px}
+.s-ltv .why{margin-top:44px;padding-top:30px;border-top:1px solid var(--line);display:grid;grid-template-columns:440px 1fr;gap:40px}
+.s-ltv .why h4{margin:0;font:500 24px/1.3 var(--sans);color:var(--gold-2);letter-spacing:.02em}
+.s-ltv .why p{margin:0;font-size:25px;line-height:1.48;color:var(--t2)}
+
+/* 07 compounding */
+.s-comp .chart{position:absolute;left:0;right:0;bottom:56px;height:540px;display:grid;grid-template-columns:repeat(5,1fr);gap:36px;align-items:end;border-bottom:1px solid var(--line)}
+.s-comp .c{position:relative;height:100%;display:flex;flex-direction:column;justify-content:flex-end}
+.s-comp .c .v{font:400 64px/1 var(--serif);color:var(--t1);margin-bottom:18px;letter-spacing:-.01em}
+.s-comp .c .b{width:100%;border:1px solid var(--line);border-bottom:0;background:rgba(242,245,249,.04)}
+.s-comp .c:last-child .b{background:var(--gold);border-color:var(--gold)}
+.s-comp .c:last-child .v{color:var(--gold-2)}
+.s-comp .c .y{position:absolute;left:0;bottom:-46px;font:400 15px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--t3)}
+
+/* 08 stack */
+.s-stack .ledger .row{grid-template-columns:400px 1fr;padding:34px 0;min-height:128px}.s-stack .ledger .row .t{font-size:34px}.s-stack .ledger .row .d{font-size:25px}
+.s-stack .two{display:grid;grid-template-columns:1fr 1fr;gap:96px;margin-top:56px}
+
+/* 09 one client */
+.s-one .rec{width:1060px;margin-top:40px}
+.s-one .rec .row{display:grid;grid-template-columns:1fr 320px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+.s-one .rec .row .t{font:400 30px/1 var(--sans);color:var(--t2)}
+.s-one .rec .row .p{font:400 58px/1 var(--serif);text-align:right;color:var(--t1)}
+.s-one .rec .tot{display:grid;grid-template-columns:1fr 460px;align-items:center;padding:26px 0 0;border-top:1px solid var(--gold);margin-top:-1px}
+.s-one .rec .tot .t{font:italic 400 34px/1.2 var(--serif);color:var(--t1)}
+.s-one .rec .tot .p{font:400 124px/.9 var(--serif);text-align:right;color:var(--gold-2);letter-spacing:-.02em}
+.s-one .aside{position:absolute;right:0;bottom:0;width:560px}
+.s-one .aside p{font:400 24px/1.5 var(--sans);color:var(--t2);margin:0 0 26px}
+.s-one .aside .go{font:italic 400 38px/1.2 var(--serif);color:var(--t1);margin-top:40px;padding-top:30px;border-top:1px solid var(--line)}
+
+/* 10 worth / honest */
+.s-honest .grid{display:grid;grid-template-columns:760px 1fr;gap:96px;margin-top:40px}
+.s-honest .head{font-size:72px!important}.s-honest .sub{font-size:26px;margin-top:22px}.s-honest .body{font-size:22px}
+.s-honest .num{font-size:112px}
+.s-honest .cav{margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
+.s-honest .cav h4{margin:0 0 8px;font:500 24px/1.3 var(--sans);color:var(--t1)}
+.s-honest .story p{font:400 24px/1.5 var(--sans);color:var(--t2);margin:0 0 26px}
+.s-honest .story .idx{display:block;margin-bottom:16px}
+.s-honest .story p.road{font:500 26px/1.4 var(--sans);color:var(--t1);padding-left:22px;border-left:2px solid var(--gold);margin:-6px 0 30px}
+.s-honest .pay{font:italic 400 42px/1.2 var(--serif);color:var(--gold-2);margin-top:8px}
+.s-honest .turn{position:absolute;left:0;right:0;bottom:0;padding-top:28px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:96px}
+.s-honest .turn p{margin:0;font:400 27px/1.4 var(--sans);color:var(--t1)}
+.s-honest .turn p.d{color:var(--t2)}
+
+/* 11 script */
+.s-script .open{font:italic 400 40px/1.3 var(--serif);color:var(--t1);margin:36px 0 0;max-width:1560px}
+.s-script .grid{display:grid;grid-template-columns:1fr 1fr;gap:96px;margin-top:52px}
+.s-script .list{border-top:1px solid var(--line)}
+.s-script .list .row{display:grid;grid-template-columns:1fr auto;padding:17px 0;border-bottom:1px solid var(--line);font:400 28px/1.2 var(--sans);color:var(--t1)}
+.s-script .list .row span{font:italic 400 24px/1 var(--serif);color:var(--gold-2)}
+.s-script .tier .row{grid-template-columns:150px 1fr}
+.s-script .tier .row b{font:500 15px/1 var(--mono);letter-spacing:.24em;color:var(--t3)}
+.s-script .ask{font:italic 400 30px/1.3 var(--serif);color:var(--t1);margin:26px 0 0}
+.s-script .ask span{color:var(--gold-2)}
+.s-script .note{position:absolute;left:0;bottom:0;font:400 21px/1 var(--sans);color:var(--t3)}
+
+/* 12 / 25 / 31 big statement */
+.s-state .head{position:absolute;left:120px;right:120px;top:50%;transform:translateY(-52%);font-size:124px;max-width:1500px}
+.paper .head em{color:#A67C12}
+
+/* 13 abandoned */
+.s-aband .tl{margin-top:60px;border-top:1px solid var(--line)}
+.s-aband .tl .row{display:grid;grid-template-columns:120px 1fr;align-items:baseline;padding:32px 0;border-bottom:1px solid var(--line)}
+.s-aband .tl .row p{margin:0;font:400 38px/1.3 var(--sans);color:var(--t1);letter-spacing:-.01em}
+.s-aband .tl .row:last-child p{color:var(--gold-2)}
+
+/* 14 two things */
+.s-two .grid{display:grid;grid-template-columns:1fr 1fr 520px;gap:72px;margin-top:64px;align-items:start}
+.s-two .t .idx{display:block;margin-bottom:26px}
+.s-two .t h3{font:400 72px/1 var(--serif);margin:0 0 22px;color:var(--t1)}
+.s-two .t p{font:400 25px/1.48 var(--sans);color:var(--t2);margin:0}
+.s-two .pic{position:relative;width:520px;height:560px;border-radius:4px;overflow:hidden;margin-top:-40px}
+.s-two .pic img{width:106%;height:106%;margin:-3% 0 0 -3%;object-fit:cover;object-position:center 20%;display:block;filter:saturate(.85)}
+.s-two .pic::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.s-two .foot{position:absolute;left:0;right:0;bottom:0;padding-top:30px;border-top:1px solid var(--line);font:italic 400 40px/1.2 var(--serif);color:var(--t1)}
+
+/* 15 build master scale */
+.s-bms .tri{display:grid;grid-template-columns:1fr 1fr 1fr;margin-top:104px}
+.s-bms .tri .col h2{font:400 128px/.95 var(--serif);margin:0 0 32px;color:var(--t1);letter-spacing:-.02em}
+.s-bms .tri .col .idx{display:block;margin-bottom:28px}
+.s-bms .tri .col p{font:400 26px/1.48 var(--sans);color:var(--t2);margin:0}
+
+/* 16 ad account */
+.s-ads .stats{display:grid;grid-template-columns:1fr 1fr 1fr;margin-top:26px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.s-ads .stats .s{padding:18px 56px 22px 0}
+.s-ads .stats .s+.s{border-left:1px solid var(--line);padding-left:56px}
+.s-ads .stats .num{font-size:92px}
+.s-ads .stats .s:first-child .num{color:var(--gold-2)}
+.s-ads .stats .label{margin-top:10px}
+.s-ads .frame{position:absolute;left:0;right:0;bottom:0;height:440px}
+.s-ads .frame video{object-position:center 78%}
+
+/* 19/21/23 video slides */
+.s-vid .frame{position:absolute;left:0;top:0;width:1060px;height:596px}
+.s-vid .frame video{padding-top:34px;background:#0b0f16}
+.s-vid .pts{position:absolute;left:1150px;right:0;top:0}
+.s-vid .pts .row{padding:22px 0;border-bottom:1px solid var(--line)}
+.s-vid .pts .row:first-child{border-top:1px solid var(--line)}
+.s-vid .pts h4{margin:0 0 8px;font:500 26px/1.2 var(--sans);color:var(--t1)}
+.s-vid .pts p{margin:0;font:400 21px/1.45 var(--sans);color:var(--t2)}
+.s-vid .cap{position:absolute;left:0;bottom:0;display:flex;align-items:center;gap:26px}
+.s-vid .cap .live-dot{color:var(--t3)}
+.s-vid .cap span.t{font:italic 400 24px/1 var(--serif);color:var(--t3)}
+.s-vid.wide .frame{width:1680px;height:640px;left:0}
+.s-vid.wide .pts{display:none}
+
+/* 22 week */
+.s-week .wk{display:grid;grid-template-columns:repeat(5,1fr);margin-top:64px;border-top:1px solid var(--line)}
+.s-week .d{padding:32px 30px 40px 0;border-bottom:1px solid var(--line)}
+.s-week .d+.d{border-left:1px solid var(--line);padding-left:34px}
+.s-week .d .day{font:500 15px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--t3);display:flex;justify-content:space-between}
+.s-week .d .day span{color:var(--gold-2)}
+.s-week .d h3{font:400 44px/1.12 var(--serif);margin:26px 0 0;color:var(--t1);min-height:100px}
+.s-week .close{position:absolute;left:0;right:0;bottom:0;font:italic 400 40px/1.25 var(--serif);color:var(--t1)}
+.s-week .close span{color:var(--gold-2)}
+
+/* 24 value */
+.s-val .ledger{margin-top:40px}
+.s-val .ledger .row{grid-template-columns:1fr 380px;padding:17px 0}
+.s-val .ledger .row .t{font-weight:400;font-size:29px;color:var(--t1)}.s-val .ledger .row .p{font-size:50px}
+.s-val .tot{display:grid;grid-template-columns:1fr auto auto;gap:80px;align-items:center;padding-top:24px;border-top:1px solid var(--gold);margin-top:-1px}
+.s-val .tot .l{font:italic 400 34px/1 var(--serif);color:var(--t1)}
+.s-val .tot .n{font:400 88px/.9 var(--serif);color:var(--gold-2);letter-spacing:-.02em}
+.s-val .tot .n small{font-size:28px;color:var(--t2);letter-spacing:.02em;margin-left:10px;font-style:italic}
+
+/* 25 offer */
+.s-offer .wrap{position:absolute;left:120px;right:120px;top:50%;transform:translateY(-50%);text-align:center}
+.s-offer .lead{font:italic 400 44px/1.2 var(--serif);color:#3C4A5E;margin:0 0 12px}
+.s-offer .price{font:400 380px/.85 var(--serif);color:var(--ink);letter-spacing:-.04em;margin:0;display:flex;align-items:baseline;justify-content:center;gap:18px}
+.s-offer .price small{font-size:96px;letter-spacing:-.01em;color:#3C4A5E;font-style:italic}
+.s-offer .all{font:500 34px/1.2 var(--sans);color:var(--ink);margin:42px 0 18px;letter-spacing:-.01em}
+.s-offer .less{font:400 27px/1.45 var(--sans);color:#5B6B82;margin:0 auto;max-width:1000px}
+.s-offer .less b{color:var(--ink);font-weight:500}
+
+/* 26 deadline */
+.s-dead .grid{display:grid;grid-template-columns:1fr 1fr;margin-top:56px}
+.s-dead .pr{font:400 200px/.9 var(--serif);letter-spacing:-.03em;color:var(--t1);margin:26px 0 24px}
+.s-dead .pr small{font-size:64px;color:var(--t2);font-style:italic;letter-spacing:0}
+.s-dead .col+.col .pr{color:var(--t3)}
+.s-dead .col+.col .kicker{color:var(--red)}
+.s-dead .col p{font-size:25px}
+.s-dead .foot{position:absolute;left:0;right:0;bottom:0;padding-top:30px;border-top:1px solid var(--line);font:italic 400 36px/1.25 var(--serif);color:var(--t1)}
+.s-dead .foot span{color:var(--gold-2)}
+
+/* 27-29 testimonials */
+.s-test .qwrap{position:absolute;left:0;right:0;top:40px}
+.s-test .qwrap.lower{top:50%;transform:translateY(-58%)}
+.s-test .q{max-width:1500px;font-size:60px}
+.s-test .who{display:flex;align-items:center;gap:22px;margin-top:48px}
+.s-test .who i{width:56px;height:1px;background:var(--gold);display:block}
+.s-test .who span{font:400 22px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--t2)}
+.s-test .num{font-size:220px;color:var(--gold-2)}
+.s-test .when{font:400 30px/1.4 var(--sans);color:var(--t2);margin:20px 0 60px;max-width:1100px}
+.s-test .q.sm{font-size:42px;max-width:1560px;color:var(--t2)}
+.s-test .q.sm b{font-weight:400;color:var(--t1)}
+
+/* 30 next */
+.s-next .p{font:400 34px/1.45 var(--sans);color:var(--t2);margin:48px 0 0;max-width:1500px}
+.s-next .p b{font-weight:500;color:var(--t1)}
+.s-next .steps{margin-top:72px;display:grid;grid-template-columns:repeat(3,1fr)}.s-next .steps .col h3{font-size:36px;margin-top:26px}.s-next .steps .col p{font-size:26px}
+
+/* 31 ama */
+.s-ama .head{font-size:176px}
+.s-ama .sub{font-size:34px;margin-top:40px}
+.s-ama .logo{position:absolute;left:120px;top:58px;width:280px;opacity:.9}
+.s-ama .c-brand{display:none}
+
+
+/* 24 the core — the Room is the hero */
+.s-core .core{display:grid;grid-template-columns:1.32fr 1fr;margin-top:52px}
+.s-core .pane{padding-right:64px}
+.s-core .pane+.pane{border-left:1px solid var(--line);padding-left:64px;padding-right:0}
+.s-core .pane .tag{font:500 15px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--t3)}
+.s-core .pane.hero .tag{color:var(--gold)}
+.s-core .hd{display:flex;align-items:baseline;justify-content:space-between;gap:22px;margin-top:18px}
+.s-core .hd::after{content:"";position:absolute}
+.s-core .pane h2{font:400 62px/1 var(--serif);letter-spacing:-.02em;margin:0;color:var(--t2)}
+.s-core .pane.hero h2{font-size:86px;color:var(--t1)}
+.s-core .rule{width:88px;height:2px;background:var(--gold);margin-top:18px;opacity:0}
+.s-core .pane.hero .rule{opacity:1}
+.s-core .pane .lede{font:400 24px/1.4 var(--sans);color:var(--t2);margin:18px 0 0;max-width:860px}
+.s-core .pane.hero .lede{font-size:27px;color:var(--t1)}
+.s-core .pane ul{list-style:none;margin:18px 0 0;padding:0}
+.s-core .pane li{font:400 21px/1.35 var(--sans);color:var(--t3);padding:7px 0 7px 26px;position:relative}
+.s-core .pane.hero li{font-size:23px;color:var(--t2)}
+.s-core .pane li::before{content:"";position:absolute;left:0;top:.72em;width:11px;height:1px;background:var(--gold);opacity:.75}
+.s-core .pane .pz{font:400 50px/1 var(--serif);color:var(--t2);white-space:nowrap}
+.s-core .pane.hero .pz{font-size:58px;color:var(--t1)}
+.s-core .pane .pz small{font-size:.42em;font-style:italic;color:var(--t3);letter-spacing:0}
+.s-core .corefoot{position:absolute;left:0;right:0;bottom:0;padding-top:26px;border-top:1px solid var(--line);font:400 27px/1.4 var(--sans);color:var(--t2);max-width:1520px}
+.s-core .corefoot b{color:var(--gold-2);font-weight:400;font-family:var(--serif);font-size:38px;letter-spacing:-.01em}
+
+/* 25 fast-action bonuses */
+.s-bonus .bl{border-top:1px solid var(--line);margin-top:38px}
+.s-bonus .row{display:grid;grid-template-columns:56px 1fr 250px;gap:28px;align-items:baseline;padding:15px 0;border-bottom:1px solid var(--line)}
+.s-bonus .row .i{font:500 15px/1 var(--mono);letter-spacing:.2em;color:var(--gold)}
+.s-bonus .row .t{font:500 29px/1.15 var(--sans);color:var(--t1);letter-spacing:-.01em}
+.s-bonus .row .d{font:400 21px/1.38 var(--sans);color:var(--t2);margin:6px 0 0}
+.s-bonus .row .p{font:400 52px/1 var(--serif);color:var(--t1);text-align:right;letter-spacing:-.01em}
+.s-bonus .row .p.na{font:italic 400 24px/1.25 var(--serif);color:var(--gold-2);text-align:right}
+.s-bonus .tot{display:grid;grid-template-columns:56px 1fr 250px;gap:28px;align-items:center;padding-top:16px;border-top:1px solid var(--gold);margin-top:-1px}
+.s-bonus .tot .l{font:italic 400 31px/1 var(--serif);color:var(--t1);grid-column:2}
+.s-bonus .tot .n{font:400 66px/.9 var(--serif);color:var(--gold-2);letter-spacing:-.02em;text-align:right}
+.s-bonus .bfoot{margin:18px 0 0;font:italic 400 27px/1.3 var(--serif);color:var(--t2)}
+.s-bonus .bfoot span{color:var(--gold-2)}
+
+/* 27 the whole offer, one screen */
+.s-full .content{top:146px;bottom:126px}
+.s-full .head{font-size:58px;max-width:1600px}
+.s-full .panes{display:grid;grid-template-columns:1fr 1.22fr;margin-top:26px}
+.s-full .pane{padding-right:54px;display:flex;flex-direction:column}
+.s-full .c-brand{display:none}
+#stage:has(.s-full.active) .chip.on{bottom:auto;top:58px}
+.s-full .pane+.pane{border-left:1px solid var(--line);padding-left:54px;padding-right:0}
+.s-full .ph{font:500 14px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--t3);margin:0 0 16px}
+.s-full .pane+.pane .ph{color:var(--gold)}
+.s-full .li{display:grid;grid-template-columns:1fr auto;gap:26px;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--line-2)}
+.s-full .li .n{font:500 24px/1.25 var(--sans);color:var(--t1);letter-spacing:-.01em}
+.s-full .li .n small{display:block;font:400 18px/1.3 var(--sans);color:var(--t3);margin-top:4px;font-weight:400}
+.s-full .li .v{font:400 40px/1 var(--serif);color:var(--t1);white-space:nowrap}
+.s-full .li .v.na{font:italic 400 21px/1 var(--serif);color:var(--gold-2)}
+.s-full .sum{display:grid;grid-template-columns:1fr auto;gap:26px;align-items:baseline;padding-top:14px;border-top:1px solid var(--line-gold);margin-top:auto}
+.s-full .sum .l{font:italic 400 25px/1 var(--serif);color:var(--t2)}
+.s-full .sum .v{font:400 54px/1 var(--serif);color:var(--gold-2);letter-spacing:-.02em}
+.s-full .bar{position:absolute;left:0;right:0;bottom:0;border-top:1px solid var(--gold);padding-top:24px;display:grid;grid-template-columns:auto auto 1fr auto;gap:60px;align-items:end}
+.s-full .bar .k{font:500 13px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin:0 0 12px}
+.s-full .bar .yp .k{color:var(--gold)}
+.s-full .bar .ap .k{color:var(--red)}
+.s-full .bar .big{font:400 118px/.86 var(--serif);color:var(--t1);letter-spacing:-.03em}
+.s-full .bar .big small{font-size:.32em;font-style:italic;color:var(--t2);letter-spacing:0}
+.s-full .bar .ap .big{font-size:78px;color:var(--t3)}
+.s-full .bar .ap .big small{color:var(--t4)}
+.s-full .bar .gr{font:400 21px/1.45 var(--sans);color:var(--t2);max-width:430px;padding-bottom:8px}
+.s-full .bar .gr b{color:var(--t1);font-weight:500}
+.s-full .join{display:flex;align-items:center;gap:20px}
+.s-full .qr{width:112px;height:112px;border:1px dashed var(--line-gold);border-radius:3px;display:flex;align-items:center;justify-content:center;text-align:center;font:500 11px/1.5 var(--mono);letter-spacing:.16em;color:var(--t4);flex:none}
+.s-full .join .u .k{margin-bottom:10px}
+.s-full .join .u .url{font:italic 400 42px/1 var(--serif);letter-spacing:-.005em;color:var(--gold-2)}
+
+/* 28 proof, two at once */
+.s-proof .grid{display:grid;grid-template-columns:1fr 1fr 1fr;margin-top:52px}
+.s-proof .c{padding:0 52px}
+.s-proof .c:first-child{padding-left:0}
+.s-proof .c:last-child{padding-right:0}
+.s-proof .c+.c{border-left:1px solid var(--line)}
+.s-proof .big{font:400 112px/.9 var(--serif);color:var(--gold-2);letter-spacing:-.03em}
+.s-proof .cap{font:400 23px/1.4 var(--sans);color:var(--t2);margin:18px 0 26px;max-width:520px}
+.s-proof .qt{font:italic 400 27px/1.4 var(--serif);color:var(--t1);margin:0}
+.s-proof .qt b{font-weight:400;color:var(--gold-2)}
+.s-proof .who{display:flex;align-items:center;gap:20px;margin-top:30px}
+.s-proof .who i{width:48px;height:1px;background:var(--gold);display:block}
+.s-proof .who span{font:400 20px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--t2)}
+.s-proof .c.b .big{font-size:84px;color:var(--t1);line-height:.98}
+.s-proof .c.b .cap{margin-bottom:30px}
+
+/* 30 the math close */
+.s-math .three{display:grid;grid-template-columns:repeat(3,1fr);margin-top:56px}
+.s-math .three .c{padding-right:60px}
+.s-math .three .c+.c{border-left:1px solid var(--line);padding-left:60px;padding-right:0}
+.s-math .three .k{font:500 14px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin:0 0 22px}
+.s-math .three .v{font:400 116px/.88 var(--serif);color:var(--t1);letter-spacing:-.03em}
+.s-math .three .c.win .v{color:var(--gold-2)}
+.s-math .three .c.win .k{color:var(--gold)}
+.s-math .three p{font:400 24px/1.42 var(--sans);color:var(--t2);margin:24px 0 0}
+.s-math .mfoot{position:absolute;left:0;right:0;bottom:0;padding-top:28px;border-top:1px solid var(--line);font:italic 400 36px/1.3 var(--serif);color:var(--t1);max-width:1560px}
+.s-math .mfoot span{color:var(--gold-2)}
+
+/* persistent offer rail (28-31) */
+.rail{position:absolute;left:120px;bottom:118px;display:flex;align-items:center;gap:26px;z-index:6}
+.rail .p{font:400 54px/1 var(--serif);color:var(--t1);letter-spacing:-.02em}
+.rail .p small{font-size:.36em;font-style:italic;color:var(--t2)}
+.rail .d{width:1px;height:44px;background:var(--line)}
+.rail .u{font:italic 400 38px/1.1 var(--serif);letter-spacing:-.005em;color:var(--gold-2)}
+.rail .u small{display:block;font:400 12px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--t4);margin-bottom:7px}
+.s-ama .rail{bottom:130px}
+.s-ama .rail .p{font-size:72px}
+.s-ama .rail .d{height:58px}
+.s-ama .rail .u{font-size:48px}
+.s-ama .rail .u small{font-size:13px;color:var(--t3)}
+
+/* 24 the room — the one thing */
+.s-room .beats{margin-top:34px}
+.s-room .b{padding:18px 0;border-top:1px solid var(--line)}
+.s-room .b:last-child{border-bottom:1px solid var(--line)}
+.s-room .b h3{font:400 42px/1.12 var(--serif);color:var(--t1);margin:0;letter-spacing:-.012em}
+.s-room .b p{font:400 23px/1.4 var(--sans);color:var(--t2);margin:10px 0 0;max-width:1420px}
+.s-room .rfoot{position:absolute;left:0;right:0;bottom:0;font:italic 400 33px/1.35 var(--serif);color:var(--t2)}
+.s-room .rfoot span{color:var(--gold-2)}
+
+/* 25 the anchor */
+.s-anchor .comps{display:grid;grid-template-columns:repeat(3,1fr);margin-top:108px}
+.s-anchor .c{padding-right:58px}
+.s-anchor .c+.c{border-left:1px solid var(--line);padding-left:58px;padding-right:0}
+.s-anchor .c .v{font:400 96px/.92 var(--serif);color:var(--t3);letter-spacing:-.03em;display:flex;align-items:baseline}
+.s-anchor .c .v small{font-size:.5em;letter-spacing:-.02em}
+.s-anchor .c .v i{font-size:.3em;font-style:italic;color:var(--t4);margin-left:6px}
+.s-anchor .c h4{font:500 30px/1.2 var(--sans);color:var(--t1);margin:26px 0 10px;letter-spacing:-.01em}
+.s-anchor .c p{font:400 23px/1.4 var(--sans);color:var(--t3);margin:0}
+.s-anchor .afoot{position:absolute;left:0;right:0;bottom:0;padding-top:30px;border-top:1px solid var(--line);font:italic 400 36px/1.35 var(--serif);color:var(--t1)}
+.s-anchor .afoot span{color:var(--gold-2)}
+
+/* 26 the stack */
+.s-plus .pl{border-top:1px solid var(--line);margin-top:30px}
+.s-plus .row{display:grid;grid-template-columns:54px 1fr 230px;gap:26px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line)}
+.s-plus .row .i{font:500 14px/1 var(--mono);letter-spacing:.2em;color:var(--gold)}
+.s-plus .row .t{font:500 26px/1.15 var(--sans);color:var(--t1);letter-spacing:-.01em}
+.s-plus .row .d{font:400 19px/1.32 var(--sans);color:var(--t2);margin:4px 0 0}
+.s-plus .row .p{font:400 48px/1 var(--serif);color:var(--t1);text-align:right;letter-spacing:-.01em;white-space:nowrap}
+.s-plus .row .p small{font-size:.38em;font-style:italic;color:var(--t2)}
+.s-plus .row .p.na{font:italic 400 23px/1.2 var(--serif);color:var(--gold-2)}
+.s-plus .tot{display:grid;grid-template-columns:54px 1fr 230px;gap:26px;align-items:center;padding-top:15px;border-top:1px solid var(--gold);margin-top:-1px}
+.s-plus .tot .l{font:italic 400 30px/1.15 var(--serif);color:var(--t1);grid-column:2}
+.s-plus .tot .l em{display:block;font:400 20px/1.3 var(--sans);font-style:normal;color:var(--t2);margin-top:7px}
+#stage:has(.s-plus.active) .chip.on{bottom:auto;top:58px}
+.s-plus .c-brand{display:none}
+.s-plus .tot .n{font:400 58px/.9 var(--serif);color:var(--gold-2);letter-spacing:-.02em;text-align:right;white-space:nowrap}
+.s-plus .tot .n small{font-size:.3em;font-style:italic;color:var(--t2)}
+
+/* 28 hero block inside the one-screen graphic */
+.s-full .pane .hero h3{font:400 78px/1 var(--serif);color:var(--t1);margin:0 0 20px;letter-spacing:-.02em}
+.s-full .pane .hero h3::after{content:"";display:block;width:80px;height:2px;background:var(--gold);margin-top:20px}
+.s-full .pane .hero p{font:400 24px/1.45 var(--sans);color:var(--t2);margin:0;max-width:620px}
+.s-full .li{padding:9px 0}
+.s-full .li .n{font-size:23px}
+.s-full .li .v{font-size:36px}
+
+/* ═══ OFFER STACK — shared value bar ═══ */
+.vbar{position:absolute;left:0;right:0;bottom:0;padding-top:20px;border-top:1px solid var(--gold);display:flex;align-items:flex-end;justify-content:space-between;gap:56px}
+.vbar .l{font:italic 400 27px/1.34 var(--serif);color:var(--t2);max-width:1140px;padding-bottom:8px}
+.vbar .l b{color:var(--t1);font-weight:400}
+.vbar .l em{display:block;font:500 12px/1 var(--mono);font-style:normal;letter-spacing:.22em;text-transform:uppercase;color:var(--t4);margin-bottom:13px}
+.vbar .v{font:400 82px/.86 var(--serif);color:var(--gold-2);letter-spacing:-.025em;white-space:nowrap}
+.vbar .v small{font-size:.32em;font-style:italic;color:var(--t2);letter-spacing:0}
+.vbar .v.na{font:italic 400 30px/1.2 var(--serif);color:var(--gold-2);text-align:right;padding-bottom:10px}
+.stepk{color:var(--gold)}
+
+/* 24 the community */
+.s-comm .two{display:grid;grid-template-columns:1.18fr 1fr;margin-top:26px}
+.s-comm .col{padding-right:56px}
+.s-comm .col+.col{border-left:1px solid var(--line);padding-left:56px;padding-right:0}
+.s-comm .ch{font:500 14px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 20px}
+.s-comm .col+.col .ch{color:var(--t3)}
+.s-comm .it{padding:6px 0;border-bottom:1px solid var(--line-2)}
+.s-comm .it b{display:block;font:500 23px/1.2 var(--sans);color:var(--t1);font-weight:500;letter-spacing:-.01em}
+.s-comm .it span{display:block;font:400 18px/1.3 var(--sans);color:var(--t3);margin-top:2px}
+.s-comm .day{display:grid;grid-template-columns:132px 1fr;gap:18px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line-2)}
+.s-comm .day i{font:500 14px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-style:normal}
+.s-comm .day p{font:400 23px/1.25 var(--sans);color:var(--t1);margin:0}
+.s-comm .ask{font:italic 400 24px/1.4 var(--serif);color:var(--t2);margin:20px 0 0}
+.s-comm .ask b{color:var(--gold-2);font-weight:400}
+
+/* 25 the CRM, with a picture */
+.s-crmx .two{display:grid;grid-template-columns:1fr 1.34fr;gap:64px;margin-top:36px;align-items:start}
+.s-crmx .pts .r{padding:15px 0;border-bottom:1px solid var(--line-2)}
+.s-crmx .pts .r b{display:block;font:500 26px/1.2 var(--sans);color:var(--t1);letter-spacing:-.01em}
+.s-crmx .pts .r span{display:block;font:400 21px/1.35 var(--sans);color:var(--t3);margin-top:5px}
+.s-crmx .shot{height:390px}
+.s-crmx .shot .frame{height:100%}
+.s-crmx .frame .bar{background:rgba(6,14,27,.94);backdrop-filter:none}
+.s-crmx .frame img{filter:brightness(.93) saturate(1.06)}
+.s-crmx .frame::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(6,14,27,.30) 0%,rgba(6,14,27,0) 26%,rgba(6,14,27,0) 74%,rgba(6,14,27,.34) 100%)}
+
+/* 26 already built */
+.s-built .grid{display:grid;grid-template-columns:repeat(2,1fr);column-gap:0;margin-top:40px}
+.s-built .g{padding:14px 56px 14px 0;border-top:1px solid var(--line-2)}
+.s-built .g:nth-child(even){border-left:1px solid var(--line);padding-left:56px}
+.s-built .g b{display:block;font:500 27px/1.2 var(--sans);color:var(--t1);letter-spacing:-.01em}
+.s-built .g span{display:block;font:400 21px/1.35 var(--sans);color:var(--t3);margin-top:5px}
+.s-built .kick{margin:34px 0 0;font:italic 400 33px/1.35 var(--serif);color:var(--t1)}
+.s-built .kick span{color:var(--gold-2)}
+
+/* 27 you don't do it alone */
+.s-help .two{display:grid;grid-template-columns:1fr 1fr;margin-top:34px}
+.s-help .h{padding-right:70px}
+.s-help .h+.h{border-left:1px solid var(--line);padding-left:70px;padding-right:0}
+.s-help .h .n{font:400 60px/1.04 var(--serif);color:var(--t1);letter-spacing:-.02em;margin:0}
+.s-help .h .q{font:500 13px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 20px}
+.s-help .h p{font:400 22px/1.42 var(--sans);color:var(--t2);margin:18px 0 0}
+.s-help .h .pz{font:400 46px/1 var(--serif);color:var(--gold-2);margin-top:20px;letter-spacing:-.02em}
+
+/* 28 the ads course + first 10 calls */
+.s-ads2 .stats{display:flex;gap:0;margin-top:40px}
+.s-ads2 .s{padding-right:64px}
+.s-ads2 .s+.s{border-left:1px solid var(--line);padding-left:64px}
+.s-ads2 .s .n{font:400 92px/.92 var(--serif);color:var(--t1);letter-spacing:-.03em}
+.s-ads2 .s .lb{font:400 18px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--t3);margin-top:16px}
+.s-ads2 .rider{margin-top:44px;padding-top:26px;border-top:1px solid var(--line);display:flex;align-items:baseline;justify-content:space-between;gap:48px}
+.s-ads2 .rider .t{font:500 30px/1.2 var(--sans);color:var(--t1);letter-spacing:-.01em}
+.s-ads2 .rider .d{font:400 22px/1.4 var(--sans);color:var(--t2);margin:8px 0 0;max-width:1080px}
+.s-ads2 .rider .p{font:italic 400 28px/1.2 var(--serif);color:var(--gold-2);white-space:nowrap;text-align:right}
+
+/* 29 add it up */
+.s-addup .led{border-top:1px solid var(--line);margin-top:22px}
+.s-addup .led .r{display:grid;grid-template-columns:1fr 260px;gap:34px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+.s-addup .led .r .t{font:400 29px/1.2 var(--sans);color:var(--t1);letter-spacing:-.01em}
+.s-addup .led .r .t small{display:block;margin-top:8px;font:400 20px/1.35 var(--sans);color:var(--t2);letter-spacing:0}
+.s-addup .led .r .p{font:400 50px/1 var(--serif);color:var(--t1);text-align:right;letter-spacing:-.02em;white-space:nowrap}
+.s-addup .led .r .p small{font-size:.36em;font-style:italic;color:var(--t2)}
+.s-addup .led .r .p.na{font:italic 400 24px/1.2 var(--serif);color:var(--t3)}
+.s-addup .tot{display:grid;grid-template-columns:1fr auto auto;gap:64px;align-items:end;padding-top:18px;border-top:1px solid var(--gold);margin-top:-1px}
+.s-addup .tot .l{font:italic 400 29px/1.2 var(--serif);color:var(--t1);padding-bottom:10px}
+.s-addup .tot .n{font:400 88px/.86 var(--serif);color:var(--gold-2);letter-spacing:-.03em;white-space:nowrap}
+.s-addup .tot .n small{display:block;font:500 12px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-top:12px}
+
+/* ═══ FREE-BONUS BAR (replaces the value bar) ═══ */
+.vbar .fr{display:flex;align-items:baseline;gap:28px;white-space:nowrap}
+.vbar .was{font:400 50px/1 var(--serif);color:var(--t4);letter-spacing:-.02em;position:relative}
+.vbar .was::after{content:"";position:absolute;left:-4%;right:-4%;top:52%;height:2px;background:var(--red);opacity:.85;transform:rotate(-6deg)}
+.vbar .was small{font-size:.36em;font-style:italic}
+.vbar .free{font:400 82px/.86 var(--serif);color:var(--gold-2);letter-spacing:.01em}
+.vbar .tick{display:block;font:500 13px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-top:16px}
+.vbar .tick b{color:var(--gold-2);font-weight:400;font-family:var(--serif);font-size:23px;letter-spacing:0}
+
+/* the price slide gets the deadline strip */
+.s-offer .dl{margin:34px auto 0;padding-top:24px;border-top:1px solid rgba(6,14,27,.16);max-width:1080px;font:400 25px/1.45 var(--sans);color:#5B6B82}
+.s-offer .dl b{color:var(--red);font-weight:500}
+
+/* 26 the 200-member wall — the reason why */
+.s-wall .meterwrap{margin-top:52px}
+.s-wall .mlab{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px}
+.s-wall .mlab .a1{font:400 46px/1 var(--serif);color:var(--t1);letter-spacing:-.02em}
+.s-wall .mlab .a1 span{font:500 15px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-left:18px}
+.s-wall .mlab .a2{font:400 46px/1 var(--serif);color:var(--red);letter-spacing:-.02em;text-align:right}
+.s-wall .mlab .a2 span{display:block;font:500 13px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:12px}
+.s-wall .meter{position:relative;height:30px;border:1px solid var(--line);background:rgba(242,245,249,.04);overflow:hidden}
+.s-wall .meter i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,rgba(217,166,33,.45),var(--gold));display:block;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.s-wall .meter u{position:absolute;top:0;bottom:0;width:1px;background:var(--red);text-decoration:none}
+.s-wall .left{margin-top:44px;display:flex;align-items:baseline;gap:26px}
+.s-wall .chk{margin:40px 0 0;max-width:700px;font:400 25px/1.45 var(--sans);color:var(--t2);padding-top:24px;border-top:1px solid var(--line-2)}
+.s-wall .chk b{color:var(--gold-2);font-weight:400}
+.s-wall .left .n{font:400 128px/.86 var(--serif);color:var(--gold-2);letter-spacing:-.03em}
+.s-wall .left .t{font:400 30px/1.35 var(--sans);color:var(--t1);max-width:560px}
+.s-wall .why{position:absolute;right:0;bottom:0;width:760px;padding-top:26px;border-top:1px solid var(--gold)}
+.s-wall .why em{display:block;font:500 12px/1 var(--mono);font-style:normal;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.s-wall .why p{font:italic 400 28px/1.42 var(--serif);color:var(--t1);margin:0 0 14px}
+.s-wall .why p.s{font:400 23px/1.45 var(--sans);font-style:normal;color:var(--t2);margin:0}
+
+/* picture blocks on the bonus slides */
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:34px}
+.shots .cell .frame{height:320px}
+.shots .cell .frame .bar{background:rgba(6,14,27,.94);backdrop-filter:none}
+.shots .cell .frame img{filter:brightness(.94) saturate(1.05)}
+.shots .cell .cap{margin:16px 0 0;font:400 22px/1.4 var(--sans);color:var(--t2)}
+.shots .cell .cap b{color:var(--t1);font-weight:500}
+.s-comm .shot1{margin-top:26px}
+.s-comm .shot1 .frame{height:250px}
+.s-comm .shot1 .frame .bar{background:rgba(6,14,27,.94);backdrop-filter:none}
+.s-ads2 .shot2{margin-top:30px}
+.s-ads2 .shot2 .frame{height:236px}
+.s-ads2 .shot2 .frame .bar{background:rgba(6,14,27,.94);backdrop-filter:none}
+
+/* 27 the Real CRM — the back office */
+.s-crmx .caps .r{padding:4px 0;border-bottom:1px solid var(--line-2);display:grid;grid-template-columns:26px 1fr;gap:18px;align-items:baseline}
+.s-crmx .caps .r i{font:500 13px/1 var(--mono);color:var(--gold);font-style:normal}
+.s-crmx .caps .r b{display:block;font:500 22px/1.18 var(--sans);color:var(--t1);letter-spacing:-.01em}
+.s-crmx .caps .r span{display:block;font:400 17px/1.3 var(--sans);color:var(--t3);margin-top:2px}
+
+/* 29 the pre-built funnel, one wide shot */
+.s-built .oneshot{margin-top:18px}
+.s-built .oneshot .frame{height:322px}
+.s-built .oneshot .frame .bar{background:rgba(6,14,27,.94);backdrop-filter:none}
+.s-built .oneshot .frame img{filter:brightness(.94) saturate(1.05)}
+.s-built .oneshot .cap{margin:14px 0 0;font:400 21px/1.4 var(--sans);color:var(--t2);max-width:1620px}
+.s-built .oneshot .cap b{color:var(--t1);font-weight:500}
+
+/* 28 quick tour inside the account */
+.s-tour .pair{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:34px}
+.s-tour .pair .frame{height:376px}
+.s-tour .pair .frame .bar{background:rgba(6,14,27,.94);backdrop-filter:none}
+.s-tour .pair .frame img{filter:brightness(.94) saturate(1.05)}
+.s-tour .pair .cap{margin:18px 0 0;font:400 22px/1.4 var(--sans);color:var(--t2)}
+.s-tour .pair .cap b{color:var(--t1);font-weight:500}
+.s-tour .tfoot{position:absolute;left:0;right:0;bottom:0;padding-top:24px;border-top:1px solid var(--line);font:400 24px/1.5 var(--sans);color:var(--t2);margin:0}
+.s-tour .tfoot span{font-family:var(--serif);font-style:italic;font-size:29px;color:var(--gold-2)}
+
+/* 28 the account, four real screens */
+.s-tour .quad{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:26px 30px;margin-top:26px}
+.s-tour .quad .frame{height:212px}
+.s-tour .quad .frame .bar{height:28px;background:rgba(6,14,27,.94);backdrop-filter:none}
+.s-tour .quad .frame .bar span{font-size:11px}
+.s-tour .quad .frame img{filter:brightness(.94) saturate(1.05)}
+
+/* 29 you don't set it up alone */
+.s-solo .split2{display:grid;grid-template-columns:1.5fr 1fr;margin-top:30px}
+.s-solo .lft{padding-right:60px}
+.s-solo .rgt{border-left:1px solid var(--line);padding-left:60px}
+.s-solo .who2 .nm{font:400 44px/1.1 var(--serif);color:var(--t1);letter-spacing:-.02em}
+.s-solo .who2 p{font:400 22px/1.4 var(--sans);color:var(--t2);margin:12px 0 0}
+.s-solo .steps2{margin-top:22px;border-top:1px solid var(--line)}
+.s-solo .s2{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line-2)}
+.s-solo .s2 i{font:500 13px/1.5 var(--mono);letter-spacing:.2em;color:var(--gold);font-style:normal}
+.s-solo .s2 p{font:400 21px/1.4 var(--sans);color:var(--t2);margin:0}
+.s-solo .s2 p b{color:var(--t1);font-weight:500}
+.s-solo .rgt .q2{font:italic 400 38px/1.28 var(--serif);color:var(--gold-2);margin:0}
+.s-solo .rgt .d2{font:400 22px/1.45 var(--sans);color:var(--t2);margin:26px 0 0}
+
+/* 32 the hour with Johnny */
+.s-hour .hgrid{display:grid;grid-template-columns:1.5fr .9fr;gap:64px;margin-top:26px;align-items:start}
+.s-hour .big2{font:400 40px/1.2 var(--serif);color:var(--t1);margin:0 0 8px;letter-spacing:-.015em}
+.s-hour .big2 b{font-weight:400;color:var(--t1)}
+.s-hour .hlist{margin-top:22px;border-top:1px solid var(--line)}
+.s-hour .hi{padding:10px 0;border-bottom:1px solid var(--line-2)}
+.s-hour .hi p{font:400 21px/1.38 var(--sans);color:var(--t2);margin:0}
+.s-hour .hr{position:relative}
+.s-hour .hr img{display:block;width:100%;max-height:330px;object-fit:cover;object-position:50% 32%;border:1px solid var(--line);filter:saturate(.92) contrast(1.02)}
+.s-hour .hr .plate2{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(6,14,27,0) 55%,rgba(6,14,27,.55))}
+
+/* product tag — makes each bonus read as its own SKU, not part of a bundle */
+.ptag{display:flex;align-items:center;gap:20px;margin:0 0 20px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.ptag .n{font:500 12px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);background:var(--gold);padding:8px 12px 7px}
+.ptag .t{font:400 32px/1 var(--serif);color:var(--t1);letter-spacing:-.015em}
+.ptag .p{margin-left:auto;font:500 12px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--t3);text-align:right}
+.ptag .p b{color:var(--t2);font-weight:500}
+
+/* 28 full-bleed look at the real account */
+.s-shot .content{top:150px;bottom:126px}
+.s-shot .big{position:absolute;left:0;right:0;top:0}
+.s-shot .big .frame{height:664px}
+.s-shot .big .frame .bar{height:34px;background:rgba(6,14,27,.94);backdrop-filter:none}
+.s-shot .big .frame img{width:100%;height:100%;object-fit:contain;object-position:center;background:#0d1420;filter:saturate(1.04)}
+.s-shot .cap2{position:absolute;left:0;right:0;bottom:0;font:400 25px/1.45 var(--sans);color:var(--t2);margin:0}
+.s-shot .cap2 b{color:var(--t1);font-weight:500}
+.s-shot .cap2 span{font-family:var(--serif);font-style:italic;font-size:29px;color:var(--gold-2)}
+
+/* 27 mini screens — full images, small boxes */
+.s-crmx .minis{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.s-crmx .minis .frame{height:176px;border-radius:4px}
+.s-crmx .minis .frame .bar{height:24px;background:rgba(6,14,27,.94);backdrop-filter:none;padding:0 12px}
+.s-crmx .minis .frame .bar i{width:6px;height:6px}
+.s-crmx .minis .frame .bar span{font-size:10px;letter-spacing:.16em}
+.s-crmx .minis .frame img{width:100%;height:100%;object-fit:contain;object-position:center;background:#0e1521;filter:saturate(1.04)}
+
+/* one-time offer gate */
+.s-oto .content{top:168px;bottom:150px}
+.s-oto .stamp{position:absolute;right:0;top:6px;width:330px;border:1px solid var(--line-gold);padding:34px 30px;text-align:center;background:rgba(217,166,33,.05)}
+.s-oto .stamp .k1{font:500 12px/1.6 var(--mono);letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.s-oto .stamp .k2{font:400 62px/1 var(--serif);color:var(--t1);letter-spacing:-.02em;margin:16px 0 14px}
+.s-oto .stamp .k3{font:italic 400 22px/1.35 var(--serif);color:var(--t2)}
+.s-oto .lines{margin-top:52px;max-width:1180px;border-top:1px solid var(--line)}
+.s-oto .ln{display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:baseline;padding:17px 0;border-bottom:1px solid var(--line)}
+.s-oto .ln i{font:500 13px/1.5 var(--mono);letter-spacing:.2em;color:var(--gold);font-style:normal}
+.s-oto .ln p{font:400 27px/1.38 var(--sans);color:var(--t2);margin:0}
+.s-oto .ln p b{color:var(--t1);font-weight:500}
+.s-oto .ofoot{position:absolute;left:0;right:0;bottom:0;padding-top:26px;border-top:1px solid var(--gold);font:italic 400 34px/1.35 var(--serif);color:var(--t1)}
+.s-oto .ofoot span{color:var(--gold-2)}
+
+/* ═══ GIFT TAG — the bonus marker, top-left of every bonus slide ═══ */
+.gtag{position:relative;display:inline-flex;align-items:center;gap:0;margin:0 0 22px;
+  padding:16px 34px 16px 62px;border:1px solid var(--line-gold);
+  background:linear-gradient(115deg,rgba(217,166,33,.16),rgba(217,166,33,.035) 55%,rgba(217,166,33,.02));
+  clip-path:polygon(30px 0, 100% 0, 100% 100%, 30px 100%, 0 50%);
+  box-shadow:0 18px 50px -22px rgba(217,166,33,.5)}
+.gtag::before{content:"";position:absolute;left:30px;top:50%;transform:translateY(-50%);
+  width:12px;height:12px;border-radius:50%;border:1px solid rgba(217,166,33,.85);background:rgba(6,14,27,.85)}
+.gtag .gn{font:500 11px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--gold);
+  padding-right:24px;margin-right:24px;border-right:1px solid rgba(217,166,33,.35)}
+.gtag .gt{font:400 34px/1 var(--serif);color:var(--t1);letter-spacing:-.015em}
+.gtag .gp{display:flex;align-items:baseline;gap:16px;margin-left:34px;padding-left:34px;border-left:1px solid rgba(217,166,33,.35)}
+.gtag .gw{position:relative;font:400 27px/1 var(--serif);color:var(--t4)}
+.gtag .gw::after{content:"";position:absolute;left:-8%;right:-8%;top:52%;height:2px;background:var(--red);opacity:.9;transform:rotate(-8deg)}
+.gtag .gf{font:400 34px/1 var(--serif);color:var(--gold-2);letter-spacing:.03em}
+
+/* ═══ TALLY METER — fills one segment per bonus ═══ */
+.tally{display:flex;align-items:center;gap:16px;margin-top:16px}
+.tally .seg{display:flex;gap:6px}
+.tally .seg i{width:38px;height:7px;background:rgba(242,245,249,.13);display:block}
+.tally .seg i.on{background:var(--gold);box-shadow:0 0 14px -3px rgba(217,166,33,.8)}
+.tally .amt{font:400 28px/1 var(--serif);color:var(--gold-2);letter-spacing:-.01em}
+.tally .lb{font:500 11px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--t4)}
+
+/* ───────────────────────────── HELP / SPEAKER ───────────────────────────── */
+#help{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(760px,90vw);background:rgba(6,14,27,.96);border:1px solid var(--line);border-radius:8px;padding:34px 40px;z-index:1000;display:none;color:var(--t2);font:400 16px/1.6 var(--sans);box-shadow:0 40px 120px rgba(0,0,0,.7)}
+#help.on{display:block}
+#help h3{margin:0 0 14px;font:400 34px/1 var(--serif);color:var(--t1)}
+#help table{width:100%;border-collapse:collapse}
+#help td{padding:7px 0;border-bottom:1px solid var(--line-2);vertical-align:top}
+#help td:first-child{width:200px;font:500 13px/1.6 var(--mono);letter-spacing:.12em;color:var(--gold)}
+#help .x{margin-top:16px;font:400 13px/1.6 var(--mono);color:var(--t3);letter-spacing:.08em}
+
+/* speaker mode */
+body.speaker{overflow:auto;background:#0A1424;cursor:default}
+body.speaker #stage,body.speaker .grain{display:none}
+#spk{display:none}
+body.speaker #spk{display:grid;grid-template-columns:1fr 420px;gap:0;min-height:100vh}
+#spk .main{padding:40px 48px}
+#spk .side{border-left:1px solid var(--line);padding:40px 36px;background:#070F1D}
+#spk .k{font:500 13px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
+#spk h2{font:400 44px/1.1 var(--serif);color:var(--t1);margin:0 0 6px}
+#spk .cur{font:400 13px/1 var(--mono);color:var(--t3);letter-spacing:.2em;margin-bottom:28px}
+#spk .notes{white-space:pre-wrap;font:400 18px/1.6 var(--sans);color:var(--t2);max-width:900px}
+#spk .notes:empty::before{content:"No notes on this slide.";color:var(--t4);font-style:italic}
+#spk .next{margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
+#spk .next h3{font:400 26px/1.2 var(--serif);color:var(--t2);margin:6px 0 0}
+#spk .clock{font:400 64px/1 var(--serif);color:var(--t1);margin:10px 0 30px}
+#spk .timer{font:400 64px/1 var(--serif);color:var(--gold-2);margin:10px 0 4px}
+#spk .timer.zero{color:var(--red)}
+#spk .small{font:400 13px/1.7 var(--mono);color:var(--t3);letter-spacing:.06em}
+#spk .frags{font:400 13px/1.7 var(--mono);color:var(--t3);letter-spacing:.12em;margin-top:8px}
+#spk .btns{margin-top:30px;display:flex;gap:10px;flex-wrap:wrap}
+#spk button{font:500 13px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;background:transparent;color:var(--t1);border:1px solid var(--line);padding:12px 16px;border-radius:3px;cursor:pointer}
+#spk button:hover{border-color:var(--gold);color:var(--gold-2)}
+
+/* ═══════════════════════════ THE MARKETING MACHINE — new slide types ═══════════════════════════ */
+.s-title h1{font-size:160px}
+.s-title .sub{max-width:820px}
+
+/* section marker, top of a teaching slide */
+.sec{display:inline-flex;align-items:center;gap:16px;margin:0 0 26px;font:500 14px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--t3)}
+.sec b{font-weight:500;color:var(--ink-2);background:var(--gold);padding:7px 10px 6px}
+
+/* generic bottom line */
+.foot2{position:absolute;left:0;right:0;bottom:0;padding-top:26px;border-top:1px solid var(--line);font:italic 400 36px/1.3 var(--serif);color:var(--t1)}
+.foot2 span{color:var(--gold-2)}
+.src2{margin-top:14px;font:400 13px/1 var(--mono);letter-spacing:.1em;color:var(--t4)}
+
+/* why medicare — four columns */
+.s-why .cols>.col h3{font-size:30px}
+.s-why .cols>.col .num{font-size:104px;margin-bottom:6px}
+.s-why .cols>.col p{font-size:22px}
+.s-why .cols{margin-top:84px}
+
+/* the five-part framework */
+.s-five .rows{margin-top:46px;border-top:1px solid var(--line)}
+.s-five .fr5{display:grid;grid-template-columns:90px 420px 1fr;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--line)}
+.s-five .fr5 i{font:500 15px/1 var(--mono);letter-spacing:.22em;color:var(--gold);font-style:normal}
+.s-five .fr5 h3{font:400 62px/1 var(--serif);margin:0;color:var(--t1);letter-spacing:-.015em}
+.s-five .fr5 p{font:400 28px/1.35 var(--sans);color:var(--t2);margin:0}
+
+/* market segments */
+.s-seg .two{display:grid;grid-template-columns:1fr 1fr;gap:88px;margin-top:44px}
+.s-seg .ledger .row{grid-template-columns:330px 1fr;padding:24px 0}
+.s-seg .ledger .row .t{font-size:28px}
+.s-seg .ledger .row .d{font-size:22px}
+.s-seg .ledger .row.hi .t{color:var(--gold-2)}
+
+/* hook / problem / promise / cta */
+.s-hppc .cols{margin-top:60px}
+.s-hppc .cols>.col h3{font:400 64px/1 var(--serif);margin:24px 0 18px}
+.s-hppc .cols>.col p{font-size:23px}
+.s-hppc .cols>.col .ex{margin-top:26px;padding-top:20px;border-top:1px solid var(--line-2);font:italic 400 27px/1.35 var(--serif);color:var(--gold-2)}
+
+/* bad ad vs better ad */
+.s-adx .pair{display:grid;grid-template-columns:1fr 1.18fr;gap:72px;margin-top:44px}
+.s-adx .lab{font:500 14px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;margin:0 0 18px;color:var(--t3)}
+.s-adx .good .lab{color:var(--gold)}
+.ad{border:1px solid var(--line);border-radius:6px;background:var(--panel);padding:26px 30px 0;box-shadow:0 40px 100px -40px rgba(0,0,0,.8)}
+.ad .pg{display:flex;align-items:center;gap:14px}
+.ad .pg i{width:42px;height:42px;border-radius:50%;background:rgba(242,245,249,.12);display:block}
+.ad .pg b{font:600 20px/1.2 var(--sans);color:var(--t1);display:block}
+.ad .pg span{font:400 15px/1.2 var(--sans);color:var(--t3)}
+.ad .tx{font:400 25px/1.4 var(--sans);color:var(--t1);margin:20px 0 22px}
+.ad .vis{height:150px;background:linear-gradient(135deg,#13243f,#0b1729);border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);margin:0 -30px;display:flex;align-items:center;justify-content:center;font:italic 400 34px/1.2 var(--serif);color:var(--t2);text-align:center;padding:0 40px}
+.ad .ft{display:flex;justify-content:space-between;align-items:center;padding:18px 0 20px}
+.ad .ft span{font:400 17px/1.2 var(--sans);color:var(--t3)}
+.ad .ft u{text-decoration:none;font:600 17px/1 var(--sans);color:var(--t1);background:rgba(242,245,249,.12);padding:12px 18px;border-radius:4px}
+.s-adx .bad .ad{opacity:.62}
+.s-adx .good .ad{border-color:var(--line-gold)}
+.s-adx .good .ad .ft u{background:var(--gold);color:var(--ink-2)}
+.s-adx .why{margin-top:22px}
+.s-adx .why p{margin:0;padding:9px 0;border-bottom:1px solid var(--line-2);font:400 21px/1.35 var(--sans);color:var(--t2)}
+.s-adx .why p b{font:500 13px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-right:14px}
+.s-adx .good .why p b{color:var(--gold)}
+
+/* same formula, four audiences */
+.s-four .grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:42px;border-top:1px solid var(--line)}
+.s-four .c{padding:28px 56px 28px 0;border-bottom:1px solid var(--line)}
+.s-four .c:nth-child(even){border-left:1px solid var(--line);padding-left:56px;padding-right:0}
+.s-four .c .k{font:500 14px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 16px}
+.s-four .c .h{font:italic 400 38px/1.25 var(--serif);color:var(--t1);margin:0}
+.s-four .c .w{font:400 21px/1.4 var(--sans);color:var(--t3);margin:14px 0 0}
+
+/* media ledger */
+.s-media .ledger{margin-top:40px}
+.s-media .ledger .row{grid-template-columns:300px 1fr;padding:22px 0}
+.s-media .ledger .row .t{font:400 44px/1 var(--serif);letter-spacing:-.01em}
+.s-media .ledger .row .d{font-size:25px}
+
+/* what built $5.92 */
+.s-built2 .grid{display:grid;grid-template-columns:560px 1fr;gap:96px;margin-top:64px}
+.s-built2 .names .n{padding:20px 0!important}
+.s-built2 .rules .r{padding:28px 0!important}
+.s-built2 .names .k{font:500 14px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--t3);margin:0 0 16px}
+.s-built2 .names .n{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line-2);font:400 25px/1.2 var(--mono);color:var(--t1);letter-spacing:.02em}
+.s-built2 .names .n span{font:400 16px/1 var(--mono);color:var(--t3);letter-spacing:.14em;text-transform:uppercase}
+.s-built2 .rules .r{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid var(--line)}
+.s-built2 .rules .r:first-child{border-top:1px solid var(--line)}
+.s-built2 .rules .r i{font:500 14px/1.6 var(--mono);letter-spacing:.2em;color:var(--gold);font-style:normal}
+.s-built2 .rules .r b{display:block;font:500 29px/1.2 var(--sans);color:var(--t1);letter-spacing:-.01em}
+.s-built2 .rules .r span{display:block;font:400 22px/1.4 var(--sans);color:var(--t2);margin-top:6px}
+
+/* the funnel path */
+.flow{display:grid;grid-template-columns:repeat(7,1fr);margin-top:120px;position:relative}
+.flow::before{content:"";position:absolute;left:0;right:0;top:27px;height:1px;background:var(--line)}
+.flow .n{position:relative;padding-right:22px}
+.flow .n .dot{width:56px;height:56px;border-radius:50%;border:1px solid var(--line-gold);background:var(--ink);display:flex;align-items:center;justify-content:center;font:500 14px/1 var(--mono);color:var(--gold);letter-spacing:.1em}
+.flow .n:last-child .dot{background:var(--gold);color:var(--ink-2);border-color:var(--gold)}
+.flow .n h3{font:400 46px/1.05 var(--serif);color:var(--t1);margin:28px 0 14px;letter-spacing:-.01em}
+.flow .n p{font:400 23px/1.42 var(--sans);color:var(--t2);margin:0}
+
+/* page jobs */
+.s-jobs .ledger{margin-top:40px}
+.s-jobs .ledger .row{grid-template-columns:340px 1fr;padding:24px 0}
+.s-jobs .ledger .row .t{font:400 42px/1 var(--serif);letter-spacing:-.01em}
+.s-jobs .ledger .row .d{font-size:25px}
+.s-jobs .ledger .row .d b{color:var(--t1);font-weight:500}
+
+/* follow-up timeline */
+.tl6{display:grid;grid-template-columns:repeat(6,1fr);margin-top:110px;border-top:2px solid var(--gold)}
+.tl6 .s{padding:30px 26px 0 0;position:relative}
+.tl6 .s::before{content:"";position:absolute;left:0;top:-9px;width:16px;height:16px;border-radius:50%;background:var(--ink);border:2px solid var(--gold)}
+.tl6 .s .w{font:500 14px/1.4 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 18px}
+.tl6 .s h3{font:400 50px/1.05 var(--serif);color:var(--t1);margin:0 0 14px}
+.tl6 .s p{font:400 23px/1.45 var(--sans);color:var(--t2);margin:0}
+
+/* unit economics */
+.s-econ .grid{display:grid;grid-template-columns:1080px 1fr;gap:80px;margin-top:36px}
+.s-econ .rec .row{display:grid;grid-template-columns:1fr 200px 260px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--line)}
+.s-econ .rec .row:first-child{border-top:1px solid var(--line)}
+.s-econ .rec .row .t{font:400 27px/1.2 var(--sans);color:var(--t1)}
+.s-econ .rec .row .r{font:400 22px/1 var(--mono);color:var(--gold-2);letter-spacing:.04em}
+.s-econ .rec .row .p{font:400 48px/1 var(--serif);text-align:right;color:var(--t1)}
+.s-econ .rec .tot{display:grid;grid-template-columns:1fr 360px;align-items:center;padding:22px 0 0;border-top:1px solid var(--gold);margin-top:-1px}
+.s-econ .rec .tot .t{font:italic 400 34px/1.2 var(--serif);color:var(--t1)}
+.s-econ .rec .tot .p{font:400 112px/.9 var(--serif);text-align:right;color:var(--gold-2);letter-spacing:-.02em}
+.s-econ .rec .ex{margin-top:16px;font:400 14px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--t4)}
+.s-econ .aside p{font:400 25px/1.5 var(--sans);color:var(--t2);margin:0 0 26px}
+.s-econ .aside p b{color:var(--t1);font-weight:500}
+.s-econ .aside .go{font:italic 400 38px/1.25 var(--serif);color:var(--t1);padding-top:28px;border-top:1px solid var(--line)}
+.s-econ .aside .go span{color:var(--gold-2)}
+
+/* the backend leaks */
+.s-leak .two{display:grid;grid-template-columns:1fr 1fr;gap:88px;margin-top:40px}
+.s-leak .ledger .row{grid-template-columns:300px 1fr;padding:22px 0}
+.s-leak .ledger .row .t{font-size:28px}
+.s-leak .ledger .row .d{font-size:22px}
+
+/* the whole machine — a loop of nine */
+.mach{position:relative;margin-top:110px}
+.mach .rowm{display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+.mach .rowm+.rowm{margin-top:80px;grid-template-columns:repeat(4,1fr);padding-left:10%}
+.mach .m{position:relative;padding:22px 20px 0 0;border-top:1px solid var(--line)}
+.mach .m i{font:500 13px/1 var(--mono);letter-spacing:.22em;color:var(--gold);font-style:normal}
+.mach .m h3{font:400 68px/1 var(--serif);color:var(--t1);margin:14px 0 0;letter-spacing:-.015em}
+.mach .m .ar{position:absolute;right:30px;top:-14px;font:400 26px/1 var(--sans);color:var(--gold)}
+.mach .m.loop h3{color:var(--gold-2)}
+
+/* the three things */
+.s-three3 .cols{margin-top:120px}
+.s-three3 .cols>.col h3{font:400 76px/1 var(--serif)!important;margin:26px 0 24px!important}
+.s-three3 .cols>.col p{font-size:27px;line-height:1.5}
+.s-three3 .cols>.col.hl h3{color:var(--gold-2)}
+
+/* ═══ STACK ITEM SLIDES ═══ */
+.gtag .gv{font:400 34px/1 var(--serif);color:var(--gold-2);letter-spacing:.01em}
+.gtag .gv small{font-size:.5em;font-style:italic;color:var(--t2)}
+.s-item .split3{display:grid;grid-template-columns:1fr 860px;gap:64px;margin-top:30px;align-items:start}
+.s-item .rows .r{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line-2)}
+.s-item .rows .r:first-child{border-top:1px solid var(--line)}
+.s-item .rows .r i{font:500 13px/1.7 var(--mono);letter-spacing:.2em;color:var(--gold);font-style:normal}
+.s-item .rows .r b{display:block;font:500 25px/1.2 var(--sans);color:var(--t1);letter-spacing:-.01em}
+.s-item .rows .r span{display:block;font:400 20px/1.38 var(--sans);color:var(--t3);margin-top:4px}
+.s-item .pic3 .frame{height:350px}
+.s-item .pic3 .frame .bar{background:rgba(6,14,27,.94);backdrop-filter:none}
+.s-item .pic3 .frame video{padding-top:34px;background:#0b0f16}
+.s-item .pic3 .frame img{filter:brightness(.94) saturate(1.05)}
+.s-item .pic3 .cap{margin:16px 0 0;font:italic 400 24px/1.4 var(--serif);color:var(--t2)}
+.s-item .pic3 .cap b{color:var(--gold-2);font-weight:400}
+.s-item .wk2 .d{display:grid;grid-template-columns:170px 1fr;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line-2)}
+.s-item .wk2 .d:first-child{border-top:1px solid var(--line)}
+.s-item .wk2 .d i{font:500 14px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-style:normal}
+.s-item .wk2 .d p{margin:0;font:400 26px/1.25 var(--sans);color:var(--t1)}
+.s-item .vbar .run{text-align:right;white-space:nowrap}
+.s-item .vbar .run em{display:block;font:500 12px/1 var(--mono);font-style:normal;letter-spacing:.22em;text-transform:uppercase;color:var(--t4);margin-bottom:12px}
+.s-item .vbar .run b{font:400 76px/.86 var(--serif);color:var(--gold-2);letter-spacing:-.025em;font-weight:400}
+.s-item .vbar .run b small{font-size:.36em;font-style:italic;color:var(--t2);letter-spacing:0}
+.tally .seg i{width:30px}
+
+/* until tonight, this was the offer (paper) */
+.s-was .wrap{position:absolute;left:120px;right:120px;top:168px;bottom:150px;display:grid;grid-template-columns:1fr 640px;gap:96px;align-items:center}
+.s-was .head{font-size:84px}
+.s-was .lst{margin-top:40px;border-top:1px solid rgba(6,14,27,.16)}
+.s-was .lst div{display:flex;justify-content:space-between;align-items:baseline;padding:13px 0;border-bottom:1px solid rgba(6,14,27,.12);font:400 25px/1.2 var(--sans);color:var(--ink)}
+.s-was .lst div span{font:400 32px/1 var(--serif);color:#5B6B82}
+.s-was .pr{text-align:center}
+.s-was .pr .k{font:500 15px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:#A67C12;margin:0 0 22px}
+.s-was .pr .v{font:400 260px/.85 var(--serif);color:var(--ink);letter-spacing:-.04em}
+.s-was .pr .v small{font-size:.3em;font-style:italic;color:#3C4A5E;letter-spacing:0}
+.s-was .pr p{font:italic 400 34px/1.3 var(--serif);color:#3C4A5E;margin:30px 0 0}
+.s-was .pr p.turn{font:400 26px/1.4 var(--sans);color:var(--ink);margin-top:40px;padding-top:26px;border-top:1px solid rgba(6,14,27,.16)}
+
+/* knowing is not building — ten steps */
+.s-gap .steps10{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:70px;border-top:1px solid var(--line)}
+.s-gap .st{padding:40px 24px 44px 0;border-bottom:1px solid var(--line);position:relative}
+.s-gap .st+.st:not(:nth-child(6)){border-left:1px solid var(--line);padding-left:26px}
+.s-gap .st i{font:500 13px/1 var(--mono);letter-spacing:.22em;color:var(--gold);font-style:normal}
+.s-gap .st h3{font:400 52px/1.05 var(--serif);color:var(--t1);margin:16px 0 0;letter-spacing:-.01em}
+.s-gap .st:nth-child(10) h3{color:var(--gold-2)}
+
+/* six hats */
+.s-hats .grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:56px;border-top:1px solid var(--line)}
+.s-hats .h{padding:30px 40px 32px 0;border-bottom:1px solid var(--line)}
+.s-hats .h:not(:nth-child(3n+1)){border-left:1px solid var(--line);padding-left:40px}
+.s-hats .h i{font:500 13px/1 var(--mono);letter-spacing:.22em;color:var(--t3);font-style:normal}
+.s-hats .h h3{font:400 58px/1 var(--serif);color:var(--t2);margin:16px 0 10px;letter-spacing:-.015em}
+.s-hats .h p{font:400 21px/1.4 var(--sans);color:var(--t3);margin:0}
+.s-hats .h.me i{color:var(--gold)}
+.s-hats .h.me h3{color:var(--gold-2)}
+.s-hats .h.me p{color:var(--t2)}
+
+/* the reveal */
+.s-reveal .glow2{position:absolute;left:50%;top:46%;width:1500px;height:1100px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(217,166,33,.16),rgba(217,166,33,.04) 50%,transparent 72%);pointer-events:none}
+.s-reveal .wrap{position:absolute;left:120px;right:120px;top:50%;transform:translateY(-54%);text-align:center}
+.s-reveal .k{font:500 16px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin:0 0 40px}
+.s-reveal h1{font:400 150px/.95 var(--serif);letter-spacing:-.025em;margin:0;color:var(--t1)}
+.s-reveal h1 em{font-style:italic;color:var(--gold-2)}
+.s-reveal p{font:400 32px/1.4 var(--sans);color:var(--t2);margin:48px auto 0;max-width:1100px}
+
+/* specialist detail */
+.s-spec .split3{display:grid;grid-template-columns:1fr 600px;gap:88px;margin-top:40px;align-items:start}
+.s-spec .nots{display:flex;gap:0;margin-top:22px}
+.s-spec .nots span{font:italic 400 30px/1 var(--serif);color:var(--t3);padding-right:28px;margin-right:28px;border-right:1px solid var(--line)}
+.s-spec .nots span:last-child{border:0}
+.s-spec .rows .r{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:15px 0;border-bottom:1px solid var(--line-2)}
+.s-spec .rows .r:first-child{border-top:1px solid var(--line)}
+.s-spec .rows .r i{font:500 13px/1.7 var(--mono);letter-spacing:.2em;color:var(--gold);font-style:normal}
+.s-spec .rows .r b{display:block;font:500 26px/1.2 var(--sans);color:var(--t1);letter-spacing:-.01em}
+.s-spec .rows .r span{display:block;font:400 20px/1.38 var(--sans);color:var(--t3);margin-top:4px}
+.s-spec .anchor{border:1px solid var(--line-gold);padding:40px 44px;background:rgba(217,166,33,.05)}
+.s-spec .anchor .k{font:500 13px/1.5 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0}
+.s-spec .anchor .v{font:400 140px/.9 var(--serif);color:var(--t1);letter-spacing:-.03em;margin:22px 0 0}
+.s-spec .anchor .v small{font-size:.3em;font-style:italic;color:var(--t2);letter-spacing:0}
+.s-spec .anchor p{font:400 23px/1.45 var(--sans);color:var(--t2);margin:24px 0 0}
+.s-spec .anchor p.q3{font:italic 400 30px/1.3 var(--serif);color:var(--gold-2);padding-top:22px;border-top:1px solid var(--line)}
+
+/* $147 to $300 */
+.s-delta .three{display:grid;grid-template-columns:1fr 1fr 1.25fr;margin-top:76px}
+.s-delta .c{padding-right:60px}
+.s-delta .c+.c{border-left:1px solid var(--line);padding-left:60px;padding-right:0}
+.s-delta .c .k{font:500 14px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin:0 0 22px}
+.s-delta .c .v{font:400 140px/.88 var(--serif);color:var(--t1);letter-spacing:-.03em}
+.s-delta .c .v small{font-size:.3em;font-style:italic;color:var(--t2);letter-spacing:0}
+.s-delta .c p{font:400 24px/1.42 var(--sans);color:var(--t2);margin:24px 0 0}
+.s-delta .c.old .v{color:var(--t3)}
+.s-delta .c.win .k{color:var(--gold)}
+.s-delta .c.win .v{color:var(--gold-2)}
+.s-delta .c.win .vs{display:flex;align-items:baseline;gap:22px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+.s-delta .c.win .vs span{font:500 13px/1.4 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.s-delta .c.win .vs b{font:400 64px/1 var(--serif);color:var(--t1);font-weight:400;letter-spacing:-.02em}
+.s-delta .c.win .vs b small{font-size:.4em;font-style:italic;color:var(--t2)}
+
+/* whole offer v2 */
+.s-full2 .content{top:146px;bottom:126px}
+.s-full2 .head{font-size:58px}
+.s-full2 .c-brand{display:none}
+.s-full2 .panes{display:grid;grid-template-columns:1fr 1fr;margin-top:30px}
+.s-full2 .pane{padding-right:54px;display:flex;flex-direction:column}
+.s-full2 .pane+.pane{border-left:1px solid var(--line);padding-left:54px;padding-right:0}
+.s-full2 .ph{font:500 14px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--t3);margin:0 0 14px}
+.s-full2 .li{display:grid;grid-template-columns:1fr auto;gap:26px;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--line-2)}
+.s-full2 .li .n{font:500 24px/1.25 var(--sans);color:var(--t1);letter-spacing:-.01em}
+.s-full2 .li .v{font:400 40px/1 var(--serif);color:var(--t1);white-space:nowrap}
+.s-full2 .li .v small{font-size:.42em;font-style:italic;color:var(--t2)}
+.s-full2 .li.hi .n,.s-full2 .li.hi .v{color:var(--gold-2)}
+.s-full2 .sum{display:grid;grid-template-columns:1fr auto;gap:26px;align-items:baseline;padding-top:14px;border-top:1px solid var(--line-gold);margin-top:18px}
+.s-full2 .sum .l{font:italic 400 25px/1 var(--serif);color:var(--t2)}
+.s-full2 .sum .v{font:400 52px/1 var(--serif);color:var(--gold-2);letter-spacing:-.02em}
+.s-full2 .sum .v small{font-size:.4em;font-style:italic;color:var(--t2)}
+.s-full2 .bar{position:absolute;left:0;right:0;bottom:0;border-top:1px solid var(--gold);padding-top:24px;display:grid;grid-template-columns:auto auto 1fr auto;gap:64px;align-items:end}
+.s-full2 .bar .k{font:500 13px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin:0 0 12px}
+.s-full2 .bar .yp .k{color:var(--gold)}
+.s-full2 .bar .big{font:400 118px/.86 var(--serif);color:var(--t1);letter-spacing:-.03em}
+.s-full2 .bar .big small{font-size:.32em;font-style:italic;color:var(--t2);letter-spacing:0}
+.s-full2 .bar .fy .big{font-size:78px;color:var(--t3)}
+.s-full2 .bar .gr{font:400 21px/1.45 var(--sans);color:var(--t2);max-width:440px;padding-bottom:8px}
+.s-full2 .bar .gr b{color:var(--t1);font-weight:500}
+.s-full2 .join .k{margin-bottom:10px}
+.s-full2 .join .url{font:italic 400 42px/1 var(--serif);color:var(--gold-2)}
+
+/* specialist capacity */
+.s-cap .grid{display:grid;grid-template-columns:520px 1fr;gap:96px;margin-top:64px;align-items:start}
+.s-cap .n{font:400 300px/.82 var(--serif);color:var(--gold-2);letter-spacing:-.04em}
+.s-cap .nl{font:500 15px/1.5 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--t3);margin-top:22px}
+.s-cap .ln{display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--line)}
+.s-cap .ln:first-child{border-top:1px solid var(--line)}
+.s-cap .ln i{font:500 13px/1.5 var(--mono);letter-spacing:.2em;color:var(--gold);font-style:normal}
+.s-cap .ln p{font:400 27px/1.4 var(--sans);color:var(--t2);margin:0}
+.s-cap .ln p b{color:var(--t1);font-weight:500}
+
+/* rail price on the new deck */
+.rail .p small{font-size:.36em}
+
+.s-offer .lead{margin-bottom:56px!important}
+.s-four .c{padding-top:40px;padding-bottom:40px}
+.s-four .c .h{font-size:44px}
+
+</style>
+</head>
+<body>
+
+<div id="stage">
+
+<!-- ═══════════════════════ 01 TITLE ═══════════════════════ -->
+<section class="slide s-title" data-chrome="none">
+  <div class="light"></div>
+  <div class="glow"></div>
+  <img class="photo a" src="assets/johnny-main.png" alt="Johnny Brock" style="animation-delay:.35s">
+  <div class="tb">
+    <div class="kicker a">Johnny Brock &nbsp;·&nbsp; The Real Insurance Group</div>
+    <h1 class="a">The Marketing<br><em>Machine.</em></h1>
+    <p class="sub a">How to market a Medicare business, from the first ad to the renewal.</p>
+  </div>
+  <img class="logo a" src="assets/logo.webp" alt="The Real Insurance Group">
+  <div class="meta a">Live training<br>Marketing masterclass</div>
+  <div class="vr"></div>
+</section>
+
+<!-- ═══════════════════════ 02 BEFORE WE START ═══════════════════════ -->
+<section class="slide" data-kicker="Before we start">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a">Two things, so nobody<br>has to guess.</h1>
+    <div class="cols c2 a big2" style="margin-top:132px">
+      <div class="col">
+        <div class="idx">01</div>
+        <h3>There is an offer.</h3>
+        <p>At the very end I'll show you how we help agents build what I'm about to teach. I'll tell you when it's coming. No tricks, no sneaking up on you.</p>
+      </div>
+      <div class="col">
+        <div class="idx">02</div>
+        <h3>Until then, this is pure marketing.</h3>
+        <p>Who to target, what to say, where to run it, what happens after the click, and how to make every lead worth more. Take it and build it yourself if you want.</p>
+      </div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">SET THE FRAME IN THIRTY SECONDS.
+
+Say both things plainly. The room relaxes when they know where the pitch is.
+
+"There's an offer at the end. I'll tell you when it's coming. Until then, this is marketing. Real marketing. If you never talk to me again after tonight, you should still be able to go build this."
+
+Then go. Don't linger.</script>
+</section>
+
+<!-- ═══════════════════════ 03 WHO'S TALKING ═══════════════════════ -->
+<section class="slide s-who" data-kicker="Who's talking">
+  <div class="light"></div>
+  <div class="pic a"><span class="plate"></span><img src="assets/johnny-event.png" alt="Johnny Brock teaching a room of agents"></div>
+  <div class="txt">
+    <h1 class="head a" style="font-size:80px">I was in the trenches<br>like most of you.</h1>
+    <p class="sub a">Now all I do is market, and train agents to market. Everything tonight comes out of my own ad account.</p>
+    <div class="stats a">
+      <div class="stat"><div class="num"><span class="count" data-to="2020">2020</span></div><div class="label">Started serving boomers</div></div>
+      <div class="stat"><div class="num"><span class="count" data-to="137" data-prefix="$" data-suffix="K">$137K</span></div><div class="label">In my first 15 months</div></div>
+      <div class="stat"><div class="num"><span class="count" data-to="4000" data-suffix="+" data-comma="1">4,000+</span></div><div class="label">Policies submitted</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ 04 WHY MEDICARE MARKETING ═══════════════════════ -->
+<section class="slide s-why" data-kicker="Why this is worth learning">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a">Why Medicare is worth<br>marketing <em>properly.</em></h1>
+    <div class="cols c4 a">
+      <div class="col frag"><div class="num"><span class="count" data-to="11000" data-comma="1">11,000</span></div><h3>Turn 65 every day</h3><p>A conveyor belt of people who have to make a decision, and can't make it alone.</p></div>
+      <div class="col frag"><div class="num">Stay</div><h3>They don't churn</h3><p>Medicare clients stay with the person who helped them. Every client renews.</p></div>
+      <div class="col frag"><div class="num">More</div><h3>They need more</h3><p>Dental, hospital, cancer, home health, life. One relationship, many policies.</p></div>
+      <div class="col frag"><div class="num">Refer</div><h3>They talk</h3><p>Their friends are turning 65 too. A happy client is your cheapest lead.</p></div>
+    </div>
+    <div class="foot2 frag">That's the last slide about <span>why.</span> Everything after this is <span>how.</span></div>
+  </div>
+<script type="text/plain" class="notes">ONE SLIDE ON WHY. THAT'S ALL.
+
+This room already sells Medicare. Don't spend ten minutes convincing them it's a good business.
+
+Walk the four fast: they have to choose, they stay, they need more, they refer. Then the line at the bottom, word for word:
+
+"That's the last slide about why. Everything after this is how."
+
+It tells them you respect their time and that the meat is coming.</script>
+</section>
+
+<!-- ═══════════════════════ 05 THE FRAMEWORK ═══════════════════════ -->
+<section class="slide s-five" data-kicker="Tonight's framework">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:80px">The Medicare Marketing Machine<br>has <em>five parts.</em></h1>
+    <div class="rows a">
+      <div class="fr5 frag"><i>01</i><h3>Market</h3><p>Who, exactly, are you going after?</p></div>
+      <div class="fr5 frag"><i>02</i><h3>Message</h3><p>What makes that person stop and care?</p></div>
+      <div class="fr5 frag"><i>03</i><h3>Media</h3><p>How do you put it in front of them?</p></div>
+      <div class="fr5 frag"><i>04</i><h3>Mechanism</h3><p>What gets them to raise their hand and book?</p></div>
+      <div class="fr5 frag"><i>05</i><h3>Monetization</h3><p>What happens after the lead comes in?</p></div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">THE SPINE OF THE WHOLE NIGHT.
+
+Reveal one at a time and say the question out loud.
+
+Then: "Most agents only ever work on one of these, usually media. They boost a post, the leads feel bad, and they decide Facebook doesn't work. It wasn't Facebook. It was the other four."
+
+Tell them you'll come back to this slide. Every section from here has the number in the corner.</script>
+</section>
+
+<!-- ═══════════════════════ 06 MARKET · ONE PERSON ═══════════════════════ -->
+<section class="slide s-seg" data-kicker="01 · Market">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a">“I sell Medicare” is <em>not a market.</em></h1>
+    <p class="sub a">Pick one person. The more specific the person, the easier the message gets.</p>
+    <div class="two a">
+      <div class="ledger">
+        <div class="row frag"><div class="t">Turning 65</div><div class="d">The biggest list, and the most crowded one in the business.</div></div>
+        <div class="row frag"><div class="t">Delayed Part B</div><div class="d">Still working past 65. Retiring confused.</div></div>
+        <div class="row frag"><div class="t">Supplement only</div><div class="d">They don't want an Advantage pitch. They want Plan G or N.</div></div>
+      </div>
+      <div class="ledger">
+        <div class="row frag"><div class="t">Chronic / SNP</div><div class="d">Heart conditions, diabetes. Almost nobody speaks to them.</div></div>
+        <div class="row frag"><div class="t">Dental first</div><div class="d">An easy front door. The Medicare talk comes later.</div></div>
+        <div class="row frag hi"><div class="t">Your own book</div><div class="d">The cheapest lead you will ever get. You already paid for it.</div></div>
+      </div>
+    </div>
+    <div class="foot2 frag">One campaign. <span>One person.</span> One problem.</div>
+  </div>
+<script type="text/plain" class="notes">MARKET: PICK ONE PERSON.
+
+"When somebody asks what you do and you say 'I sell Medicare,' you just described every agent in the country. That's not a market. That's a license."
+
+Walk the six. Spend a beat on the last one: "Your own book is the cheapest lead you'll ever get. You already paid for it. Most of you have never run a single campaign to it."
+
+The rule: one campaign, one person, one problem. If an ad is trying to talk to turning-65 AND supplement AND dental, it's talking to nobody.</script>
+</section>
+
+<!-- ═══════════════════════ 07 MARKET · NOBODY IS CALLING ═══════════════════════ -->
+<section class="slide s-groups" data-kicker="01 · Market">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a">Three groups almost nobody is calling.</h1>
+    <p class="sub a">Everybody fights over the same Turning 65 list. Here's who's sitting right next to it.</p>
+    <div class="cols c3 a" style="margin-top:44px">
+      <div class="col g frag"><div class="num"><span class="count" data-to="11.6" data-decimals="1" data-suffix="M">11.6M</span></div><h3>Delayed Part B</h3><p>Nearly 1 in 5 Americans 65+ is still working. Most pushed Part B off two, three, five years ago. Every one of them lands on Medicare eventually, confused, and nobody is calling them.</p></div>
+      <div class="col g frag"><div class="num"><span class="count" data-to="42" data-suffix="%">42%</span></div><h3>Chronic Turning 65</h3><p>42% of Medicare beneficiaries 65+ have at least one heart condition, and 1 in 4 has diabetes. Those are the diagnoses that qualify for a Chronic SNP, and almost nobody markets to them.</p></div>
+      <div class="col g frag"><div class="num"><span class="count" data-to="28.7" data-decimals="1" data-suffix="M">28.7M</span></div><h3>Supplement-only</h3><p>They don't want an Advantage pitch. They want a supplement. Build the campaign for them.</p></div>
+    </div>
+    <div class="close frag">
+      <p class="big">Those are three examples. There are dozens.</p>
+      <p>The shortage isn't people. It's creativity. Creative marketing is what wins on cost per lead, cost per acquisition, and pre-booked appointments.</p>
+      <div class="src">Sources: Bureau of Labor Statistics 2025 · CMS Medicare Current Beneficiary Survey · CDC · KFF 2025</div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">THERE IS NO SHORTAGE OF PEOPLE
+
+Every agent on this call is fighting over the exact same T65 list, and it's the most expensive list in the business. Here are three groups sitting right there.
+
+1. DELAYED PART B - 11.6 million. Nearly one in five Americans over 65 is still working. They pushed Part B off two, three, five years ago. When they finally retire they come onto Medicare totally lost, and nobody has been calling them. Ask the room: how many of you have ever run a campaign for someone who delayed Part B? Almost no hands.
+
+2. CHRONIC T65 - 42% have a heart condition, one in four has diabetes. Speak to the heart patient and the diabetic and you're speaking to almost everybody.
+
+3. SUPPLEMENT-ONLY - 28.7 million on Original Medicare. A whole audience that does not want an Advantage pitch.
+
+THE CLOSE: "Those are three examples. There are dozens." The shortage was never people. It's creativity.
+
+Sources if asked: BLS 2025, CDC/NCHS, KFF and CMS 2025 enrollment.</script>
+</section>
+
+<!-- ═══════════════════════ 08 MESSAGE · FOUR PARTS ═══════════════════════ -->
+<section class="slide s-hppc" data-kicker="02 · Message">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a">Every ad that works has<br>the same <em>four parts.</em></h1>
+    <div class="cols c4 a">
+      <div class="col frag"><span class="idx">01</span><h3>Hook</h3><p>Call out the exact person. If they don't feel spoken to in one line, they scroll.</p><p class="ex">“Turning 65 this year?”</p></div>
+      <div class="col frag"><span class="idx">02</span><h3>Problem</h3><p>Name the thing they're confused or worried about, in their words, not yours.</p><p class="ex">“Three decisions, one deadline.”</p></div>
+      <div class="col frag"><span class="idx">03</span><h3>Promise</h3><p>Tell them what they'll learn or get. Education, not a pitch.</p><p class="ex">“Here's what to do before your birthday month.”</p></div>
+      <div class="col frag"><span class="idx">04</span><h3>Call to action</h3><p>One simple next step. Never two.</p><p class="ex">“Get the checklist.”</p></div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">MESSAGE: HOOK, PROBLEM, PROMISE, CTA.
+
+Teach this slowly. This is the slide people screenshot.
+
+HOOK: call out the person. "Turning 65 in [your city]?" Say it live with your own city if you want: "Turning 65 in [city]?" If they don't feel spoken to in one line, they're gone.
+
+PROBLEM: in their words. They don't say "MAPD enrollment period." They say "I don't know what I'm supposed to do."
+
+PROMISE: education, not a pitch. This is the condition from the old days: if your marketing is benefit-driven, you lose. Lead with what they'll learn.
+
+CTA: one step. Not "call, text, or visit our website." One.
+
+COMPLIANCE: remind them every ad goes past their compliance rules before it runs.</script>
+</section>
+
+<!-- ═══════════════════════ 09 MESSAGE · BAD VS BETTER ═══════════════════════ -->
+<section class="slide s-adx" data-kicker="02 · Message">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:72px">Same budget. Same audience. <em>Different ad.</em></h1>
+    <div class="pair a">
+      <div class="bad frag">
+        <p class="lab">The ad most agents run</p>
+        <div class="ad">
+          <div class="pg"><i></i><div><b>Your Agency</b><span>Sponsored</span></div></div>
+          <p class="tx">Need help with Medicare? Our licensed agents can help! Call us today for a free quote.</p>
+          <div class="vis">Stock photo of a smiling couple</div>
+          <div class="ft"><span>yourAgency.com</span><u>Call Now</u></div>
+        </div>
+        <div class="why">
+          <p><b>Hook</b>Talks to nobody in particular</p>
+          <p><b>Promise</b>A quote. Every agent offers a quote.</p>
+          <p><b>CTA</b>A phone call with a stranger. The scariest ask there is.</p>
+        </div>
+      </div>
+      <div class="good frag">
+        <p class="lab">The ad that books calls</p>
+        <div class="ad">
+          <div class="pg"><i></i><div><b>Your Agency</b><span>Sponsored</span></div></div>
+          <p class="tx">Turning 65 this year? There are 3 Medicare decisions you have to make before your birthday month, and most people find out about the third one too late.</p>
+          <div class="vis">The 3 Medicare Decisions Before You Turn 65</div>
+          <div class="ft"><span>Free checklist · 2 minutes</span><u>Get The Checklist</u></div>
+        </div>
+        <div class="why">
+          <p><b>Hook</b>Calls out the exact person and the timing</p>
+          <p><b>Problem</b>Three decisions and a deadline they didn't know about</p>
+          <p><b>CTA</b>Something small and useful. The call comes after.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">BAD AD VS BETTER AD.
+
+Show the left one first and ask the chat: "Who's run this ad?" Hands will go up. That's fine, everyone has.
+
+Then pull it apart: it talks to nobody, it promises a quote (every agent on earth offers a quote), and the CTA is a phone call with a stranger. That's the highest-friction ask you can make.
+
+Then the right one. Same budget, same audience. It calls out the person and the city, names a problem with a deadline, and asks for something small and useful. The phone call happens after they've already gotten value from you.
+
+"The ad doesn't sell the policy. The ad sells the next step."</script>
+</section>
+
+<!-- ═══════════════════════ 10 MESSAGE · FOUR AUDIENCES ═══════════════════════ -->
+<section class="slide s-four" data-kicker="02 · Message">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:76px">Same formula. Four different people.</h1>
+    <p class="sub a" style="font-size:26px;margin-top:20px">Every one of these is a campaign type running in the account I'm about to show you.</p>
+    <div class="grid a">
+      <div class="c frag"><p class="k">Delayed Part B</p><p class="h">“Still working past 65? Here's what happens to your Part B the day you retire.”</p><p class="w">Hook: still working. Problem: the retirement gap nobody explained.</p></div>
+      <div class="c frag"><p class="k">Supplement only</p><p class="h">“Already on Original Medicare? See how Plan G and Plan N actually compare.”</p><p class="w">Hook: already on Medicare. Promise: a straight comparison, no Advantage pitch.</p></div>
+      <div class="c frag"><p class="k">Dental</p><p class="h">“On Medicare and still paying full price at the dentist?”</p><p class="w">Hook and problem in one line. The front door to the whole relationship.</p></div>
+      <div class="c frag"><p class="k">Webinar</p><p class="h">“A 30-minute Medicare class this Thursday. Bring your questions.”</p><p class="w">Promise: education. CTA: register. You teach, they book.</p></div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">SAME FORMULA, FOUR PEOPLE.
+
+The point: you don't need to be a copywriter. You need the formula and one person.
+
+Read each headline, then point at the line underneath that shows which part is doing the work.
+
+Tie it forward: "Part B Delay, Plan N, dental, webinar. Remember those words. You're about to see them in my ad account."
+
+Johnny: if you have the real ad copy for any of these, swap it in. The real headline always beats the example.</script>
+</section>
+
+<!-- ═══════════════════════ 11 MEDIA · THE 20% ═══════════════════════ -->
+<section class="slide s-media" data-kicker="03 · Media">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:80px">Facebook ads: the 20%<br>that actually <em>matters.</em></h1>
+    <div class="ledger a">
+      <div class="row frag"><div class="t">Objective</div><div class="d">Leads. You want a name and a phone number, not likes.</div></div>
+      <div class="row frag"><div class="t">Audience</div><div class="d">Your licensed states. Go broad and let the hook pick the person.</div></div>
+      <div class="row frag"><div class="t">Creative</div><div class="d">Static images and short video. Run three to five angles at once.</div></div>
+      <div class="row frag"><div class="t">Budget</div><div class="d">Start with a daily budget you can leave alone for a full week.</div></div>
+      <div class="row frag"><div class="t">Patience</div><div class="d">Don't touch it for 72 hours. Judge on numbers, not feelings.</div></div>
+      <div class="row frag"><div class="t">Metrics</div><div class="d">Cost per lead first. Then cost per booked appointment, which is the one that pays you.</div></div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">MEDIA: THE 20% THAT MATTERS.
+
+Don't teach every button in Ads Manager. Teach the six decisions.
+
+OBJECTIVE: leads. Not engagement, not traffic.
+AUDIENCE: licensed states, go broad. The hook does the targeting now, not the interest boxes.
+CREATIVE: statics and short video, three to five angles at once.
+BUDGET: something you can leave alone for a week. Johnny: say your real starting number here.
+PATIENCE: 72 hours. The number-one way agents kill a good ad is touching it on day one.
+METRICS: cost per lead, then cost per BOOKED appointment. A $4 lead that never books is more expensive than a $12 lead that does.
+
+Then: "Let me show you what this looks like in a real account."</script>
+</section>
+
+<!-- ═══════════════════════ 12 MEDIA · THE AD ACCOUNT ═══════════════════════ -->
+<section class="slide s-ads" data-kicker="03 · Media · The proof">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:64px">Here's the account. Now let me show you what built it.</h1>
+    <p class="sub a" style="margin-top:12px;font-size:24px">Straight out of Ads Manager. A mix of webinars, Medicare Supplement and dental.</p>
+    <div class="stats a">
+      <div class="s"><div class="num"><span class="count" data-to="5.92" data-prefix="$" data-decimals="2">$5.92</span></div><div class="label">Average cost per lead</div></div>
+      <div class="s"><div class="num"><span class="count" data-to="15136" data-prefix="$" data-comma="1">$15,136</span></div><div class="label">Total ad spend</div></div>
+      <div class="s"><div class="num"><span class="count" data-to="2558" data-comma="1">2,558</span></div><div class="label">Leads generated</div></div>
+    </div>
+    <div class="frame live a">
+      <div class="bar"><i></i><i></i><i></i><span>Ads Manager · The Real Insurance Group</span></div>
+      <video muted loop playsinline preload="auto" poster="assets/ads-account-poster.jpg" src="assets/ads-account.mp4" style="padding-top:34px"></video>
+    </div>
+  </div>
+<script type="text/plain" class="notes">THE AD ACCOUNT. PROOF, THEN LESSON.
+
+$5.92 average cost per lead. $15,136 spend. 2,558 leads.
+
+Don't say "look how great we are." Say: "Here's the account. Here's the number. Now let me show you what created it."
+
+Ask the chat what they pay per lead right now. Let them type. The numbers will be two to five times this.
+
+This is spend across a long window, not one month. If asked, say so plainly.</script>
+</section>
+
+<!-- ═══════════════════════ 13 MEDIA · WHAT BUILT IT ═══════════════════════ -->
+<section class="slide s-built2" data-kicker="03 · Media · The lesson">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:80px">What built <em>$5.92</em> a lead.</h1>
+    <div class="grid a">
+      <div class="names frag">
+        <p class="k">Ad names, straight from that account</p>
+        <div class="n">Part B Delay <span>Market</span></div>
+        <div class="n">Plan N Focus Re-write <span>Market</span></div>
+        <div class="n">Static Best Rates <span>Message</span></div>
+        <div class="n">VSL 1 <span>Format</span></div>
+        <div class="n">Webinar On Demand <span>Mechanism</span></div>
+        <div class="n">Static 2 <span>Test</span></div>
+      </div>
+      <div class="rules">
+        <div class="r frag"><i>01</i><div><b>Many angles at once</b><span>Different people, different hooks, different formats. You never know which one wins until it runs.</span></div></div>
+        <div class="r frag"><i>02</i><div><b>Some ads lose</b><span>Individual ads in that account cost $15 and $23 a lead. That's normal. That's the test.</span></div></div>
+        <div class="r frag"><i>03</i><div><b>Kill, then feed</b><span>Turn off what doesn't work. Move the money to what does. Every week.</span></div></div>
+        <div class="r frag"><i>04</i><div><b>The average is the skill</b><span>$5.92 isn't one lucky ad. It's what's left after you cut the losers.</span></div></div>
+      </div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">WHAT BUILT $5.92. THE HONEST VERSION.
+
+Point at the ad names on the left. Every one maps back to the framework: Part B Delay is a market. Plan N is a market. Webinar on Demand is a mechanism.
+
+Then say the thing other gurus hide: "Some of these ads cost fifteen, twenty-three dollars a lead. I lost money on them. The average is $5.92 because I killed those and fed the ones that worked. That IS the skill."
+
+This builds more trust than any screenshot of a winner.</script>
+</section>
+
+<!-- ═══════════════════════ 14 MECHANISM · AFTER THE CLICK ═══════════════════════ -->
+<section class="slide" data-kicker="04 · Mechanism">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a">What happens <em>after the click.</em></h1>
+    <p class="sub a">Most agents stop thinking at the ad. This is where the money is actually made or lost.</p>
+    <div class="flow a">
+      <div class="n frag"><div class="dot">01</div><h3>Ad</h3><p>One person, one promise.</p></div>
+      <div class="n frag"><div class="dot">02</div><h3>Landing page</h3><p>Repeats the promise. One button.</p></div>
+      <div class="n frag"><div class="dot">03</div><h3>Form</h3><p>Name, phone, email, one question.</p></div>
+      <div class="n frag"><div class="dot">04</div><h3>Thank-you page</h3><p>Not “thanks.” “Book your time.”</p></div>
+      <div class="n frag"><div class="dot">05</div><h3>Calendar</h3><p>They pick the time. You don't chase.</p></div>
+      <div class="n frag"><div class="dot">06</div><h3>Text + email</h3><p>Fires in minutes, automatically.</p></div>
+      <div class="n frag"><div class="dot">07</div><h3>Appoint&shy;ment</h3><p>A conversation they asked for.</p></div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">MECHANISM: THE PATH AFTER THE CLICK.
+
+Walk it left to right like you're the senior clicking the ad.
+
+"They see the ad. They land on a page that repeats exactly what the ad promised. One button. They fill out a short form. The thank-you page doesn't say thanks, it says book your time now. They pick a time on your calendar. A text and an email hit their phone in minutes. And now you have a conversation they asked for."
+
+The point: every arrow is a place you can lose them. The next slide is what each page has to do.</script>
+</section>
+
+<!-- ═══════════════════════ 15 MECHANISM · PAGE JOBS ═══════════════════════ -->
+<section class="slide s-jobs" data-kicker="04 · Mechanism">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:80px">Every page has <em>one job.</em></h1>
+    <div class="ledger a">
+      <div class="row frag"><div class="t">Landing page</div><div class="d">Say the same thing the ad said. <b>One promise, one button,</b> nothing to click away to.</div></div>
+      <div class="row frag"><div class="t">Form</div><div class="d">Name, phone, email, and one qualifying question. <b>Every extra field costs you leads.</b></div></div>
+      <div class="row frag"><div class="t">Thank-you page</div><div class="d">Don't celebrate. <b>Ask them to book while they're still warm.</b></div></div>
+      <div class="row frag"><div class="t">Calendar</div><div class="d">Show the next few days only. <b>The further out the call, the more no-shows.</b></div></div>
+      <div class="row frag"><div class="t">Confirmation</div><div class="d">Text them right away, from your number, <b>so they know who's calling.</b></div></div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">EVERY PAGE HAS ONE JOB.
+
+These are the questions agents always ask: how many fields, phone first, what goes on the thank-you page. Answer them straight.
+
+Johnny: these are the standard answers. If your numbers say different (for example, you ask for phone first on purpose), say yours. Your version beats the generic one.
+
+Biggest one to land: the thank-you page. "Ninety percent of agents put 'Thanks, we'll be in touch' on the thank-you page. That is the warmest that lead will ever be, and you just sent them away."</script>
+</section>
+
+<!-- ═══════════════════════ 16 MECHANISM · BUILT (VIDEO) ═══════════════════════ -->
+<section class="slide s-vid" data-kicker="04 · Mechanism · Built">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:72px">This is what it looks like built.</h1>
+    <p class="sub a" style="margin-top:16px;font-size:26px">The same seven steps, live in an account. Pages in front, automations behind.</p>
+    <div style="position:relative;margin-top:40px;height:600px">
+      <div class="frame live a">
+        <div class="bar"><i></i><i></i><i></i><span>Real CRM · Workflows</span></div>
+        <video muted loop playsinline preload="auto" poster="assets/crm-workflows-poster.jpg" src="assets/crm-workflows.mp4" style="transform:scale(1.16);transform-origin:50% 45%"></video>
+      </div>
+      <div class="pts a">
+        <div class="row"><h4>Four pages</h4><p>Registration, thank-you, booking, confirmation.</p></div>
+        <div class="row"><h4>Automations behind them</h4><p>The text four minutes after someone registers. The reminder the night before.</p></div>
+        <div class="row"><h4>Nothing depends on memory</h4><p>It fires whether you're at your desk or at a kitchen table.</p></div>
+      </div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">VIDEO: CRM WORKFLOWS (silent, loops)
+
+LIVE NARRATION:
+"This is the same path, built. Here are the automations: reminders, follow-up, the no-show sequence. This is the funnel: registration, thank-you, booking, confirmation. All four. Nothing on this screen depends on me remembering to do it."
+
+Don't sell it here. You're showing what good looks like. The offer comes later.</script>
+</section>
+
+<!-- ═══════════════════════ 17 FOLLOW-UP · STATEMENT ═══════════════════════ -->
+<section class="slide s-state paper" data-kicker="">
+  <div class="light"></div>
+  <h1 class="head a">Your ad doesn't make you money.<br><em>Your follow-up does.</em></h1>
+<script type="text/plain" class="notes">SAY IT, THEN STOP.
+
+"Your ad doesn't make you money. Your follow-up does."
+
+Pause. Let it sit. Most agents think marketing ends when the lead comes in. This is the moment that belief breaks.</script>
+</section>
+
+<!-- ═══════════════════════ 18 FOLLOW-UP · THE SCHEDULE ═══════════════════════ -->
+<section class="slide" data-kicker="05 · Monetization · Follow-up">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a">The follow-up schedule<br>most agents <em>skip.</em></h1>
+    <div class="tl6 a">
+      <div class="s frag"><p class="w">First 5 minutes</p><h3>Call</h3><p>Then text if they don't pick up. They still remember filling it out.</p></div>
+      <div class="s frag"><p class="w">First 24 hours</p><h3>Touch again</h3><p>Call, text, email. One attempt is not follow-up.</p></div>
+      <div class="s frag"><p class="w">Days 2 to 7</p><h3>Nurture</h3><p>Answer the questions they were scared to ask.</p></div>
+      <div class="s frag"><p class="w">No-show</p><h3>Recover</h3><p>Text within minutes. “Still want to talk? Pick a new time.”</p></div>
+      <div class="s frag"><p class="w">90 days</p><h3>Stay close</h3><p>For the ones who weren't ready yet. Most of them will be.</p></div>
+      <div class="s frag"><p class="w">Old leads</p><h3>Reactivate</h3><p>The list you already paid for. Run a campaign to it.</p></div>
+    </div>
+    <div class="foot2 frag">None of this should depend on <span>you remembering.</span></div>
+  </div>
+<script type="text/plain" class="notes">THE FOLLOW-UP SCHEDULE.
+
+Walk all six, but land three:
+
+FIVE MINUTES: "If you call them back tomorrow, you're calling a stranger. Five minutes, they still remember filling out the form."
+
+NO-SHOW: "Half your no-shows will rebook if you just text them in the first few minutes. Most agents never send that text."
+
+OLD LEADS: "Every one of you has a list of leads you paid for and gave up on. That's not a dead list. That's a campaign you haven't run yet."
+
+Close with the bottom line: none of this should depend on you remembering. That's the bridge to the backend.</script>
+</section>
+
+<!-- ═══════════════════════ 19 MONETIZATION · UNIT ECONOMICS ═══════════════════════ -->
+<section class="slide s-econ" data-kicker="05 · Monetization · The math">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:76px">Know five numbers and you know<br>what a lead is <em>worth.</em></h1>
+    <div class="grid a">
+      <div class="rec">
+        <div class="row frag"><div class="t">100 leads at $5.92</div><div class="r">CPL</div><div class="p">$592</div></div>
+        <div class="row frag"><div class="t">Book an appointment</div><div class="r">30%</div><div class="p">30</div></div>
+        <div class="row frag"><div class="t">Show up</div><div class="r">70%</div><div class="p">21</div></div>
+        <div class="row frag"><div class="t">Become a client</div><div class="r">40%</div><div class="p">8</div></div>
+        <div class="row frag"><div class="t">Medicare Advantage, year one</div><div class="r">× $694</div><div class="p">$5,552</div></div>
+        <div class="tot frag"><div class="t">What it cost you<br>to get each client</div><div class="p">$74</div></div>
+        <p class="ex">Example rates. Plug in your own.</p>
+      </div>
+      <div class="aside">
+        <p class="frag"><b>Most agents can't answer one of these five.</b> So they guess, and a $12 lead feels expensive.</p>
+        <p class="frag">If a client is worth $694 on day one and costs you $74 to get, <b>you can afford to pay a lot more for a lead than you think.</b></p>
+        <div class="go frag">And that's before <span>the cross-sell.</span></div>
+      </div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">UNIT ECONOMICS. THE MOST VALUABLE SLIDE TONIGHT.
+
+Say clearly: these are EXAMPLE rates. Their numbers will be different. The point is the method.
+
+Walk it: "A hundred leads at $5.92 is $592. Thirty percent book. Seventy percent of those show. Forty percent of those become clients. That's eight clients. At $694 first-year on Medicare Advantage, that's $5,552. So each client cost you about seventy-four dollars."
+
+Then the turn: "When you know this, you stop asking 'is $12 a lead expensive?' and start asking 'what can I afford to pay for a client?' That one question changes everything."
+
+Johnny: if you want, swap in your own real rates. Real beats example every time.
+
+$694 is the same MA number from the one-client slide that comes next.</script>
+</section>
+
+<!-- ═══════════════════════ 20 MONETIZATION · ONE CLIENT ═══════════════════════ -->
+<section class="slide s-one" data-kicker="05 · Monetization">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a">What one client is actually worth.</h1>
+    <p class="sub a">The lead cost $74. Watch what the same person is worth when you do it right.</p>
+    <div class="rec a">
+      <div class="row frag"><div class="t">Medicare Advantage</div><div class="p">$694</div></div>
+      <div class="row frag"><div class="t">Hospital Indemnity</div><div class="p">$400</div></div>
+      <div class="row frag"><div class="t">Critical Illness</div><div class="p">$600</div></div>
+      <div class="row frag"><div class="t">Home Health Care</div><div class="p">$350</div></div>
+      <div class="tot frag"><div class="t">Year one, or built over time,<br>from a single client.</div><div class="p">$2,000<span style="font-size:.55em">+</span></div></div>
+    </div>
+    <div class="aside frag">
+      <p><b style="color:var(--t1);font-weight:500">And it renews.</b> Medicare $347 + Hospital $72 every year after. The stack never stops paying.</p>
+      <div class="go">The cross-sell is a script.<br>Here it is.</div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">ONE CLIENT.
+
+Connect it to the last slide: "The lead cost seventy-four dollars. Here's what the same person is worth when you don't stop at the Medicare."
+
+Reveal the stack line by line. $2,000+.
+
+"And it renews. That's what your marketing is really buying. Not a policy. A relationship."
+
+Then go straight to the script.</script>
+</section>
+
+<!-- ═══════════════════════ 21 MONETIZATION · THE SCRIPT ═══════════════════════ -->
+<section class="slide s-script" data-kicker="05 · Monetization · The cross-sell">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:76px">The conversation, word for word.</h1>
+    <p class="open a">“Mrs. Jones, we wrote this Medicare Advantage plan for you in October, but there's some out-of-pocket exposure we never addressed. Can you grab a pen and paper for me?”</p>
+    <div class="grid a">
+      <div class="frag">
+        <div class="idx" style="margin-bottom:22px">02 &nbsp;·&nbsp; Have them write these down</div>
+        <div class="list">
+          <div class="row"><div>Max out of pocket</div><span>$7,000</span></div>
+          <div class="row"><div>Inpatient costs</div><span>roughly $2,000&ndash;$3,000</span></div>
+          <div class="row"><div>Cancer</div><span>20%, always</span></div>
+          <div class="row"><div>Rehab co-pays</div><span>they stack up fast</span></div>
+        </div>
+        <p class="ask">Then ask: <span>“Can you afford all of those bills?”</span></p>
+      </div>
+      <div class="frag">
+        <div class="idx" style="margin-bottom:22px">03 &nbsp;·&nbsp; Then give them three ways to cover it</div>
+        <div class="list tier">
+          <div class="row"><b>GOLD</b><div>Critical Illness + Hospital</div></div>
+          <div class="row"><b>SILVER</b><div>Critical Illness</div></div>
+          <div class="row"><b>BRONZE</b><div>Hospital + cancer benefit</div></div>
+        </div>
+        <p class="ask">Then ask: <span>“Which one works to complete your portfolio?”</span></p>
+      </div>
+    </div>
+    <div class="note frag">You can do this on the original call, or wait until your first follow-up call.</div>
+  </div>
+<script type="text/plain" class="notes">THE CROSS-SELL CONVERSATION. Teach this, don't rush it.
+
+1. THE OPENER. You name the month. "We wrote this in October." It proves you remember them. "Grab a pen and paper" is the trick: the moment they're writing, they're doing the work.
+
+2. THE LIST. Let them write their own numbers. Cancer is 20% and it is ALWAYS 20%. Walk the rehab co-pays out loud.
+
+3. THE QUESTION. "Can you afford all of those bills?" Then stop talking.
+
+4. THE PACKAGES. Always a choice between three. Gold, Silver, Bronze.
+
+5. THE CLOSE. "Which one works to complete your portfolio?" Not "do you want one." Which one.
+
+TELL THEM: run this on your existing book this week. No ad spend needed. That's the money that funds your marketing.</script>
+</section>
+
+<!-- ═══════════════════════ 22 THE BACKEND ═══════════════════════ -->
+<section class="slide s-leak" data-kicker="The backend">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:72px">The front end gets the lead.<br><em>The back end decides what it's worth.</em></h1>
+    <div class="two a">
+      <div class="ledger">
+        <div class="row frag"><div class="t">Pipeline</div><div class="d">Where every lead sits. Without it, you forget people.</div></div>
+        <div class="row frag"><div class="t">Nurture</div><div class="d">The texts and emails that build trust before the call.</div></div>
+        <div class="row frag"><div class="t">Reminders</div><div class="d">The difference between a booked call and a held call.</div></div>
+        <div class="row frag"><div class="t">No-show recovery</div><div class="d">Half of them come back if somebody asks.</div></div>
+      </div>
+      <div class="ledger">
+        <div class="row frag"><div class="t">Long-term follow-up</div><div class="d">Ninety days, for the ones who weren't ready.</div></div>
+        <div class="row frag"><div class="t">Reactivation</div><div class="d">Campaigns to the list you already paid for.</div></div>
+        <div class="row frag"><div class="t">Cross-sell</div><div class="d">The follow-up call where the $2,000 happens.</div></div>
+        <div class="row frag"><div class="t">Referral</div><div class="d">Asking, on a schedule, instead of hoping.</div></div>
+      </div>
+    </div>
+    <div class="foot2 frag">Miss any one of these and <span>you're leaking money you already paid for.</span></div>
+  </div>
+<script type="text/plain" class="notes">THE BACKEND.
+
+"Most agents put all their energy into getting the lead. The front end. But the front end only gets you the opportunity. The back end decides what that opportunity is worth."
+
+Walk the eight fast. Each one is a leak. Then:
+
+"If you're missing any one of these, you're paying for leads and pouring them into a bucket with a hole in it."
+
+This is where GoHighLevel finally makes sense to them, and you haven't pitched it once.</script>
+</section>
+
+<!-- ═══════════════════════ 23 THE WHOLE MACHINE ═══════════════════════ -->
+<section class="slide" data-kicker="The whole machine">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a">This is Medicare <em>marketing.</em></h1>
+    <div class="mach a">
+      <div class="rowm">
+        <div class="m frag"><i>01</i><h3>Market</h3><span class="ar">→</span></div>
+        <div class="m frag"><i>02</i><h3>Ad</h3><span class="ar">→</span></div>
+        <div class="m frag"><i>03</i><h3>Funnel</h3><span class="ar">→</span></div>
+        <div class="m frag"><i>04</i><h3>Follow-up</h3><span class="ar">→</span></div>
+        <div class="m frag"><i>05</i><h3>Appoint&shy;ment</h3><span class="ar">↓</span></div>
+      </div>
+      <div class="rowm">
+        <div class="m frag"><i>06</i><h3>Sale</h3><span class="ar">→</span></div>
+        <div class="m frag"><i>07</i><h3>Cross-sell</h3><span class="ar">→</span></div>
+        <div class="m frag"><i>08</i><h3>Renewal</h3><span class="ar">→</span></div>
+        <div class="m frag loop"><i>09</i><h3>Referral</h3><span class="ar">↺</span></div>
+      </div>
+    </div>
+    <div class="foot2 frag">Not just Facebook ads. Not just a funnel. Not just a CRM. <span>The whole machine.</span></div>
+  </div>
+<script type="text/plain" class="notes">THE WHOLE MACHINE.
+
+Reveal each one and name it. Then the loop: "Referral feeds the market. That's why it's a machine, not a campaign."
+
+Then the line at the bottom: "Not just Facebook ads. Not just a funnel. Not just a CRM. The whole machine. That's Medicare marketing."
+
+This is the end of the teaching. Next slide is proof.</script>
+</section>
+
+<!-- ═══════════════════════ 24 PROOF ═══════════════════════ -->
+<section class="slide s-proof" data-kicker="Real members · Real results">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:66px">Agents who built<br>the machine.</h1>
+    <div class="grid a">
+      <div class="c frag">
+        <div class="big"><span class="count" data-to="10000" data-prefix="$" data-comma="1">$10,000</span></div>
+        <p class="cap">In about six weeks, June to mid-July, just by following the coaching in the community.</p>
+        <p class="qt">“I'm amazed how much Johnny Brock changed my entire business. <b>He made me roughly $10,000 from June to the middle of July</b>, and I've not even scratched the surface yet.”</p>
+        <div class="who"><i></i><span>Jill Coates</span></div>
+      </div>
+      <div class="c b frag">
+        <div class="big">Full<br>calendar</div>
+        <p class="cap">Year-round, from a standing start.</p>
+        <p class="qt">“After joining Johnny and the Real Insurance Group, I started running Facebook ads, hired a virtual assistant, and now have a full calendar year-round. I completely changed how I market my business and <b>finally have a system to scale</b>.”</p>
+        <div class="who"><i></i><span>Mindy Baron</span></div>
+      </div>
+      <div class="c b frag">
+        <div class="big">Secret<br>weapon</div>
+        <p class="cap">In his own words.</p>
+        <p class="qt">“In the wild world of Medicare, <b>Johnny Brock is my secret weapon.</b> His creative ideas are above par. His energy can power AEP by itself, and his honesty keeps me grounded and growing the right way.”</p>
+        <div class="who"><i></i><span>Thomas Key</span></div>
+      </div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">PROOF, BEFORE THE OFFER.
+
+This moved up on purpose. They should see that real agents did this before they hear a single price.
+
+JILL: ten grand in about six weeks, following the coaching.
+MINDY: started running Facebook ads, hired a VA, full calendar year-round. "Finally have a system to scale." That's the machine.
+THOMAS: in his own words.
+
+Keep it short. Then go to the three things.</script>
+</section>
+
+<!-- ═══════════════════════ 25 THREE THINGS ═══════════════════════ -->
+<section class="slide s-three3" data-kicker="So what does it take">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a">To run this machine,<br>you need <em>three things.</em></h1>
+    <div class="cols c3 a">
+      <div class="col frag"><span class="idx">01</span><h3>The Marketing</h3><p>Knowing how to create the opportunity. Everything I taught you tonight.</p></div>
+      <div class="col frag"><span class="idx">02</span><h3>The System</h3><p>The infrastructure that catches it, follows up, and turns it into a client.</p></div>
+      <div class="col frag hl"><span class="idx">03</span><h3>The Building</h3><p>Somebody who actually gets the thing built and connected.</p></div>
+    </div>
+    <div class="foot2 frag">You can build all of it yourself. <span>Or we can help you build it.</span> Here's how.</div>
+  </div>
+<script type="text/plain" class="notes">THE TURN TO THE OFFER. SAY IT OPENLY.
+
+"So everything I just showed you, you can absolutely build yourself. To do it you need three things. The marketing: knowing how to create the opportunity. The system: the infrastructure that catches it. And the building: somebody who actually gets it all built and connected."
+
+Then: "I told you at the start there's an offer. This is it. If you want help building it, here's how we do it."
+
+Note the third one is gold. You'll come back to it.</script>
+</section>
+
+<!-- ═══════════════════════ 26 STACK 01 · PLAYBOOK ═══════════════════════ -->
+<section class="slide s-item" data-kicker="How we help · 01">
+  <div class="light"></div>
+  <div class="content">
+    <div class="gtag a"><span class="gn">Part 01</span><span class="gt">Medicare Marketing Playbook</span><span class="gp"><span class="gv">$3,000</span></span></div>
+    <h1 class="head a" style="font-size:52px">First, you need to know how to <em>create the opportunity.</em></h1>
+    <div class="split3 a">
+      <div class="rows">
+        <div class="r frag"><i>01</i><div><b>Market and message</b><span>Picking your person and writing the ad, with the angles running in my account.</span></div></div>
+        <div class="r frag"><i>02</i><div><b>Facebook ads, start to finish</b><span>From a dead stop to a running account. Your first ad in seven days.</span></div></div>
+        <div class="r frag"><i>03</i><div><b>The funnel and the follow-up</b><span>Every page, every text, the full schedule from tonight.</span></div></div>
+        <div class="r frag"><i>04</i><div><b>The scripts</b><span>When the lead comes in off the ad, you already know what to say.</span></div></div>
+      </div>
+      <div class="pic3 frag">
+        <div class="frame live"><div class="bar"><i></i><i></i><i></i><span>Ads Manager · $5.92 a lead</span></div><img src="assets/ads-account-poster.jpg" alt="The ad account" style="padding-top:34px;object-position:center 78%"></div>
+        <p class="cap">Tonight was the overview. <b>The playbook is the whole thing.</b></p>
+      </div>
+    </div>
+    <div class="vbar frag"><div class="l"><em>Value so far</em>Everything you saw tonight, step by step.<span class="tally"><span class="seg"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="lb">1 of 7</span></span></div><div class="run"><em>First-year value</em><b>$3,000</b></div></div>
+  </div>
+<script type="text/plain" class="notes">PART 01: THE MEDICARE MARKETING PLAYBOOK. $3,000.
+
+Problem first: "You need to know how to create the opportunity."
+
+"Tonight was the overview. The playbook is the whole thing. Market, message, the ads course from a dead stop, the funnel, the follow-up schedule, the scripts."
+
+Say the value once and move on. Leave $3,000 on screen. Point at the counter on the right: it climbs on every slide from here.</script>
+</section>
+
+<!-- ═══════════════════════ 27 STACK 02 · TRAINING LIBRARY ═══════════════════════ -->
+<section class="slide s-item" data-kicker="How we help · 02">
+  <div class="light"></div>
+  <div class="content">
+    <div class="gtag a"><span class="gn">Part 02</span><span class="gt">Complete Training Library</span><span class="gp"><span class="gv">$2,500</span></span></div>
+    <h1 class="head a" style="font-size:52px">Marketing isn't the only gap <em>you'll hit.</em></h1>
+    <div class="split3 a">
+      <div class="rows">
+        <div class="r frag"><i>01</i><div><b>Cross-selling</b><span>Dental, hospital, cancer, home health. The script you saw, plus the objections.</span></div></div>
+        <div class="r frag"><i>02</i><div><b>Medicare Supplement, start to finish</b><span>Don't know Med Supp yet? Easy money once you do.</span></div></div>
+        <div class="r frag"><i>03</i><div><b>Sales training</b><span>My method, from seven years and thousands of policies. On the phone, at the table, on Zoom.</span></div></div>
+        <div class="r frag"><i>04</i><div><b>Technology training</b><span>The right sites to quote seniors, and how to run them without looking lost.</span></div></div>
+      </div>
+      <div class="pic3 frag">
+        <div class="frame live"><div class="bar"><i></i><i></i><i></i><span>skool.com · The Real Insurance Group</span></div><video muted loop playsinline preload="auto" poster="assets/skool-feed-poster.jpg" src="assets/skool-feed.mp4"></video></div>
+        <p class="cap"><b>Hundreds of hours</b>, all unlocked the day you join.</p>
+      </div>
+    </div>
+    <div class="vbar frag"><div class="l"><em>Value so far</em>The Real Insurance Group training library.<span class="tally"><span class="seg"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span><span class="lb">2 of 7</span></span></div><div class="run"><em>First-year value</em><b>$5,500</b></div></div>
+  </div>
+<script type="text/plain" class="notes">PART 02: COMPLETE REAL INSURANCE GROUP TRAINING LIBRARY. $2,500.
+
+"Marketing isn't the only gap you'll hit. The lead books, and now you need to sell. They say yes to Medicare, and now you need the cross-sell. Somebody asks about a supplement and you've never written one."
+
+Talk over the Skool video: this is the classroom, today.
+
+$2,500. Running value: $5,500.</script>
+</section>
+
+<!-- ═══════════════════════ 28 STACK 03 · COMMUNITY ═══════════════════════ -->
+<section class="slide s-item" data-kicker="How we help · 03">
+  <div class="light"></div>
+  <div class="content">
+    <div class="gtag a"><span class="gn">Part 03</span><span class="gt">Private Medicare Agent Community</span><span class="gp"><span class="gv">$1,500<small>/yr</small></span></span></div>
+    <h1 class="head a" style="font-size:52px">You never get stuck <em>alone.</em></h1>
+    <div class="split3 a">
+      <div class="wk2">
+        <div class="d frag"><i>Monday</i><p>Marketing, with Johnny</p></div>
+        <div class="d frag"><i>Tuesday</i><p>Sales and annuity</p></div>
+        <div class="d frag"><i>Wednesday</i><p>Marketing, AI and sales training</p></div>
+        <div class="d frag"><i>Thursday</i><p>Sales training</p></div>
+        <div class="d frag"><i>Friday</i><p>Marketing, and running an agency</p></div>
+        <p class="frag" style="margin:22px 0 0;font:italic 400 28px/1.35 var(--serif);color:var(--t1)">Never more than 24 hours from a real answer.</p>
+      </div>
+      <div class="pic3 frag">
+        <div class="frame live"><div class="bar"><i></i><i></i><i></i><span>skool.com · Calendar</span></div><video muted loop playsinline preload="auto" poster="assets/training-calendar-poster.jpg" src="assets/training-calendar.mp4"></video></div>
+        <p class="cap">Post in the morning, get an answer by lunch, <b>from an agent who already did it.</b></p>
+      </div>
+    </div>
+    <div class="vbar frag"><div class="l"><em>Value so far</em>Johnny, the team, and agents doing the work, every business day.<span class="tally"><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="lb">3 of 7</span></span></div><div class="run"><em>First-year value</em><b>$7,000</b></div></div>
+  </div>
+<script type="text/plain" class="notes">PART 03: PRIVATE MEDICARE AGENT COMMUNITY. $1,500 A YEAR.
+
+"Courses age on a shelf. Marketing changes, AI changes. On these calls you hear what's working this week."
+
+Walk the five days fast. "You're never more than 24 hours from a real answer from somebody who does this for a living."
+
+$1,500 a year. That's about $125 a month. Running value: $7,000.</script>
+</section>
+
+<!-- ═══════════════════════ 29 STACK 04 · GHL ACCOUNT ═══════════════════════ -->
+<section class="slide s-item s-crmx" data-kicker="How we help · 04">
+  <div class="light"></div>
+  <div class="content">
+    <div class="gtag a"><span class="gn">Part 04</span><span class="gt">Complete GoHighLevel Account</span><span class="gp"><span class="gv">$97<small>/mo</small></span></span></div>
+    <h1 class="head a" style="font-size:52px">Training doesn't run itself. <em>The system does.</em></h1>
+    <div class="split3 a">
+      <div class="rows">
+        <div class="r frag"><i>01</i><div><b>Every lead in one place</b><span>Every text, call and email in one inbox, with the recordings.</span></div></div>
+        <div class="r frag"><i>02</i><div><b>Booking pages that book themselves</b><span>A senior picks a time at 9pm without you touching the phone.</span></div></div>
+        <div class="r frag"><i>03</i><div><b>The follow-up schedule, automatic</b><span>Every step from tonight fires whether you remember or not.</span></div></div>
+        <div class="r frag"><i>04</i><div><b>Pipelines and a dashboard</b><span>Where every deal sits, and what it's worth.</span></div></div>
+        <div class="r frag"><i>05</i><div><b>You own the list</b><span>Your account, your contacts. Nobody can switch it off.</span></div></div>
+      </div>
+      <div class="minis frag">
+        <div class="frame live"><div class="bar"><i></i><i></i><i></i><span>Automation</span></div><img src="assets/crm-auto.jpg" alt="Automation builder"></div>
+        <div class="frame live"><div class="bar"><i></i><i></i><i></i><span>Funnels</span></div><img src="assets/crm-funnels.jpg" alt="Funnel steps"></div>
+        <div class="frame live"><div class="bar"><i></i><i></i><i></i><span>Sites</span></div><img src="assets/crm-sites.jpg" alt="Sites and pages"></div>
+        <div class="frame live"><div class="bar"><i></i><i></i><i></i><span>A live page</span></div><img src="assets/crm-livepage.jpg" alt="A live registration page"></div>
+      </div>
+    </div>
+    <div class="vbar frag"><div class="l"><em>Value so far</em>The backend you saw tonight, in your own account.<span class="tally"><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="lb">4 of 7</span></span></div><div class="run"><em>First-year value</em><b>$8,164</b></div></div>
+  </div>
+<script type="text/plain" class="notes">PART 04: COMPLETE GOHIGHLEVEL ACCOUNT. $97 A MONTH.
+
+Callback: "Remember the backend slide? Pipeline, nurture, reminders, no-show, reactivation. This is where all of that lives."
+
+Point at the four screens: automation builder, funnel, site editor, a page that's live right now.
+
+$97 a month, so $1,164 for the year. Running first-year value: $8,164.</script>
+</section>
+
+<!-- ═══════════════════════ 30 STACK 05 · ONBOARDING ═══════════════════════ -->
+<section class="slide s-item s-solo" data-kicker="How we help · 05">
+  <div class="light"></div>
+  <div class="content">
+    <div class="gtag a"><span class="gn">Part 05</span><span class="gt">Done-For-You Account Onboarding</span><span class="gp"><span class="gv">$1,000</span></span></div>
+    <h1 class="head a" style="font-size:52px">And you don't switch it on <em>alone.</em></h1>
+    <div class="split2 a">
+      <div class="lft">
+        <div class="who2 frag"><div class="nm">A one-on-one call with David</div><p>My tech guy. Not a chatbot, not a help article, not a ticket that closes itself. He gets on a call with you and builds it.</p></div>
+        <div class="steps2">
+          <div class="s2 frag"><i>01</i><p><b>He sets your account up with you</b>, live, while you watch, so you actually know where things are.</p></div>
+          <div class="s2 frag"><i>02</i><p><b>He gets you A2P approved</b>, the registration that decides whether your texts land or silently die.</p></div>
+          <div class="s2 frag"><i>03</i><p><b>He connects your number, your email, your calendar</b>, so the thing is switched on, not half-finished.</p></div>
+        </div>
+      </div>
+      <div class="rgt frag">
+        <p class="q2">“We're going to get your account ready for success.”</p>
+        <p class="d2">You are not going to log in on Tuesday and wonder what to do. That is the whole point of this call.</p>
+      </div>
+    </div>
+    <div class="vbar frag"><div class="l"><em>Value so far</em>Our standard setup fee, including A2P.<span class="tally"><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="lb">5 of 7</span></span></div><div class="run"><em>First-year value</em><b>$9,164</b></div></div>
+  </div>
+<script type="text/plain" class="notes">PART 05: DONE-FOR-YOU ONBOARDING. $1,000.
+
+Name him: "A one-on-one call with David."
+
+Walk the three. Stop on A2P: "That's the registration that decides whether your texts land or silently die. Remember the follow-up schedule? None of it works if your texts don't land."
+
+$1,000. Running: $9,164.</script>
+</section>
+
+<!-- ═══════════════════════ 31 STACK 06 · SNAPSHOTS ═══════════════════════ -->
+<section class="slide s-item s-built" data-kicker="How we help · 06">
+  <div class="light"></div>
+  <div class="content">
+    <div class="gtag a"><span class="gn">Part 06</span><span class="gt">Medicare Automation Snapshots</span><span class="gp"><span class="gv">$5,000</span></span></div>
+    <h1 class="head a" style="font-size:52px">I know it's worth $5,000, <em>because that's what I paid.</em></h1>
+    <p class="sub a" style="margin-top:10px;font-size:23px">Not templates. The exact campaign running for me right now, refined on <b style="color:var(--t1);font-weight:500">more than $100,000 of my own ad spend</b>, loaded into your account.</p>
+    <div class="oneshot a frag">
+      <div class="frame live">
+        <div class="bar"><i></i><i></i><i></i><span>Real CRM &middot; Your funnel, day one</span></div>
+        <img src="assets/crm-funnels.jpg" alt="Funnel steps already built" style="object-fit:cover;object-position:24% 40%;transform:scale(1.30);transform-origin:24% 40%">
+      </div>
+      <p class="cap"><b>Everything from the mechanism section, already built.</b> The four pages. The text four minutes after someone registers. The reminder the night before. The no-show sequence. The ninety-day follow-up. You change the name on it and turn it on.</p>
+    </div>
+    <div class="vbar frag"><div class="l"><em>Value so far</em>Five grand to have it built. Six figures of ad spend to know what converts.<span class="tally"><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="lb">6 of 7</span></span></div><div class="run"><em>First-year value</em><b>$14,164</b></div></div>
+  </div>
+<script type="text/plain" class="notes">PART 06: MEDICARE AUTOMATION SNAPSHOTS. $5,000.
+
+The strongest value anchor in the deck, because it's a receipt, not an estimate:
+
+"I know this is worth five thousand dollars, because that's what I paid to have it built. And I refined it on more than a hundred thousand dollars of my own ad spend."
+
+"Everything I showed you in the mechanism section. Already built. You change the name and turn it on."
+
+CHECK BEFORE GOING LIVE: only say $100,000 if that's genuinely what's behind these funnels.
+
+$5,000. Running: $14,164. Then STOP. Don't reveal part 7 yet.</script>
+</section>
+
+<!-- ═══════════════════════ 32 THIS WAS THE $147 OFFER ═══════════════════════ -->
+<section class="slide s-was paper" data-kicker="Until tonight">
+  <div class="light"></div>
+  <div class="wrap">
+    <div>
+      <h1 class="head a">Until tonight, this was<br><em>the whole offer.</em></h1>
+      <div class="lst a">
+        <div>Medicare Marketing Playbook <span>$3,000</span></div>
+        <div>Complete Training Library <span>$2,500</span></div>
+        <div>Private Medicare Agent Community <span>$1,500/yr</span></div>
+        <div>Complete GoHighLevel Account <span>$97/mo</span></div>
+        <div>Done-For-You Onboarding <span>$1,000</span></div>
+        <div>Medicare Automation Snapshots <span>$5,000</span></div>
+      </div>
+    </div>
+    <div class="pr a">
+      <p class="k">What agents paid for it</p>
+      <div class="v">$147<small>/mo</small></div>
+      <p>And they bought it. It was already worth it.</p>
+      <p class="turn frag">But there was still one problem.</p>
+    </div>
+  </div>
+<script type="text/plain" class="notes">THE $147 MOMENT. THIS IS CRITICAL.
+
+Put everything on screen. Let them read it.
+
+"At this point, this was our offer. A hundred and forty-seven dollars a month. And here's the thing: people already bought it. Agents are in there right now. It was already a proven offer."
+
+Now the audience understands: everything I just saw used to cost $147.
+
+Then reveal the last line, slowly: "But there was still one problem."</script>
+</section>
+
+<!-- ═══════════════════════ 33 THE GAP ═══════════════════════ -->
+<section class="slide s-gap" data-kicker="The one problem">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:80px">Knowing what to build is not<br>the same as <em>getting it built.</em></h1>
+    <div class="steps10 a">
+      <div class="st frag"><i>01</i><h3>Campaign idea</h3></div>
+      <div class="st frag"><i>02</i><h3>Landing page</h3></div>
+      <div class="st frag"><i>03</i><h3>Form</h3></div>
+      <div class="st frag"><i>04</i><h3>Pipeline</h3></div>
+      <div class="st frag"><i>05</i><h3>Calendar</h3></div>
+      <div class="st frag"><i>06</i><h3>Text sequence</h3></div>
+      <div class="st frag"><i>07</i><h3>Email sequence</h3></div>
+      <div class="st frag"><i>08</i><h3>Automations</h3></div>
+      <div class="st frag"><i>09</i><h3>Testing</h3></div>
+      <div class="st frag"><i>10</i><h3>Launch</h3></div>
+    </div>
+    <div class="foot2 frag">Somebody still has to build it. <span>That's where agents get stuck.</span></div>
+  </div>
+<script type="text/plain" class="notes">THE IMPLEMENTATION GAP.
+
+"Most agents don't fail because they can't understand what I teach. They fail in the gap between knowing what to do and actually getting everything connected."
+
+Reveal the ten steps one at a time. Let it feel like work. Because it is.
+
+"You can know exactly what campaign you want to run and still never run it. Somebody still has to build it."</script>
+</section>
+
+<!-- ═══════════════════════ 34 SIX PEOPLE ═══════════════════════ -->
+<section class="slide s-hats" data-kicker="The one problem">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a">So now you're trying to be <em>six people.</em></h1>
+    <div class="grid a">
+      <div class="h me frag"><i>01</i><h3>Agent</h3><p>The only job you actually signed up for.</p></div>
+      <div class="h frag"><i>02</i><h3>Media buyer</h3><p>Running and testing the ads.</p></div>
+      <div class="h frag"><i>03</i><h3>Funnel builder</h3><p>Pages, forms, calendars.</p></div>
+      <div class="h frag"><i>04</i><h3>Automation expert</h3><p>Texts, emails, triggers, no-shows.</p></div>
+      <div class="h frag"><i>05</i><h3>CRM admin</h3><p>Pipelines, tags, the dashboard.</p></div>
+      <div class="h frag"><i>06</i><h3>Tech support</h3><p>When something breaks at 9pm.</p></div>
+    </div>
+    <div class="foot2 frag">Not because you don't want it. Because it's six jobs. <span>So we solved that too.</span></div>
+  </div>
+<script type="text/plain" class="notes">SIX PEOPLE.
+
+"This is where agents get stuck. Not because they don't want it. Because now they're trying to be the agent, the media buyer, the funnel builder, the automation expert, the CRM admin, and tech support."
+
+"You signed up for one of those."
+
+Then, slowly: "So we solved that too."
+
+Next slide is the biggest reveal of the night. Click and stop talking for a beat.</script>
+</section>
+
+<!-- ═══════════════════════ 35 THE REVEAL ═══════════════════════ -->
+<section class="slide s-reveal" data-kicker="How we help · 07">
+  <div class="light"></div>
+  <div class="glow2"></div>
+  <div class="wrap">
+    <p class="k a">Part 07 &nbsp;·&nbsp; New</p>
+    <h1 class="a">Your Dedicated<br>GoHighLevel <em>Specialist.</em></h1>
+    <p class="a">An implementation resource attached to your business.</p>
+  </div>
+<script type="text/plain" class="notes">THE REVEAL. ALMOST NO TALKING.
+
+Click. Wait two seconds. Then:
+
+"Your dedicated GoHighLevel specialist."
+
+Then: "This is not another course. This is not a support ticket. This is not a Facebook group where you ask somebody how to do something. This is an implementation resource attached to your business."
+
+Then go to the next slide.</script>
+</section>
+
+<!-- ═══════════════════════ 36 THE SPECIALIST ═══════════════════════ -->
+<section class="slide s-spec" data-kicker="How we help · 07">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:64px">The person who builds <em>what I taught you.</em></h1>
+    <div class="nots a"><span>Not a course.</span><span>Not a ticket.</span><span>Not a Facebook group.</span></div>
+    <div class="split3 a">
+      <div class="rows">
+        <div class="r frag"><i>01</i><div><b>Funnels and landing pages</b><span>The pages from the mechanism section, built for your campaign.</span></div></div>
+        <div class="r frag"><i>02</i><div><b>Forms, calendars and pipelines</b><span>Connected, so every lead lands where it should.</span></div></div>
+        <div class="r frag"><i>03</i><div><b>Text and email sequences</b><span>The follow-up schedule from tonight, set up and firing.</span></div></div>
+        <div class="r frag"><i>04</i><div><b>Workflows and automations</b><span>Reminders, no-shows, the ninety-day follow-up, reactivation.</span></div></div>
+        <div class="r frag"><i>05</i><div><b>Fixes when something breaks</b><span>So you're not the one on YouTube at 9pm.</span></div></div>
+      </div>
+      <div class="anchor frag">
+        <p class="k">What one costs on your own</p>
+        <div class="v">$1,500<small>/mo</small></div>
+        <p>A GoHighLevel specialist on your own runs around fifteen hundred dollars a month. And they don't know Medicare.</p>
+        <p class="q3">Yours comes inside the system.</p>
+      </div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">WHAT THE SPECIALIST BUILDS.
+
+Walk the five. Every one ties back to a section from tonight. That's the point: the specialist builds what you taught.
+
+Then the anchor: "A GoHighLevel specialist on your own runs around fifteen hundred dollars a month. And they don't know Medicare."
+
+Don't add up a total. The next slide is the only math that matters.
+
+JOHNNY, BEFORE GOING LIVE: have the internal scope written down (how many requests a month, turnaround, what counts as a request, what's extra). Keep the slide expansive, keep the fulfilment bounded. If someone asks "is it unlimited?", answer with the real scope.</script>
+</section>
+
+<!-- ═══════════════════════ 37 THE DELTA ═══════════════════════ -->
+<section class="slide s-delta" data-kicker="The math that matters">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a">Here's the only math<br>that <em>matters.</em></h1>
+    <div class="three a">
+      <div class="c old frag"><p class="k">Before tonight</p><div class="v">$147<small>/mo</small></div><p>Everything you saw. The playbook, the library, the community, the account, onboarding, the snapshots.</p></div>
+      <div class="c frag"><p class="k">Starting tonight</p><div class="v">$300<small>/mo</small></div><p>All of it, plus your dedicated GoHighLevel specialist.</p></div>
+      <div class="c win frag"><p class="k">The difference</p><div class="v">+$153<small>/mo</small></div><p>For about a hundred and fifty dollars more, you get the piece that costs around $1,500 a month on its own.</p><div class="vs"><span>The specialist<br>alone</span><b>~$1,500<small>/mo</small></b></div></div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">THE DECISION MATH. THE STRONGEST MOMENT IN THE WEBINAR.
+
+"Before tonight, everything you just saw was a hundred and forty-seven a month. Starting tonight it's three hundred, and it includes your specialist."
+
+"So the difference is a hundred and fifty-three dollars. And for that hundred and fifty-three, you get the piece that costs around fifteen hundred a month on its own."
+
+Say it slowly. Don't talk about the $32,000 here. This is the comparison to keep coming back to.</script>
+</section>
+
+<!-- ═══════════════════════ 38 THE PRICE ═══════════════════════ -->
+<section class="slide s-offer paper" data-kicker="The price">
+  <div class="light"></div>
+  <div class="wrap">
+    <p class="lead a">The marketing. The system. And somebody to build it.</p>
+    <h1 class="price a">$300<small>/mo</small></h1>
+    <p class="all a">Nothing up front. No contract. Cancel anytime.</p>
+    <p class="less a">We teach you the Medicare marketing. We give you the software and the systems. And now we give you the person who builds it.</p>
+  </div>
+<script type="text/plain" class="notes">THE PRICE.
+
+"We teach you the Medicare marketing. We give you the software and the systems. And now we give you the person who helps build it. Three hundred dollars a month."
+
+Then the terms. JOHNNY: confirm these are still true for the $300 version before going live (nothing up front, no contract, cancel anytime). If anything changed, change this line.</script>
+</section>
+
+<!-- ═══════════════════════ 39 EVERYTHING, ONE SCREEN ═══════════════════════ -->
+<section class="slide s-full2" data-kicker="Everything, on one screen">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a">Here's the whole thing in one picture.</h1>
+    <div class="panes a">
+      <div class="pane">
+        <p class="ph">Built once, yours to keep using</p>
+        <div class="li"><div class="n">Medicare Marketing Playbook</div><div class="v">$3,000</div></div>
+        <div class="li"><div class="n">Complete Training Library</div><div class="v">$2,500</div></div>
+        <div class="li"><div class="n">Done-For-You Onboarding</div><div class="v">$1,000</div></div>
+        <div class="li"><div class="n">Medicare Automation Snapshots</div><div class="v">$5,000</div></div>
+        <div class="sum"><div class="l">One-time value</div><div class="v">$11,500</div></div>
+      </div>
+      <div class="pane">
+        <p class="ph">Every month you're in</p>
+        <div class="li"><div class="n">Private Medicare Agent Community</div><div class="v">$1,500<small>/yr</small></div></div>
+        <div class="li"><div class="n">Complete GoHighLevel Account</div><div class="v">$97<small>/mo</small></div></div>
+        <div class="li hi"><div class="n">Dedicated GoHighLevel Specialist</div><div class="v">$1,500<small>/mo</small></div></div>
+        <div class="sum"><div class="l">Recurring value, first year</div><div class="v">$20,664</div></div>
+      </div>
+    </div>
+    <div class="bar a">
+      <div class="yp"><p class="k">Your price</p><div class="big">$300<small>/mo</small></div></div>
+      <div class="fy"><p class="k">First-year value</p><div class="big">$32,164</div></div>
+      <div class="gr"><b>$3,600 a year</b> for the marketing, the system, and the person who builds it.</div>
+      <div class="join"><p class="k">How to join</p><div class="url">The link is in the chat.</div></div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">THE WHOLE OFFER, ONE SCREEN.
+
+This is the slide people screenshot. Let them read a few seconds.
+
+Left: built once. Playbook, library, onboarding, snapshots: $11,500.
+Right: every month. Community $1,500 a year, the account $97 a month, the specialist $1,500 a month: $20,664 for the first year.
+
+"First-year value, a little over thirty-two thousand. Your price, three hundred a month, thirty-six hundred a year."
+
+Say it twice: "The link is in the chat."
+
+Come back to this slide during Q&A.</script>
+</section>
+
+<!-- ═══════════════════════ 40 SPECIALIST CAPACITY ═══════════════════════ -->
+<section class="slide s-cap" data-kicker="Why there's a limit">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:80px">Specialists are people.<br>I can't hand out <em>unlimited accounts.</em></h1>
+    <div class="grid a">
+      <div><div class="n" data-spots>10</div><p class="nl">Specialist accounts<br>opening on this webinar</p></div>
+      <div class="lines">
+        <div class="ln frag"><i>01</i><p><b>Every account gets a real person.</b> That only works if each specialist has a manageable number of agents.</p></div>
+        <div class="ln frag"><i>02</i><p><b>When these are assigned, this version closes</b> until we add specialist capacity.</p></div>
+        <div class="ln frag"><i>03</i><p><b>The community stays open.</b> The specialist accounts are what run out.</p></div>
+      </div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">REAL SCARCITY. CAPACITY, NOT A COUNTDOWN.
+
+"We physically can't assign unlimited accounts to implementation specialists. So we're opening this many specialist accounts tonight. When they're assigned, this version closes until we add capacity."
+
+THE NUMBER ON THE SLIDE MUST BE THE REAL NUMBER. If it's 6, say 6. Change it in one place: the SPOTS line at the top of the deck script.
+
+As people join during Q&A, call it out: "Two gone. Eight left."</script>
+</section>
+
+<!-- ═══════════════════════ 41 THE MATH ═══════════════════════ -->
+<section class="slide s-math" data-kicker="One last piece of math">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:76px">Two clients. That's it.<br>That's the whole decision.</h1>
+    <div class="three a">
+      <div class="c frag"><p class="k">What one client is worth</p><div class="v">$2,000<span style="font-size:.5em">+</span></div><p>The number from the monetization section. Medicare, hospital, critical, home health. One person you helped.</p></div>
+      <div class="c frag"><p class="k">A full year of this</p><div class="v">$3,600</div><p>$300 a month, twelve months. The marketing, the system, and your specialist.</p></div>
+      <div class="c win frag"><p class="k">Clients to cover it</p><div class="v">2</div><p>Two clients, done properly, pay for the whole year. Every client after that is yours.</p></div>
+    </div>
+    <div class="mfoot frag">You don't need the machine to work all year. <span>You need it to work twice.</span></div>
+  </div>
+<script type="text/plain" class="notes">THE MATH CLOSE. LAST THING BEFORE Q&A.
+
+Move them from "expense" to "how many clients does this need to create to pay for itself?"
+
+"What's one client worth? Two thousand dollars, if you do the cross-sell. That's the number from twenty minutes ago."
+
+"What's a full year of this? Thirty-six hundred."
+
+"So two clients, done properly, pay for the whole year. Every client after that is yours."
+
+Do NOT promise results. Just let them see the math.
+
+"You don't need the machine to work all year. You need it to work twice."</script>
+</section>
+
+<!-- ═══════════════════════ 42 WHAT HAPPENS NEXT ═══════════════════════ -->
+<section class="slide s-next" data-kicker="Here's what happens next">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a">Here's what happens next.<br><em>The link is in the chat.</em></h1>
+    <p class="p a">Click the link, join at <b>$300 a month</b>, and you're in tonight. Nothing to install, nothing to figure out on your own.</p>
+    <div class="cols c3 steps a">
+      <div class="col"><span class="idx">Tonight</span><h3>Everything unlocks</h3><p>The playbook, the library, the community, your account. Immediately.</p></div>
+      <div class="col"><span class="idx">Right away</span><h3>Onboarding and your specialist</h3><p>Your call with David, booked from your account, and your specialist assigned.</p></div>
+      <div class="col"><span class="idx">Then</span><h3>Build your first campaign</h3><p>Pick your person, launch your first campaign, with somebody building it next to you.</p></div>
+    </div>
+  </div>
+  <div class="rail"><div class="p">$300<small>/mo</small></div><div class="d"></div><div class="u"><small>How to join</small>The link is in the chat.</div></div>
+<script type="text/plain" class="notes">WHAT HAPPENS NEXT.
+
+Kills the objection nobody says out loud: "what actually happens after I put my card in?"
+
+TONIGHT: everything unlocks.
+RIGHT AWAY: onboarding with David, specialist assigned.
+THEN: build your first campaign with your specialist.
+
+OPTIONAL SPEED PROMISE (only if it's true and you can deliver it): "Within your first 30 days, we'll help you get your core Medicare marketing backend live." If you say it, define "core backend" internally first.</script>
+</section>
+
+<!-- ═══════════════════════ 43 AMA ═══════════════════════ -->
+<section class="slide s-ama" data-kicker="">
+  <div class="light"></div>
+  <div class="content">
+    <div style="position:absolute;left:0;top:44%;transform:translateY(-56%)">
+      <h1 class="head a">Ask me <em>anything.</em></h1>
+      <p class="sub a">The link stays open while we talk. Specialist accounts go in the order people join.</p>
+    </div>
+  </div>
+  <img class="logo a" src="assets/logo.webp" alt="The Real Insurance Group">
+  <div class="rail"><div class="p">$300<small>/mo</small></div><div class="d"></div><div class="u"><small>Act now</small>The link is in the chat.</div></div>
+<script type="text/plain" class="notes">AMA. HALF THE SALES HAPPEN HERE.
+
+Price and "the link is in the chat" stay on screen.
+
+RULE: every answer ends "...and the link's in the chat."
+
+Every three or four questions, flip back to slide 39 (the whole offer on one screen) or slide 37 (the $147 to $300 math).
+
+CALL THE SPECIALIST SPOTS as they go. Say names when people join.
+
+Don't close the room when questions stop. The last two sales are the people still deciding.</script>
+</section>
+
+<div class="grain"></div>
+</div><!-- /stage -->
+
+<!-- ───────────────────────────── HELP ───────────────────────────── -->
+<div id="help">
+  <h3>The Marketing Machine · controls</h3>
+  <table>
+    <tr><td>→ &nbsp; Space &nbsp; ↓</td><td>Next step / next slide</td></tr>
+    <tr><td>← &nbsp; ↑</td><td>Previous step / previous slide</td></tr>
+    <tr><td>F</td><td>Fullscreen</td></tr>
+    <tr><td>S</td><td>Open speaker view (notes) in a second window</td></tr>
+    <tr><td>B</td><td>Black screen (toggle)</td></tr>
+    <tr><td>G then number, Enter</td><td>Go to slide</td></tr>
+    <tr><td>A</td><td>Reveal all steps on this slide</td></tr>
+    <tr><td>?</td><td>This panel</td></tr>
+  </table>
+  <div class="x">Add ?nofrag to the URL to disable step-by-step reveals.</div>
+</div>
+
+<!-- ───────────────────────────── SPEAKER VIEW ───────────────────────────── -->
+<div id="spk">
+  <div class="main">
+    <p class="k">Now showing</p>
+    <h2 id="spkTitle">—</h2>
+    <div class="cur" id="spkCur"></div>
+    <div class="notes" id="spkNotes"></div>
+    <div class="next"><p class="k">Up next</p><h3 id="spkNext">—</h3></div>
+  </div>
+  <div class="side">
+    <p class="k">Time</p>
+    <div class="clock" id="spkClock">—</div>
+    <div class="frags" id="spkFrags"></div>
+    <div class="btns">
+      <button data-cmd="prev">← Prev</button>
+      <button data-cmd="next">Next →</button>
+      <button data-cmd="all">Reveal all</button>
+      <button data-cmd="black">Black</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ───────────────────────────── NOTES (from Johnny's deck) ───────────────────────────── */
+const NOTES = {};
+
+/* ───────────────────────────── DECK ENGINE ───────────────────────────── */
+(function(){
+  /* ══════════ EDIT THIS ONE LINE BEFORE THE LIVE RUN ══════════
+     Specialist capacity shown on the 'Why there's a limit' slide.     */
+  const SPOTS = 10;  /* specialist accounts opening on this webinar: set to the REAL number */
+  /* ═══════════════════════════════════════════════════════════ */
+  document.querySelectorAll('[data-spots]').forEach(el=>{ el.textContent = SPOTS; });
+
+  const params = new URLSearchParams(location.search);
+  const isSpeaker = params.has('speaker');
+  const noFrag = params.has('nofrag');
+  const isStatic = params.has('static');
+  const stage = document.getElementById('stage');
+  const slides = [...document.querySelectorAll('.slide')];
+  const N = slides.length;
+  const pad = n => String(n).padStart(2,'0');
+  const chan = ('BroadcastChannel' in window) ? new BroadcastChannel('trig-marketing-machine') : null;
+
+  /* chrome */
+  slides.forEach((s,i)=>{
+    if (s.dataset.chrome === 'none') return;
+    const c = document.createElement('div'); c.className='chrome';
+    const k = s.dataset.kicker || '';
+    c.innerHTML = `<div class="c-kicker">${k}</div><div class="c-brand">The Real Insurance Group</div><div class="c-foot"><span class="l">The Marketing Machine</span><span class="r">${pad(i+1)} / ${N}</span></div>`;
+    s.appendChild(c);
+  });
+
+  /* scale */
+  function fit(){ const s=Math.min(innerWidth/1920, innerHeight/1080); stage.style.setProperty('--s', s); }
+  addEventListener('resize', fit); fit();
+
+  /* state */
+  let cur = -1, fragIdx = 0;
+  const frags = s => noFrag ? [] : [...s.querySelectorAll('.frag')];
+
+  function fmt(el, v){
+    const d = +(el.dataset.decimals||0), comma = el.dataset.comma==='1';
+    let s = v.toFixed(d);
+    if (comma){ const [a,b]=s.split('.'); s = a.replace(/\B(?=(\d{3})+(?!\d))/g,',') + (b?'.'+b:''); }
+    el.textContent = (el.dataset.prefix||'') + s + (el.dataset.suffix||'');
+  }
+  function countUp(el){
+    if (el.dataset.done) return; el.dataset.done='1';
+    const to=+el.dataset.to, t0=performance.now(), dur=1400;
+    if (window.__instant){ fmt(el,to); return; }
+    const tick = t=>{ if(window.__instant){ fmt(el,to); return; } const p=Math.min(1,(t-t0)/dur); const e=1-Math.pow(1-p,4); fmt(el, to*e); if(p<1) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  }
+  function countersIn(root){ root.querySelectorAll('.count').forEach(c=>{ if(!c.closest('.frag') || c.closest('.frag').classList.contains('in')) countUp(c); }); }
+
+  function show(i, opts={}){
+    i = Math.max(0, Math.min(N-1, i));
+    if (i===cur && !opts.force) return;
+    const prev = slides[cur];
+    if (prev){ prev.classList.remove('active'); prev.querySelectorAll('video').forEach(v=>{ try{v.pause()}catch(e){} }); }
+    cur = i; const s = slides[cur];
+    // reset reveals
+    s.querySelectorAll('.a').forEach((el,k)=>{ el.style.animation='none'; el.offsetHeight; el.style.animation=''; el.style.animationDelay = (k*70+80)+'ms'; });
+    const F = frags(s);
+    const toEnd = opts.fromEnd;
+    F.forEach((f,k)=>{ f.classList.toggle('in', !!toEnd); });
+    if (toEnd) s.querySelectorAll('.bar-grow').forEach(b=>b.classList.add('go'));
+    fragIdx = toEnd ? F.length : 0;
+    s.querySelectorAll('.count').forEach(c=>{ delete c.dataset.done; if(c.closest('.frag') && !toEnd) return; });
+    s.classList.add('active');
+    setTimeout(()=>countersIn(s), 120);
+    s.querySelectorAll('video').forEach(v=>{ try{ v.currentTime=0; const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }catch(e){} });
+    location.hash = '#'+(cur+1);
+    updateChip(); broadcast();
+  }
+  function next(){
+    const s=slides[cur], F=frags(s);
+    if (fragIdx < F.length){ const f=F[fragIdx++]; f.classList.add('in'); f.querySelectorAll('.bar-grow').forEach(b=>b.classList.add('go')); f.querySelectorAll('.count').forEach(countUp); if(f.classList.contains('count')) countUp(f); broadcast(); return; }
+    if (cur < N-1) show(cur+1);
+  }
+  function prev(){
+    const s=slides[cur], F=frags(s);
+    if (fragIdx > 0){ fragIdx--; F[fragIdx].classList.remove('in'); broadcast(); return; }
+    if (cur > 0) show(cur-1, {fromEnd:true});
+  }
+  function revealAll(){ const s=slides[cur], F=frags(s); F.forEach(f=>{f.classList.add('in'); f.querySelectorAll('.bar-grow').forEach(b=>b.classList.add('go')); f.querySelectorAll('.count').forEach(countUp);}); fragIdx=F.length; broadcast(); }
+
+  function updateChip(){}
+  setInterval(()=>{ updateChip(); if(isSpeaker) renderSpeaker(); }, 500);
+
+  /* black */
+  let black=null;
+  function toggleBlack(){ if(black){black.remove();black=null;return;} black=document.createElement('div'); black.style.cssText='position:fixed;inset:0;background:#000;z-index:900'; document.body.appendChild(black); }
+
+  /* keys */
+  let goBuf=null, cursorT=null;
+  addEventListener('keydown', e=>{
+    if (e.metaKey||e.ctrlKey||e.altKey) return;
+    const k=e.key;
+    if (goBuf!==null){ if(/\d/.test(k)){goBuf+=k;return;} if(k==='Enter'){ const n=+goBuf; goBuf=null; if(n>=1&&n<=N) show(n-1); return;} goBuf=null; }
+    if (k==='ArrowRight'||k===' '||k==='ArrowDown'||k==='PageDown'){ e.preventDefault(); next(); }
+    else if (k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'){ e.preventDefault(); prev(); }
+    else if (k==='Home'){ show(0);} else if (k==='End'){ show(N-1,{fromEnd:true}); }
+    else if (k==='f'||k==='F'){ if(document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen().catch(()=>{}); }
+    else if (k==='b'||k==='B'){ toggleBlack(); }
+    else if (k==='a'||k==='A'){ revealAll(); }
+    else if (k==='g'||k==='G'){ goBuf=''; }
+    else if (k==='s'||k==='S'){ open(location.pathname+'?speaker=1', 'trig-mm-speaker', 'width=1320,height=820'); }
+    else if (k==='?'||k==='/'){ document.getElementById('help').classList.toggle('on'); }
+    else if (k==='Escape'){ document.getElementById('help').classList.remove('on'); }
+  });
+  addEventListener('mousemove', ()=>{ document.body.classList.add('show-cursor'); clearTimeout(cursorT); cursorT=setTimeout(()=>document.body.classList.remove('show-cursor'), 2500); });
+  addEventListener('click', e=>{ if(isSpeaker) return; if(e.target.closest('#help')) return; if(e.clientX > innerWidth*0.2) next(); else prev(); });
+
+  /* sync */
+  function broadcast(){ if(!chan||isSpeaker) return; chan.postMessage({type:'state', cur, fragIdx, fragN: frags(slides[cur]).length}); }
+  let remote={cur:0,fragIdx:0,fragN:0};
+  if (chan) chan.onmessage = ev=>{
+    const m=ev.data||{};
+    if (isSpeaker && m.type==='state'){ remote=m; renderSpeaker(); }
+    if (!isSpeaker && m.type==='cmd'){ ({next, prev, all:revealAll, black:toggleBlack})[m.cmd]?.(); }
+  };
+
+  /* speaker view */
+  function titleOf(i){ const s=slides[i]; if(!s) return ''; const h=s.querySelector('h1'); return h ? h.innerHTML.replace(/<br\s*\/?>/gi,' ').replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/\s+/g,' ').trim() : (s.dataset.kicker||'Slide '+(i+1)); }
+  function renderSpeaker(){
+    if(!isSpeaker) return;
+    const i=remote.cur;
+    document.getElementById('spkTitle').textContent = titleOf(i);
+    document.getElementById('spkCur').textContent = `SLIDE ${pad(i+1)} / ${N}` + (slides[i]?.dataset.kicker ? `  ·  ${slides[i].dataset.kicker.toUpperCase()}` : '');
+    document.getElementById('spkNotes').textContent = (slides[i]?.querySelector('script.notes')?.textContent || '').trim();
+    document.getElementById('spkNext').textContent = i+1<N ? `${pad(i+2)}  ·  ${titleOf(i+1)}` : 'End of deck';
+    document.getElementById('spkFrags').textContent = remote.fragN ? `STEPS ${remote.fragIdx} / ${remote.fragN}` : '';
+    const d=new Date(); document.getElementById('spkClock').textContent = d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+  }
+  if (isSpeaker){
+    document.body.classList.add('speaker');
+    document.querySelectorAll('#spk button').forEach(b=>b.addEventListener('click', ()=>chan&&chan.postMessage({type:'cmd', cmd:b.dataset.cmd})));
+    addEventListener('keydown', e=>{ if(!chan) return; if(e.key==='ArrowRight'||e.key===' ') chan.postMessage({type:'cmd',cmd:'next'}); if(e.key==='ArrowLeft') chan.postMessage({type:'cmd',cmd:'prev'}); });
+    renderSpeaker();
+    return;
+  }
+
+  /* boot */
+  const h = parseInt((location.hash||'').replace('#',''),10);
+  show(h>=1&&h<=N ? h-1 : 0, {force:true});
+  addEventListener('hashchange', ()=>{ const n=parseInt(location.hash.replace('#',''),10); if(n>=1&&n<=N&&n-1!==cur) show(n-1); });
+  const playActive = ()=>{ if(isStatic) return; const s=slides[cur]; if(!s) return; s.querySelectorAll('video').forEach(v=>{ if(v.paused){ const p=v.play(); if(p&&p.catch) p.catch(()=>{}); } }); };
+  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) playActive(); });
+  addEventListener('focus', playActive);
+  addEventListener('pointerdown', playActive, true);
+  addEventListener('keydown', playActive, true);
+  setInterval(playActive, 1000); // watchdog: Chrome can reject the first play() (power save / background); keep retrying
+
+  /* expose for render script */
+  window.__deck = { show, next, prev, revealAll, N, get cur(){return cur;} };
+})();
+</script>
+</body>
+</html>
