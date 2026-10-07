@@ -4065,7 +4065,7 @@ const NOTES = {};
 
   /* boot */
   const h = parseInt((location.hash||'').replace('#',''),10);
-  show(h>=1&&h<=N ? h-1 : 0, {force:true});
+  show(0, {force:true}); /* always open on slide 1, whatever the URL says */
   addEventListener('hashchange', ()=>{ const n=parseInt(location.hash.replace('#',''),10); if(n>=1&&n<=N&&n-1!==cur) show(n-1); });
   const playActive = ()=>{ if(isStatic) return; const s=slides[cur]; if(!s) return; s.querySelectorAll('video').forEach(v=>{ if(v.paused){ const p=v.play(); if(p&&p.catch) p.catch(()=>{}); } }); };
   document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) playActive(); });

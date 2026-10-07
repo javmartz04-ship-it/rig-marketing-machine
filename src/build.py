@@ -63,6 +63,7 @@ TRACK = '''<script>
 </script>
 '''
 tail = tail.replace('<tr><td>A</td><td>Reveal all steps on this slide</td></tr>', '<tr><td>A</td><td>Reveal all steps on this slide</td></tr>\n    <tr><td>T</td><td>Start / pause the 15-minute offer timer (Shift+T resets)</td></tr>')
+tail = tail.replace("show(h>=1&&h<=N ? h-1 : 0, {force:true});", "show(0, {force:true}); /* always open on slide 1, whatever the URL says */")
 tail = tail.replace('</body>', TRACK + '</body>')
 out = head + new_css + '\n' + '</style>\n</head>\n<body>\n\n<div id="stage">\n' + slides + '\n' + tail
 for must in ['Renewal Book', 'SEATS', 'data-seat', 'TKEY']:
