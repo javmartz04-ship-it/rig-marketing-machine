@@ -175,7 +175,7 @@ BOOK = '''<div class="pbw"><div class="book"><div class="cv"><img src="assets/lo
 <div class="toc"><p class="k">Inside</p><p><i>01</i>Market</p><p><i>02</i>Message</p><p><i>03</i>Ads</p><p><i>04</i>Funnel</p><p><i>05</i>Backend</p></div></div>'''
 GHL = '<div class="g4">' + ''.join(f'<div class="frame live"><div class="bar"><i></i><i></i><i></i><span>{t}</span></div><img src="assets/{f}" alt="{t}"></div>' for t, f in
        [('Automation', 'crm-auto.jpg'), ('Funnels', 'crm-funnels.jpg'), ('Sites', 'crm-sites.jpg'), ('A live page', 'crm-livepage.jpg')]) + '</div>'
-CHRIS = '''<div class="pcard"><div class="ph"><img src="assets/chris.png" alt="Chris"></div><div class="pi"><p class="k">Your onboarding specialist</p><h3>Meet Chris.</h3>
+CHRIS = '''<div class="pcard"><div class="ph"><img src="assets/david.png" alt="Chris"></div><div class="pi"><p class="k">Your onboarding specialist</p><h3>Meet Chris.</h3>
 <div class="ck">''' + ''.join(f'<p><i>✓</i>{t}</p>' for t in ['Sets your account up, live, with you', 'Gets you A2P approved, so texts land', 'Connects your number, email and calendar']) + '</div></div></div>'
 SNAP = '''<div class="snap"><div class="frame live"><div class="bar"><i></i><i></i><i></i><span>Your account · day one</span></div><img src="assets/crm-funnels.jpg" alt="Funnel steps already built" style="object-fit:cover;object-position:24% 40%;transform:scale(1.3);transform-origin:24% 40%"></div>
 <div class="pgs"><span class="g">Webinar snapshot</span><span>Registration</span><span>Reminders</span><span>Replay</span><span>Lead funnels</span><span>Booking</span><span class="g">+ every text and email behind them</span></div></div>'''

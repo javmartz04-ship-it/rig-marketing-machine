@@ -162,7 +162,7 @@ rep('<p class="rb a">This is the back end for your ads. Every lead, every follow
     '<p class="rb a">Your own account. It\'s everything: the back end of everything we talked about tonight, in one place.</p>')
 
 # ── bonus #3: Meet David
-DAVID = '''<div class="pcard"><div class="ph mono"><span>D</span></div><div class="pi"><p class="k">Your onboarding specialist</p><h3>Meet David.</h3>
+DAVID = '''<div class="pcard"><div class="ph"><img src="assets/david.png" alt="David"></div><div class="pi"><p class="k">Your onboarding specialist</p><h3>Meet David.</h3>
 <div class="ck">''' + ''.join(f'<p><i>✓</i>{t}</p>' for t in ['Sets your account up, live, with you', 'Gets you A2P approved, so texts land', 'Connects your number, email and calendar']) + '</div></div></div>'
 s = re.sub(r'<div class="pcard"><div class="ph"><img src="assets/chris.png".*?</div></div></div>', lambda m: DAVID, s, count=1, flags=re.S)
 rep('<p class="rb a">You don\'t switch it on alone. A one-on-one call with Chris, your onboarding specialist, who sets it up with you.</p>',
@@ -221,7 +221,7 @@ FINAL = '''<!-- ═════════════════════�
       <div class="fc core"><div class="fv"><img src="assets/skool-feed-poster.jpg" alt=""></div><p class="k">Our Skool group</p><h3>Community, courses, live calls</h3><b>$147<small>/mo</small></b></div>
       <div class="fc"><div class="fv bk">''' + MINI_BOOK + '''</div><p class="k">Bonus #1</p><h3>Medicare Marketing Playbook</h3><b>$3,000</b></div>
       <div class="fc"><div class="fv ui"><span></span><span></span><span></span><span></span><span></span></div><p class="k">Bonus #2</p><h3>Your GoHighLevel Account</h3><b>$97<small>/mo</small></b></div>
-      <div class="fc"><div class="fv mono2"><span>D</span></div><p class="k">Bonus #3</p><h3>Onboarding with David</h3><b>$1,000</b></div>
+      <div class="fc"><div class="fv"><img src="assets/david.png" alt="David" style="object-position:center 20%"></div><p class="k">Bonus #3</p><h3>Onboarding with David</h3><b>$1,000</b></div>
       <div class="fc"><div class="fv"><img src="assets/crm-funnels.jpg" alt="" style="object-position:24% 40%"></div><p class="k">Bonus #4</p><h3>Webinar + lead gen snapshots</h3><b>$5,000</b></div>
       <div class="fc spec"><div class="fv"><img src="assets/christopher.jpg" alt="" style="object-position:center 25%"></div><p class="k">Bonus #5 · Only today</p><h3>Dedicated GoHighLevel Specialist</h3><b>$1,500<small>/mo</small></b></div>
     </div>
