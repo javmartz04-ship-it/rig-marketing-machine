@@ -499,5 +499,35 @@ rep('<img src="assets/ch-media.jpg" alt="" style="object-position:66% 40%">', '<
 rep('<img src="assets/ch-mechanism.jpg" alt="" style="object-position:64% 40%">', '<img src="assets/ch-funnel2.jpg" alt="" style="object-position:66% 35%">')
 rep('"Part three. Ads. Your clients are on their phones every day, just like him. I\'m going to show you how to run the ads, and how to read them like a pro."',
     '"Part three. Ads. I\'m going to show you how to run the ads, and how to read them like a pro."')
+
+# ── the 30-day proof slide, the focal point of the Ads chapter
+P30 = """<!-- ═══════════════════════ PROOF · LAST 30 DAYS ═══════════════════════ -->
+<section data-part="3" class="slide wb s-p30" data-kicker="03 · Ads · Our numbers">
+  <div class="light"></div>
+  <div class="content">
+    <div class="p30top a"><span class="date">Last 30 days · Sep 6 – Oct 5, 2026</span><span class="src">Straight out of Ads Manager</span></div>
+    <h1 class="head a">3,459 leads at <em>$1.64 each.</em></h1>
+    <div class="p30s a">
+      <div class="frag big"><b><span class="count" data-to="3459" data-comma="1">3,459</span></b><span>Leads</span></div>
+      <div class="frag big g"><b><span class="count" data-to="1.64" data-prefix="$" data-decimals="2">$1.64</span></b><span>Cost per lead</span></div>
+      <div class="frag"><b><span class="count" data-to="5672.92" data-prefix="$" data-decimals="2" data-comma="1">$5,672.92</span></b><span>Total spent</span></div>
+      <div class="frag"><b><span class="count" data-to="168330" data-comma="1">168,330</span></b><span>People reached</span></div>
+    </div>
+    <div class="p30shot frag"><img src="assets/ads-30d-row.jpg" alt="Ads Manager, last 30 days"></div>
+    <p class="hand p30n frag">frequency 1.38: still mostly new people. that's a prospector doing its job.</p>
+  </div>
+<script type="text/plain" class="notes">OUR NUMBERS. THE FOCAL POINT. SLOW DOWN.
+
+"This is our ad account, last thirty days. September 6th to October 5th."
+
+Let the counters run, then read them out:
+"Three thousand four hundred fifty-nine leads. A dollar sixty-four a lead. Fifty-six hundred dollars spent. A hundred and sixty-eight thousand people reached."
+
+Then tie it to what you just taught: "Look at the frequency. 1.38. That means it's still reaching mostly new people. That's a prospector doing its job, and that's why we leave it alone."
+
+JOHNNY, SAY WHAT IT IS: this is the "Veteran Video Ads" campaign (lead forms). If anyone asks, say so plainly. Don't call it a Medicare campaign unless it is.</script>
+</section>"""
+s = s.replace('<!-- ═══════════════════════ 12 MEDIA · THE AD ACCOUNT', P30 + '\n\n<!-- ═══════════════════════ 12 MEDIA · THE AD ACCOUNT', 1)
+
 open(P, 'w', encoding='utf-8').write(s)
 print('sections', s.count('<section'), 'wb', s.count('class="slide wb'), 'timer', s.count('data-timer'))
