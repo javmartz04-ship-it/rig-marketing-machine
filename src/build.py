@@ -7,7 +7,7 @@ css_end = s.index('</style>')
 head = s[:css_end]
 head = head.replace('<title>The Renewal Book · Johnny Brock · The Real Insurance Group</title>',
                     '<title>The Marketing Machine · Johnny Brock · The Real Insurance Group</title>')
-new_css = open(os.path.join(ROOT, 'src/new.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v2.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v3.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v4.css'), encoding='utf-8').read()
+new_css = open(os.path.join(ROOT, 'src/new.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v2.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v3.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v4.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v5.css'), encoding='utf-8').read()
 slides = open(os.path.join(ROOT, 'src/slides.html'), encoding='utf-8').read()
 tail = s[s.index('<div class="grain"></div>') + len('<div class="grain"></div>'):]
 # notes: read from each slide's <script type="text/plain" class="notes">
