@@ -25,14 +25,14 @@ tail = tail.replace("<h3>The Renewal Book · controls</h3>", "<h3>The Marketing 
 tail = tail.replace("  addEventListener('storage', e=>{ if(e.key===TKEY) updateChip(); });\n", "")
 tail = tail.replace("NOTES[i+1] || ''", "(slides[i]?.querySelector('script.notes')?.textContent || '').trim()")
 TRACK = '''<script>
-/* 10-minute offer timer (resets on every page load): T starts/pauses, Shift+T resets, or click it. Shows on slides with data-timer. */
+/* 15-minute offer timer (resets on every page load, starts itself on the data-timer-start slide): T starts/pauses, Shift+T resets, or click it. Shows on slides with data-timer. */
 (function(){
-  const KEY='mm-offer-timer', DUR=10*60*1000;
+  const KEY='mm-offer-timer', DUR=15*60*1000;
   const stage=document.getElementById('stage'); if(!stage) return;
   const el=document.createElement('div'); el.id='otimer';
-  el.innerHTML='<span class="pl"><svg viewBox="0 0 20 20"><path d="M5 3l12 7-12 7z"/></svg></span><span class="lb"></span><b>10:00</b>';
+  el.innerHTML='<span class="pl"><svg viewBox="0 0 20 20"><path d="M5 3l12 7-12 7z"/></svg></span><span class="lb"></span><b>15:00</b>';
   stage.appendChild(el);
-  let st={end:null,left:DUR}; /* every fresh open starts a full, unstarted clock */
+  let st={end:null,left:DUR}, lastA=null; /* every fresh open starts a full, unstarted clock */
   const save=()=>{ try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} };
   const remain=()=> st.end ? Math.max(0, st.end-Date.now()) : st.left;
   const fmt=ms=>{ const s=Math.ceil(ms/1000); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); };
@@ -44,6 +44,7 @@ TRACK = '''<script>
     el.querySelector('.lb').textContent = r<=0 ? "Tonight's bonuses are closed" : (st.end ? "Tonight's bonuses end in" : "Press play to start the clock");
     const a=document.querySelector('.slide.active');
     el.classList.toggle('on', !!(a && a.hasAttribute('data-timer')));
+    if (a !== lastA){ lastA = a; if (a && a.hasAttribute('data-timer-start') && !st.end && st.left===DUR) start(); }
   }
   const start=()=>{ if(st.end || st.left<=0) return; st.end=Date.now()+st.left; save(); tick(); };
   const pause=()=>{ if(!st.end) return; st.left=remain(); st.end=null; save(); tick(); };
@@ -61,7 +62,7 @@ TRACK = '''<script>
     b.replaceWith(t); }); })();
 </script>
 '''
-tail = tail.replace('<tr><td>A</td><td>Reveal all steps on this slide</td></tr>', '<tr><td>A</td><td>Reveal all steps on this slide</td></tr>\n    <tr><td>T</td><td>Start / pause the 10-minute offer timer (Shift+T resets)</td></tr>')
+tail = tail.replace('<tr><td>A</td><td>Reveal all steps on this slide</td></tr>', '<tr><td>A</td><td>Reveal all steps on this slide</td></tr>\n    <tr><td>T</td><td>Start / pause the 15-minute offer timer (Shift+T resets). It starts itself on How we help.</td></tr>')
 tail = tail.replace("show(h>=1&&h<=N ? h-1 : 0, {force:true});", "show(0, {force:true}); /* always open on slide 1, whatever the URL says */")
 tail = tail.replace('</body>', TRACK + '</body>')
 out = head + new_css + '\n' + '</style>\n</head>\n<body>\n\n<div id="stage">\n' + slides + '\n' + tail
