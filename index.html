@@ -1245,6 +1245,115 @@ body.speaker #spk{display:grid;grid-template-columns:1fr 420px;gap:0;min-height:
 .s-delta2 .v.g{color:var(--gold-2)}
 .s-delta2 .br.dim .t,.s-delta2 .br.dim .v{color:var(--t2)}
 
+/* ═══════════════════════════ v3 · CAMPAIGN STRUCTURE + NUMBERS ═══════════════════════════ */
+
+/* every ad has a job — the funnel */
+.fzg{margin-top:56px;display:flex;flex-direction:column;gap:18px}
+.fzband{display:grid;grid-template-columns:560px 1fr 1fr 260px;gap:44px;align-items:center}
+.fzshape{height:156px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(180deg,rgba(217,166,33,.2),rgba(217,166,33,.08));border-top:1px solid rgba(217,166,33,.55)}
+.fzshape b{font:400 52px/1 var(--serif);color:var(--t1);font-weight:400;letter-spacing:-.015em}
+.fzshape span{font:500 13px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--gold-2);margin-top:10px}
+.fzshape.t1{clip-path:polygon(0 0,100% 0,92% 100%,8% 100%)}
+.fzshape.t2{clip-path:polygon(8% 0,92% 0,84% 100%,16% 100%);background:linear-gradient(180deg,rgba(217,166,33,.3),rgba(217,166,33,.14))}
+.fzshape.t3{clip-path:polygon(16% 0,84% 0,76% 100%,24% 100%);background:linear-gradient(180deg,rgba(217,166,33,.55),rgba(217,166,33,.3))}
+.fzinfo{padding-left:26px;border-left:1px solid var(--line)}
+.fzk{font:500 12px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--t3);margin:0 0 10px}
+.fzinfo p:not(.fzk){font:400 24px/1.38 var(--sans);color:var(--t2);margin:0}
+.fzinfo p.fzv{font:italic 400 34px/1.1 var(--serif);color:var(--gold-2)}
+
+/* prospector vs closer */
+.pcg{display:grid;grid-template-columns:300px 1fr 1fr;margin-top:40px;column-gap:56px}
+.pch{padding-bottom:20px;border-bottom:1px solid var(--line)}
+.pch .pck{font:500 12px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--t3);margin:0 0 12px}
+.pch h3{font:400 54px/1 var(--serif);color:var(--t1);margin:0;letter-spacing:-.015em}
+.pch.cl h3{color:var(--gold-2)}
+.pch p:last-child{font:italic 400 24px/1 var(--serif);color:var(--t2);margin:10px 0 0}
+.pcm{font:500 25px/1.2 var(--sans);color:var(--t1);padding:22px 0;border-bottom:1px solid var(--line-2);display:flex;flex-direction:column;justify-content:center}
+.pcm small{font:500 12px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-top:8px}
+.pcv{font:400 22px/1.35 var(--sans);color:var(--t2);padding:22px 0;border-bottom:1px solid var(--line-2)}
+.gauge{display:block;height:8px;background:rgba(242,245,249,.08);border-radius:4px;margin-bottom:12px;overflow:hidden}
+.gauge i{display:block;height:100%;background:rgba(242,245,249,.45);border-radius:4px;transform-origin:left;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.gauge.g i{background:var(--gold);box-shadow:0 0 12px rgba(217,166,33,.6)}
+.pcv:not(.in) .gauge i{transform:scaleX(0)}
+
+/* awareness stairs */
+.awg{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:30px;align-items:end;height:520px}
+.aws{position:relative;margin-bottom:var(--lift);padding:26px 26px 28px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(180deg,rgba(242,245,249,.05),rgba(242,245,249,.015))}
+.aws.frag{transform:none}
+.aws .awt{font:500 12px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--t3);margin:0 0 14px}
+.aws h3{font:400 46px/1.05 var(--serif);color:var(--t1);margin:0 0 10px;letter-spacing:-.01em}
+.aws .awd{font:400 21px/1.38 var(--sans);color:var(--t3);margin:0 0 18px;min-height:52px}
+.aws .awh{font:italic 400 27px/1.32 var(--serif);color:var(--gold-2);margin:0;padding-top:16px;border-top:1px solid var(--line-2)}
+.aws.hot{border-color:rgba(217,166,33,.55);background:linear-gradient(180deg,rgba(217,166,33,.14),rgba(217,166,33,.04));box-shadow:0 30px 80px -30px rgba(217,166,33,.35)}
+.aws.hot .awt{color:var(--gold)}
+
+/* how the account is built */
+.csg{display:grid;grid-template-columns:1000px 1fr;gap:72px;margin-top:64px}
+.csk{font:500 12px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+.csbox{border:1px solid var(--line);border-radius:6px;padding:20px 24px;background:linear-gradient(180deg,#0f1f38,#0b1729);box-shadow:0 30px 70px -30px rgba(0,0,0,.9)}
+.csbox h3{font:400 46px/1.05 var(--serif);color:var(--t1);margin:0 0 6px}
+.csbox p:not(.csk){font:400 21px/1.35 var(--sans);color:var(--t2);margin:0}
+.csbox.top{width:520px;margin:0 auto}
+.csbox.cl{border-color:rgba(217,166,33,.5)}
+.csarms{position:relative;height:60px}
+.csarms i{position:absolute;left:25%;right:25%;top:30px;height:30px;border:1px solid rgba(217,166,33,.6);border-bottom:0}
+.csarms::before{content:"";position:absolute;left:50%;top:0;height:30px;border-left:1px solid rgba(217,166,33,.6)}
+.cspair{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+.csads{display:flex;gap:8px;margin-top:16px}
+.csads i{width:56px;height:72px;border-radius:4px;border:1px solid rgba(242,245,249,.2);background:rgba(242,245,249,.06)}
+.csbox.cl .csads i{border-color:rgba(217,166,33,.45);background:rgba(217,166,33,.1)}
+.csnote{margin:26px 0 0;font:italic 400 25px/1.35 var(--serif);color:var(--t2);text-align:center}
+.csrules .csk{color:var(--t3);margin-bottom:16px}
+.csr{display:grid;grid-template-columns:44px 1fr;gap:14px;padding:26px 0;border-bottom:1px solid var(--line-2)}
+.csr:nth-child(2){border-top:1px solid var(--line)}
+.csr i{font:500 13px/1.7 var(--mono);letter-spacing:.2em;color:var(--gold);font-style:normal}
+.csr b{display:block;font:500 28px/1.2 var(--sans);color:var(--t1)}
+.csr span{display:block;font:400 21px/1.38 var(--sans);color:var(--t3);margin-top:5px}
+
+/* the four numbers */
+.n4g{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:40px}
+.n4c{border:1px solid var(--line);border-radius:6px;padding:26px 26px 24px;background:linear-gradient(180deg,rgba(242,245,249,.05),rgba(242,245,249,.012));display:flex;flex-direction:column}
+.n4c.gold{border-color:rgba(217,166,33,.5)}
+.n4i{font:500 13px/1 var(--mono);letter-spacing:.22em;color:var(--gold);margin:0 0 14px}
+.n4c h3{font:400 50px/1 var(--serif);color:var(--t1);margin:0 0 10px;letter-spacing:-.015em}
+.n4c.gold h3{color:var(--gold-2)}
+.n4d{font:400 21px/1.35 var(--sans);color:var(--t1);margin:0;min-height:58px}
+.n4viz{height:74px;display:flex;align-items:center;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);margin:18px 0}
+.n4t{font:400 19px/1.4 var(--sans);color:var(--t3);margin:0}
+.n4t b{display:block;font:500 12px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--t2);margin-bottom:8px;font-weight:500}
+.n4viz .sp{display:flex;gap:6px;width:100%;align-items:center}
+.n4viz .sp i{display:block;height:28px;background:var(--gold);border-radius:3px;font:600 12px/28px var(--mono);color:var(--ink-2);padding-left:10px;font-style:normal}
+.n4viz .sp i.lo{background:rgba(242,245,249,.3);padding:0;min-width:8px}
+.n4viz .scale{position:relative;width:100%;display:flex;justify-content:space-between;align-items:center;padding-top:22px}
+.n4viz .scale u{position:absolute;left:0;right:0;top:6px;height:6px;border-radius:3px;background:linear-gradient(90deg,rgba(78,155,232,.6),var(--gold));text-decoration:none}
+.n4viz .scale em{font:500 12px/1 var(--mono);font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:var(--t3)}
+.n4viz .fq{display:grid;grid-template-columns:repeat(4,1fr);width:100%;gap:4px}
+.n4viz .fq i{font:500 14px/1 var(--mono);font-style:normal;color:var(--t2);text-align:center;padding:10px 0;background:rgba(242,245,249,.06)}
+.n4viz .fq i:nth-child(1),.n4viz .fq i:nth-child(2){background:rgba(78,155,232,.18)}
+.n4viz .fq i:nth-child(3),.n4viz .fq i:nth-child(4){background:rgba(217,166,33,.22);color:var(--gold-2)}
+.n4viz .cpr{display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:baseline;width:100%}
+.n4viz .cpr b{font:400 40px/1 var(--serif);color:var(--t1);font-weight:400}
+.n4viz .cpr b.g{color:var(--gold-2)}
+.n4viz .cpr small{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--t3)}
+
+/* read the account */
+.rdt{margin-top:40px;border-top:1px solid var(--line)}
+.rdh,.rdr{display:grid;grid-template-columns:1.6fr .8fr .7fr .6fr .8fr 1.7fr;gap:24px;align-items:center}
+.rdh{padding:14px 0;border-bottom:1px solid var(--line)}
+.rdh span{font:500 12px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--t3)}
+.rdr{padding:22px 0;border-bottom:1px solid var(--line-2)}
+.rdr>span{font:400 40px/1 var(--serif);color:var(--t1)}
+.rdr>span small{display:block;font:500 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-top:8px}
+.rdr .an{font:500 24px/1.2 var(--sans)}
+.rdr .vd{font:400 19px/1.35 var(--sans);color:var(--t2);padding:14px 18px;border-radius:5px;background:rgba(242,245,249,.05);border:1px solid var(--line)}
+.rdr .vd b{display:block;font:500 13px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px}
+.rdr .vd.ok{border-color:rgba(217,166,33,.45);background:rgba(217,166,33,.07)}
+.rdr .vd.ok b{color:var(--gold-2)}
+.rdr .vd.no{border-color:rgba(229,52,42,.45);background:rgba(229,52,42,.07)}
+.rdr .vd.no b{color:#ff6b5f}
+.rdr.bad>span:not(.vd):not(.an){color:var(--t3)}
+.rdx{margin:14px 0 0;font:400 13px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--t4)}
+
 </style>
 </head>
 <body>
@@ -1559,32 +1668,201 @@ Johnny: if you have the real ad copy for any of these, swap it in. The real head
 "Part three. Your clients are on their phones, every day, just like him. Here's how you get in front of them."</script>
 </section>
 
-<!-- ═══════════════════════ 11 MEDIA · THE 20% ═══════════════════════ -->
-<section data-part="3" class="slide s-media" data-kicker="03 · Media">
+<!-- ═══════════════════════ M1 · EVERY AD HAS A JOB ═══════════════════════ -->
+<section data-part="3" class="slide s-fz" data-kicker="03 · Media · Campaign structure">
   <div class="light"></div>
   <div class="content">
-    <h1 class="head a" style="font-size:80px">Facebook ads: the 20%<br>that actually <em>matters.</em></h1>
-    <div class="ledger a">
-      <div class="row frag"><div class="t">Objective</div><div class="d">Leads. You want a name and a phone number, not likes.</div></div>
-      <div class="row frag"><div class="t">Audience</div><div class="d">Your licensed states. Go broad and let the hook pick the person.</div></div>
-      <div class="row frag"><div class="t">Creative</div><div class="d">Static images and short video. Run three to five angles at once.</div></div>
-      <div class="row frag"><div class="t">Budget</div><div class="d">Start with a daily budget you can leave alone for a full week.</div></div>
-      <div class="row frag"><div class="t">Patience</div><div class="d">Don't touch it for 72 hours. Judge on numbers, not feelings.</div></div>
-      <div class="row frag"><div class="t">Metrics</div><div class="d">Cost per lead first. Then cost per booked appointment, which is the one that pays you.</div></div>
+    <h1 class="head a" style="font-size:80px">Every ad has a <em>job.</em></h1>
+    <p class="sub a" style="font-size:27px;margin-top:18px">Before you judge an ad, know where it sits in the funnel and who it's talking to.</p>
+    <div class="fzg a">
+      <div class="fzband frag"><div class="fzshape t1"><b>Top</b><span>Prospecting</span></div>
+        <div class="fzinfo"><p class="fzk">Who</p><p>People who've never heard of you. Turning 65, retiring, confused.</p></div>
+        <div class="fzinfo"><p class="fzk">The ad's job</p><p>Open the door. Teach something, get a hand raised.</p></div>
+        <div class="fzinfo"><p class="fzk">Budget</p><p class="fzv">Most of it</p></div></div>
+      <div class="fzband frag"><div class="fzshape t2"><b>Middle</b><span>Warming</span></div>
+        <div class="fzinfo"><p class="fzk">Who</p><p>They watched, clicked, or registered, but haven't booked.</p></div>
+        <div class="fzinfo"><p class="fzk">The ad's job</p><p>Build trust. Proof, comparisons, the webinar replay.</p></div>
+        <div class="fzinfo"><p class="fzk">Budget</p><p class="fzv">Some</p></div></div>
+      <div class="fzband frag"><div class="fzshape t3"><b>Bottom</b><span>Closers</span></div>
+        <div class="fzinfo"><p class="fzk">Who</p><p>People who already know you. Leads, no-shows, past clients.</p></div>
+        <div class="fzinfo"><p class="fzk">The ad's job</p><p>Get the call booked. Deadlines, reminders, “pick a time.”</p></div>
+        <div class="fzinfo"><p class="fzk">Budget</p><p class="fzv">A little, on purpose</p></div></div>
     </div>
   </div>
-<script type="text/plain" class="notes">MEDIA: THE 20% THAT MATTERS.
+<script type="text/plain" class="notes">EVERY AD HAS A JOB. THIS IS WHERE YOU SOUND LIKE A MARKETER.
 
-Don't teach every button in Ads Manager. Teach the six decisions.
+"Most agents run one ad and ask one question: is it working? Wrong question. Every ad has a job, and the job depends on where it sits in the funnel."
 
-OBJECTIVE: leads. Not engagement, not traffic.
-AUDIENCE: licensed states, go broad. The hook does the targeting now, not the interest boxes.
-CREATIVE: statics and short video, three to five angles at once.
-BUDGET: something you can leave alone for a week. Johnny: say your real starting number here.
-PATIENCE: 72 hours. The number-one way agents kill a good ad is touching it on day one.
-METRICS: cost per lead, then cost per BOOKED appointment. A $4 lead that never books is more expensive than a $12 lead that does.
+TOP, PROSPECTING: "These are people who have never heard of you. Somebody turning 65 who doesn't know what Part B is. The ad's job is to open the door. This gets most of your budget."
 
-Then: "Let me show you what this looks like in a real account."</script>
+MIDDLE, WARMING: "They watched a video, clicked, registered for a class, but haven't booked. The job here is trust. Proof, a Plan G versus Plan N comparison, the replay."
+
+BOTTOM, CLOSERS: "People who already know you. Leads who didn't book, no-shows, your past clients. Small budget, on purpose. The job is one thing: get the call on the calendar."
+
+Land it: "Your closers only have people to close because your prospecting ads fed them. Turn off the top, and the bottom dries up in a couple of weeks."</script>
+</section>
+
+<!-- ═══════════════════════ M2 · PROSPECTORS VS CLOSERS ═══════════════════════ -->
+<section data-part="3" class="slide s-pc" data-kicker="03 · Media · Campaign structure">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:72px">Door-openers and closers<br>look <em>completely different.</em></h1>
+    <div class="pcg a">
+      <div class="pch"></div>
+      <div class="pch op"><p class="pck">Top of funnel</p><h3>The Prospector</h3><p>Opens the door</p></div>
+      <div class="pch cl"><p class="pck">Bottom of funnel</p><h3>The Closer</h3><p>Books the call</p></div>
+      <div class="pcm frag">Spend</div><div class="pcv frag"><span class="gauge"><i style="width:88%"></i></span>The most. Meta gives it the budget.</div><div class="pcv frag"><span class="gauge"><i style="width:22%"></i></span>Less. Small audience, small spend.</div>
+      <div class="pcm frag">Frequency <small>per day</small></div><div class="pcv frag"><span class="gauge"><i style="width:18%"></i></span>Low. Under 1.15. New people every day.</div><div class="pcv frag"><span class="gauge"><i style="width:78%"></i></span>High. 1.25 and up. The same people again.</div>
+      <div class="pcm frag">CPM</div><div class="pcv frag"><span class="gauge"><i style="width:22%"></i></span>Low. Broad, cold, cheap to reach.</div><div class="pcv frag"><span class="gauge"><i style="width:80%"></i></span>High. Narrow, warm, worth more.</div>
+      <div class="pcm frag">Cost per result</div><div class="pcv frag"><span class="gauge"><i style="width:68%"></i></span>Higher. That's expected.</div><div class="pcv frag"><span class="gauge g"><i style="width:26%"></i></span>Lower. This is how you judge it.</div>
+    </div>
+    <div class="foot2 frag">“Ad fatigue” is usually a closer asked to knock on doors, <span>or a door-opener asked to close.</span></div>
+  </div>
+<script type="text/plain" class="notes">PROSPECTORS VS CLOSERS. READ ACROSS, ROW BY ROW.
+
+"Here are two ads in the same account doing two different jobs."
+
+SPEND: "The prospector gets most of the money. Meta is putting it there because it's finding new people. The closer spends less, because there are only so many warm people to show it to."
+
+FREQUENCY, PER DAY: "Look at frequency by the DAY, not lifetime. Under about 1.15 a day means it's mostly reaching new people. Over 1.25 a day, it's hitting people who already know you. That one number tells you where the ad lives in the funnel."
+
+CPM: "That's what it costs to show your ad a thousand times. Cheap means broad and cold. Expensive means narrow and warm. A high CPM on a closer isn't a problem. It's the design."
+
+COST PER RESULT: "The prospector's cost per lead will look worse. That's normal, it's talking to strangers. The closer's will look better. You judge each one against its own job, not against each other."
+
+THE KILLER LINE: "When people say an ad 'got tired,' most of the time they asked a closer to go find new people, or a door-opener to close. Wrong job, not a tired ad."</script>
+</section>
+
+<!-- ═══════════════════════ M3 · TALK TO WHERE THEY ARE ═══════════════════════ -->
+<section data-part="3" class="slide s-aw" data-kicker="03 · Media · Campaign structure">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:76px">Talk to people <em>where they are.</em></h1>
+    <p class="sub a" style="font-size:26px;margin-top:18px">The same person needs a different ad depending on how much they already know.</p>
+    <div class="awg a">
+      <div class="aws frag" style="--lift:0px"><p class="awt">Top</p><h3>Unaware</h3><p class="awd">Doesn't know they have a decision to make.</p><p class="awh">“Turning 65 this year? There are 3 Medicare decisions you have to make first.”</p></div>
+      <div class="aws frag" style="--lift:34px"><p class="awt">Top</p><h3>Problem aware</h3><p class="awd">Knows it's confusing. Doesn't know who to trust.</p><p class="awh">“Parts A, B, C, D, G, N. Here's what actually matters, in plain English.”</p></div>
+      <div class="aws frag" style="--lift:68px"><p class="awt">Middle</p><h3>Solution aware</h3><p class="awd">Knows they need a plan, or an agent. Comparing.</p><p class="awh">“Plan G or Plan N? Join Thursday's 30-minute class and bring your questions.”</p></div>
+      <div class="aws frag hot" style="--lift:102px"><p class="awt">Bottom</p><h3>Already talked to you</h3><p class="awd">Opted in, registered, or no-showed.</p><p class="awh">“Mary, your review is still open. Enrollment closes December 7. Pick a time.”</p></div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">AWARENESS. THIS IS WHAT MAKES THE MESSAGE MATCH THE FUNNEL.
+
+"You don't say the same thing to a stranger that you say to someone who already filled out your form."
+
+Walk up the stairs, left to right:
+
+UNAWARE: "They don't even know they have a decision to make. You lead with the decision. 'Three decisions before you turn 65.'"
+
+PROBLEM AWARE: "They know it's confusing. You make it simple. 'Here's what actually matters, in plain English.'"
+
+SOLUTION AWARE: "They know they need a plan or an agent, they're comparing. Give them the comparison and an easy next step, like a class."
+
+ALREADY TALKED TO YOU: "They opted in, registered, or no-showed. Now you're direct. Their name, a deadline, a calendar link."
+
+The rule: "Top-of-funnel ads talk to strangers. Bottom-of-funnel ads talk to people who already know your name. Mix those up and both ads look broken."
+
+Annual Enrollment runs October 15 to December 7.</script>
+</section>
+
+<!-- ═══════════════════════ M4 · HOW THE ACCOUNT IS BUILT ═══════════════════════ -->
+<section data-part="3" class="slide s-cs" data-kicker="03 · Media · Campaign structure">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:76px">How the account is <em>actually built.</em></h1>
+    <div class="csg a">
+      <div class="cstree">
+        <div class="csbox top frag"><p class="csk">Campaign</p><h3>One objective: Leads</h3><p>You want names and phone numbers, not likes.</p></div>
+        <div class="csarms frag"><i></i></div>
+        <div class="cspair">
+          <div class="csbox frag"><p class="csk">Ad set · Prospecting</p><h3>Broad, cold</h3><p>Your licensed states. Most of the budget.</p><div class="csads"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div class="csbox cl frag"><p class="csk">Ad set · Closers</p><h3>Warm, narrow</h3><p>Leads, engagers, registrants. Small on purpose.</p><div class="csads"><i></i><i></i><i></i><i></i></div></div>
+        </div>
+        <p class="csnote frag">4 to 8 ads per ad set. More than that, and none of them get enough to learn.</p>
+      </div>
+      <div class="csrules">
+        <p class="csk">The rules that never change</p>
+        <div class="csr frag"><i>01</i><div><b>Never edit a live ad</b><span>Editing resets what it learned. Launch a new version instead.</span></div></div>
+        <div class="csr frag"><i>02</i><div><b>One change at a time</b><span>Change two things and you'll never know which one worked.</span></div></div>
+        <div class="csr frag"><i>03</i><div><b>Don't kill your top spender</b><span>It's usually feeding the closers. Build something better next to it.</span></div></div>
+        <div class="csr frag"><i>04</i><div><b>Let it settle</b><span>Wait until the numbers are steady week over week, then decide.</span></div></div>
+      </div>
+    </div>
+  </div>
+<script type="text/plain" class="notes">HOW THE ACCOUNT IS BUILT. KEEP IT SIMPLE, SOUND LIKE YOU'VE DONE IT A THOUSAND TIMES.
+
+LEFT, THE TREE:
+"One campaign, one objective: leads. Underneath it, two ad sets. Prospecting: broad, your licensed states, most of the budget. Closers: warm and narrow, people who already raised their hand. Small on purpose."
+
+"Four to eight ads in each ad set. Put twenty ads in there and none of them get enough budget to learn anything."
+
+RIGHT, THE FOUR RULES. These are what separate people who've actually run accounts from people who've watched a YouTube video:
+
+1. "Never edit a live ad. The moment you edit it, it starts over. Duplicate it, change the copy, launch it as a new ad."
+2. "One change at a time. Change the image and the headline together and you'll never know what worked."
+3. "Don't kill your top spender because its cost per lead looks high. It's usually the prospector feeding everything else. Build a better one next to it and let them fight."
+4. "Let it settle. Don't make decisions on one day. When the numbers are steady week over week, then you decide."</script>
+</section>
+
+<!-- ═══════════════════════ M5 · THE FOUR NUMBERS ═══════════════════════ -->
+<section data-part="3" class="slide s-n4" data-kicker="03 · Media · Your numbers">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:76px">Four numbers. <em>Ignore the rest.</em></h1>
+    <p class="sub a" style="font-size:26px;margin-top:18px">Ads Manager gives you twenty columns. These four tell you what's really going on.</p>
+    <div class="n4g a">
+      <div class="n4c frag"><p class="n4i">01</p><h3>Spend</h3><p class="n4d">Where Meta is putting your money.</p><div class="n4viz"><span class="sp"><i style="width:70%">70%</i><i class="lo" style="width:3%"></i></span></div><p class="n4t"><b>Tells you</b>which ads Meta trusts. The top spender is usually your prospector.</p></div>
+      <div class="n4c frag"><p class="n4i">02</p><h3>CPM</h3><p class="n4d">What it costs to show your ad 1,000 times.</p><div class="n4viz"><span class="scale"><em>Cold, broad</em><u></u><em>Warm, narrow</em></span></div><p class="n4t"><b>Tells you</b>who it's reaching. Low is new people. High is people who know you.</p></div>
+      <div class="n4c frag"><p class="n4i">03</p><h3>Frequency</h3><p class="n4d">How many times one person sees it, per day.</p><div class="n4viz"><span class="fq"><i>1.0</i><i class="m">1.15</i><i class="m">1.25</i><i>1.5+</i></span></div><p class="n4t"><b>Tells you</b>where it sits. Under 1.15 is prospecting. Over 1.25 is closing.</p></div>
+      <div class="n4c frag gold"><p class="n4i">04</p><h3>Cost per result</h3><p class="n4d">What you pay for a lead, or a booked call.</p><div class="n4viz"><span class="cpr"><b>$7.40</b><small>prospector</small><b class="g">$3.10</b><small>closer</small></span></div><p class="n4t"><b>Tells you</b>if it's doing its job. Judge it against its job, not other ads.</p></div>
+    </div>
+    <div class="foot2 frag">Spend and frequency tell you the ad's <span>job.</span> CPM and cost per result tell you if it's <span>doing it.</span></div>
+  </div>
+<script type="text/plain" class="notes">THE FOUR NUMBERS. SAY EACH ONE IN ONE SENTENCE.
+
+"Ads Manager gives you twenty columns. Click-through rate, cost per click, hook rate. They feel like analysis. They're not decision numbers. There are four that matter."
+
+SPEND: "Where Meta is putting your money. Meta never splits money evenly. If one ad gets seventy percent and another gets three, that's Meta telling you which one it trusts."
+
+CPM: "What it costs to show your ad a thousand times. Low means you're reaching new, cold people. High means you're reaching warm people who already know you. Neither is good or bad on its own."
+
+FREQUENCY: "How many times one person sees it, per DAY. Always look at it by the day. Under 1.15, it's finding new people. Over 1.25, it's showing to people who already know you."
+
+COST PER RESULT: "What you pay for a lead, or better, a booked call. This is the only one that says if the ad is doing its job. But you judge it against its job. A prospector at seven dollars can be doing better work than a closer at three."
+
+LAND IT: "Spend and frequency tell you the ad's job. CPM and cost per result tell you if it's doing it."
+
+The $7.40 and $3.10 are example numbers.</script>
+</section>
+
+<!-- ═══════════════════════ M6 · READ THE ACCOUNT ═══════════════════════ -->
+<section data-part="3" class="slide s-rd" data-kicker="03 · Media · Your numbers">
+  <div class="light"></div>
+  <div class="content">
+    <h1 class="head a" style="font-size:72px">Read any account in <em>sixty seconds.</em></h1>
+    <p class="sub a" style="font-size:25px;margin-top:16px">Sort by spend. Read each ad left to right. Then decide.</p>
+    <div class="rdt a">
+      <div class="rdh"><span>Ad</span><span>Spend</span><span>Freq / day</span><span>CPM</span><span>Cost / lead</span><span>Verdict</span></div>
+      <div class="rdr frag"><span class="an">Turning 65 · 3 decisions<small>Static image</small></span><span>$1,840<small>62%</small></span><span>1.08</span><span>$9</span><span>$7.40</span><span class="vd ok"><b>Prospector</b>Leave it. It feeds everything.</span></div>
+      <div class="rdr frag"><span class="an">Your review is still open<small>Warm audience</small></span><span>$310<small>10%</small></span><span>1.62</span><span>$31</span><span>$3.10</span><span class="vd ok"><b>Closer</b>Leave it. It's meant to be small.</span></div>
+      <div class="rdr frag bad"><span class="an">Plan G static v2<small>Static image</small></span><span>$95<small>3%</small></span><span>1.31</span><span>$28</span><span>$19.80</span><span class="vd no"><b>No job</b>Not earning spend. Launch a new version.</span></div>
+    </div>
+    <p class="rdx a">Example account</p>
+    <div class="foot2 frag">Stop asking “which ad has the best cost per lead?” <span>Ask “what job is this ad doing?”</span></div>
+  </div>
+<script type="text/plain" class="notes">READ THE ACCOUNT. THIS IS THE DEMO THAT MAKES YOU THE EXPERT.
+
+"Here's how I read an account in about sixty seconds. Sort by spend, highest to lowest, then read every ad left to right."
+
+ROW 1: "Sixty-two percent of the spend. Frequency 1.08 a day, so it's finding new people. CPM nine bucks, cheap and broad. Cost per lead $7.40, the highest of the good ones. A beginner turns this off. That's the worst thing you could do. It's the prospector. It feeds everything."
+
+ROW 2: "Ten percent of the spend. Frequency 1.6, CPM thirty-one, so it's hitting warm people. Cost per lead $3.10. It's the closer. It's supposed to be small. Leave it alone."
+
+ROW 3: "Three percent of the spend, high CPM, frequency all over the place, and almost twenty bucks a lead. Meta can't find a job for it. Don't edit it. Launch a new version and let it earn spend."
+
+THE LINE: "Stop asking which ad has the best cost per lead. Ask what job each ad is doing, and whether it's doing it."
+
+These are example numbers for teaching. Say so if anyone asks.</script>
 </section>
 
 <!-- ═══════════════════════ 12 MEDIA · THE AD ACCOUNT ═══════════════════════ -->
@@ -1632,8 +1910,8 @@ This is spend across a long window, not one month. If asked, say so plainly.</sc
       <div class="rules">
         <div class="r frag"><i>01</i><div><b>Many angles at once</b><span>Different people, different hooks, different formats. You never know which one wins until it runs.</span></div></div>
         <div class="r frag"><i>02</i><div><b>Some ads lose</b><span>Individual ads in that account cost $15 and $23 a lead. That's normal. That's the test.</span></div></div>
-        <div class="r frag"><i>03</i><div><b>Kill, then feed</b><span>Turn off what doesn't work. Move the money to what does. Every week.</span></div></div>
-        <div class="r frag"><i>04</i><div><b>The average is the skill</b><span>$5.92 isn't one lucky ad. It's what's left after you cut the losers.</span></div></div>
+        <div class="r frag"><i>03</i><div><b>Replace, don't just kill</b><span>An ad with no job gets a new version. The top spender stays.</span></div></div>
+        <div class="r frag"><i>04</i><div><b>The average is the skill</b><span>$5.92 isn't one lucky ad. It's a full team of ads, each doing its job.</span></div></div>
       </div>
     </div>
   </div>
@@ -1641,7 +1919,7 @@ This is spend across a long window, not one month. If asked, say so plainly.</sc
 
 Point at the ad names on the left. Every one maps back to the framework: Part B Delay is a market. Plan N is a market. Webinar on Demand is a mechanism.
 
-Then say the thing other gurus hide: "Some of these ads cost fifteen, twenty-three dollars a lead. I lost money on them. The average is $5.92 because I killed those and fed the ones that worked. That IS the skill."
+Then say the thing other gurus hide: "Some of these ads cost fifteen, twenty-three dollars a lead. Some of those were prospectors doing their job, some had no job and got replaced. The average is $5.92 because the account works as a team. That IS the skill."
 
 This builds more trust than any screenshot of a winner.</script>
 </section>
