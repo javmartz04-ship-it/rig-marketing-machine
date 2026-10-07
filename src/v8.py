@@ -33,3 +33,6 @@ s = s.replace('<div class="f3c core"><p class="k">The main thing</p><h3>The Real
               '<div class="f3c core"><p class="k">Our Skool group</p><h3>Launch your first campaign</h3><p>The community, the courses, live calls every business day, and the wins.</p>')
 s = s.replace('"The community, the main thing. Bonus one', '"Our Skool group. Bonus one')
 open(P, 'w', encoding='utf-8').write(s)
+s = open(P, encoding='utf-8').read()
+s = s.replace('<div class="t">The community<small>The main thing</small></div>', '<div class="t">Our Skool group<small>On its own</small></div>')
+open(P, 'w', encoding='utf-8').write(s)
