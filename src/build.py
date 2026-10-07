@@ -7,7 +7,7 @@ css_end = s.index('</style>')
 head = s[:css_end]
 head = head.replace('<title>The Renewal Book · Johnny Brock · The Real Insurance Group</title>',
                     '<title>The Marketing Machine · Johnny Brock · The Real Insurance Group</title>')
-new_css = open(os.path.join(ROOT, 'src/new.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v2.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v3.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v4.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v5.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v6.css'), encoding='utf-8').read()
+new_css = open(os.path.join(ROOT, 'src/new.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v2.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v3.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v4.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v5.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v6.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v7.css'), encoding='utf-8').read()
 slides = open(os.path.join(ROOT, 'src/slides.html'), encoding='utf-8').read()
 tail = s[s.index('<div class="grain"></div>') + len('<div class="grain"></div>'):]
 # notes: read from each slide's <script type="text/plain" class="notes">
@@ -25,15 +25,14 @@ tail = tail.replace("<h3>The Renewal Book · controls</h3>", "<h3>The Marketing 
 tail = tail.replace("  addEventListener('storage', e=>{ if(e.key===TKEY) updateChip(); });\n", "")
 tail = tail.replace("NOTES[i+1] || ''", "(slides[i]?.querySelector('script.notes')?.textContent || '').trim()")
 TRACK = '''<script>
-/* 15-minute offer timer: T starts/pauses, Shift+T resets, or click it. Shows on slides with data-timer. */
+/* 10-minute offer timer (resets on every page load): T starts/pauses, Shift+T resets, or click it. Shows on slides with data-timer. */
 (function(){
-  const KEY='mm-offer-timer', DUR=15*60*1000;
+  const KEY='mm-offer-timer', DUR=10*60*1000;
   const stage=document.getElementById('stage'); if(!stage) return;
   const el=document.createElement('div'); el.id='otimer';
-  el.innerHTML='<span class="pl"><svg viewBox="0 0 20 20"><path d="M5 3l12 7-12 7z"/></svg></span><span class="lb"></span><b>15:00</b>';
+  el.innerHTML='<span class="pl"><svg viewBox="0 0 20 20"><path d="M5 3l12 7-12 7z"/></svg></span><span class="lb"></span><b>10:00</b>';
   stage.appendChild(el);
-  let st=null; try{ st=JSON.parse(localStorage.getItem(KEY)||'null'); }catch(e){}
-  if(!st || typeof st.left!=='number') st={end:null,left:DUR};
+  let st={end:null,left:DUR}; /* every fresh open starts a full, unstarted clock */
   const save=()=>{ try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} };
   const remain=()=> st.end ? Math.max(0, st.end-Date.now()) : st.left;
   const fmt=ms=>{ const s=Math.ceil(ms/1000); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); };
@@ -62,7 +61,7 @@ TRACK = '''<script>
     b.replaceWith(t); }); })();
 </script>
 '''
-tail = tail.replace('<tr><td>A</td><td>Reveal all steps on this slide</td></tr>', '<tr><td>A</td><td>Reveal all steps on this slide</td></tr>\n    <tr><td>T</td><td>Start / pause the 15-minute offer timer (Shift+T resets)</td></tr>')
+tail = tail.replace('<tr><td>A</td><td>Reveal all steps on this slide</td></tr>', '<tr><td>A</td><td>Reveal all steps on this slide</td></tr>\n    <tr><td>T</td><td>Start / pause the 10-minute offer timer (Shift+T resets)</td></tr>')
 tail = tail.replace("show(h>=1&&h<=N ? h-1 : 0, {force:true});", "show(0, {force:true}); /* always open on slide 1, whatever the URL says */")
 tail = tail.replace('</body>', TRACK + '</body>')
 out = head + new_css + '\n' + '</style>\n</head>\n<body>\n\n<div id="stage">\n' + slides + '\n' + tail
