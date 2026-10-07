@@ -11,7 +11,7 @@ for p in parts:
     m = re.match(r'<!-- ═+ (\d\d) ', p)
     if m: blocks[int(m.group(1))] = p.strip('\n')
 
-PARTS = ['Market', 'Message', 'Media', 'Mechanism', 'Monetization']
+PARTS = ['Market', 'Message', 'Ads', 'Funnel', 'Backend']
 
 def rail(cur):
     out = []
@@ -219,12 +219,12 @@ OP = {
            'CHAPTER 01 · MARKET\n\nOne breath. Read the question and move on.\n\n"Part one. Market. Who, exactly, are you going after? Because if the answer is \'everybody on Medicare\', nothing after this works."', 1),
  8: opener('02', 'Message', 'What makes that person stop and care?', 'ch-message.jpg', '62% 30%',
            'CHAPTER 02 · MESSAGE\n\n"Part two. You know who. Now, what do you say so they stop scrolling? Look at her face. That\'s confusion. Your message has to name it."', 2),
- 11: opener('03', 'Media', 'How do you put it in front of them?', 'ch-media.jpg', '66% 40%',
-           'CHAPTER 03 · MEDIA\n\n"Part three. Your clients are on their phones, every day, just like him. Here\'s how you get in front of them."', 3),
- 14: opener('04', 'Mechanism', 'What gets them to raise their hand and book?', 'ch-mechanism.jpg', '64% 40%',
-           'CHAPTER 04 · MECHANISM\n\n"Part four. They saw the ad. Now what? This is where most agents lose them."', 4),
- 18: opener('05', 'Monetization', 'Your ad doesn\'t make you money. <em>Your follow-up does.</em>', 'ch-money.jpg', '58% 35%',
-           'CHAPTER 05 · MONETIZATION\n\nSAY IT, THEN STOP.\n\n"Part five. Your ad doesn\'t make you money. Your follow-up does."\n\nPause. Most agents think marketing ends when the lead comes in. This is the moment that belief breaks.', 5),
+ 11: opener('03', 'Ads', 'How do you run them, and how do you read them?', 'ch-media.jpg', '66% 40%',
+           'CHAPTER 03 · ADS\n\n"Part three. Ads. Your clients are on their phones every day, just like him. I\'m going to show you how to run the ads, and how to read them like a pro."', 3),
+ 14: opener('04', 'Funnel', 'What happens after they click?', 'ch-mechanism.jpg', '64% 40%',
+           'CHAPTER 04 · FUNNEL\n\n"Part four. They saw the ad. Now what? This is where most agents lose them."', 4),
+ 18: opener('05', 'Backend', 'Your ad doesn\'t make you money. <em>Your follow-up does.</em>', 'ch-money.jpg', '58% 35%',
+           'CHAPTER 05 · BACKEND\n\nSAY IT, THEN STOP.\n\n"Part five. The back end. Your ad doesn\'t make you money. Your follow-up does."\n\nPause. Most agents think marketing ends when the lead comes in. This is the moment that belief breaks.', 5),
  26: opener('', 'How we help you <em>build it.</em>', 'The marketing, the system, and the person who builds it. Seven parts.', 'ch-offer.jpg', '62% 40%',
            'THE OFFER OPENS.\n\n"I told you at the start there was an offer. Here it is. Seven parts. I\'ll show you each one and what it\'s worth, and then the price."', None, 'How we help'),
 }

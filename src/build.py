@@ -7,7 +7,7 @@ css_end = s.index('</style>')
 head = s[:css_end]
 head = head.replace('<title>The Renewal Book · Johnny Brock · The Real Insurance Group</title>',
                     '<title>The Marketing Machine · Johnny Brock · The Real Insurance Group</title>')
-new_css = open(os.path.join(ROOT, 'src/new.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v2.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v3.css'), encoding='utf-8').read()
+new_css = open(os.path.join(ROOT, 'src/new.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v2.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v3.css'), encoding='utf-8').read() + open(os.path.join(ROOT, 'src/v4.css'), encoding='utf-8').read()
 slides = open(os.path.join(ROOT, 'src/slides.html'), encoding='utf-8').read()
 tail = s[s.index('<div class="grain"></div>') + len('<div class="grain"></div>'):]
 # notes: read from each slide's <script type="text/plain" class="notes">
@@ -26,7 +26,7 @@ tail = tail.replace("  addEventListener('storage', e=>{ if(e.key===TKEY) updateC
 tail = tail.replace("NOTES[i+1] || ''", "(slides[i]?.querySelector('script.notes')?.textContent || '').trim()")
 TRACK = '''<script>
 /* framework tracker: replaces the brand label on teaching slides */
-(function(){ const P=['Market','Message','Media','Mechanism','Monetization'];
+(function(){ const P=['Market','Message','Ads','Funnel','Backend'];
   document.querySelectorAll('.slide[data-part]').forEach(s=>{ const cur=+s.dataset.part, b=s.querySelector('.c-brand'); if(!b) return;
     const t=document.createElement('div'); t.className='c-track';
     t.innerHTML=P.map((n,i)=>`<span class="${i+1===cur?'on':(i+1<cur?'done':'')}">${n}</span>`).join('');
