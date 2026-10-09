@@ -140,3 +140,31 @@
 .s-was.wb .pr .v{font-size:150px;line-height:.9}
 .s-was.wb .pr .v small{display:block;font-size:52px;font-style:normal;font-weight:700;margin-top:34px;letter-spacing:-.02em}
 .s-was.wb .pr .v::after{content:none!important}
+
+/* v11 · slide 57 "the gap": tiles were unreadable (the GHL-mockup .gs rule in v7 painted them navy under navy text). Scoped here + progress bar. */
+.g10 .gs{background:#fff;border:3px solid #0B1220;border-radius:14px;box-shadow:6px 6px 0 #0B1220;padding:16px 18px 18px;min-height:124px;display:block}
+.g10 .gs i{font:700 14px/1 var(--mono);letter-spacing:.2em;color:#C7372F;font-style:normal}
+.g10 .gs h3{font:800 38px/1.05 'Inter Tight',sans-serif;letter-spacing:-.03em;margin:12px 0 0;color:#0B1220}
+.g10 .gs .ck{background:#fff}
+.g10 .gs.have{background:#F2B92E}
+.g10 .gs.have i{color:#0B1220}
+.g10 .gs.have .ck{background:#0B1220;color:#F2B92E;border-color:#0B1220}
+.prog10{display:grid;grid-template-columns:auto 1fr auto;gap:34px;align-items:center;margin-top:104px}
+.prog10 .pn,.prog10 .pr{font:800 54px/1 'Inter Tight',sans-serif;letter-spacing:-.03em;color:#0B1220}
+.prog10 .pr{color:#C7372F;text-align:right}
+.prog10 small{display:block;margin-top:8px;font:700 15px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:#5b6676}
+.prog10 .pr small{color:#C7372F}
+.prog10 .track{height:30px;border:3px solid #0B1220;border-radius:99px;background:#fff;overflow:hidden;box-shadow:5px 5px 0 #0B1220}
+.prog10 .track b{display:block;height:100%;width:10%;background:#F2B92E;border-right:3px solid #0B1220}
+
+/* v11 · reveal + Christopher: one-time, this-webinar-only urgency (claims match the deck: 12 seats, ends with the clock) */
+.s-reveal.wb .wrap{transform:translateY(-63%)}
+.s-reveal .urg{position:absolute;left:120px;right:120px;bottom:140px;display:grid;grid-template-columns:repeat(3,1fr);background:#0B1220;border-radius:18px;box-shadow:6px 6px 0 rgba(11,18,32,.22);overflow:hidden}
+.s-reveal .urg>div{padding:22px 26px 24px;text-align:center;border-left:1px solid rgba(255,255,255,.16)}
+.s-reveal .urg>div:first-child{border-left:0}
+.s-reveal .urg b{display:block;font:800 42px/1 'Inter Tight',sans-serif;letter-spacing:-.02em;color:#F2B92E}
+.s-reveal .urg b i{font-style:normal}
+.s-reveal .urg span{display:block;margin-top:9px;font:500 21px/1.25 var(--sans);color:#D6DDE8}
+.s-meet .mtban{margin-top:26px;background:#0B1220;color:#fff;border-radius:16px;padding:20px 26px;font:600 30px/1.2 'Inter Tight',sans-serif;letter-spacing:-.01em}
+.s-meet .mtban b{color:#F2B92E;font-weight:800}
+.s-meet .mtban b i{font-style:normal}

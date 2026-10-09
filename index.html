@@ -2350,6 +2350,34 @@ body.speaker #spk{display:grid;grid-template-columns:1fr 420px;gap:0;min-height:
 .s-was.wb .pr .v small{display:block;font-size:52px;font-style:normal;font-weight:700;margin-top:34px;letter-spacing:-.02em}
 .s-was.wb .pr .v::after{content:none!important}
 
+/* v11 · slide 57 "the gap": tiles were unreadable (the GHL-mockup .gs rule in v7 painted them navy under navy text). Scoped here + progress bar. */
+.g10 .gs{background:#fff;border:3px solid #0B1220;border-radius:14px;box-shadow:6px 6px 0 #0B1220;padding:16px 18px 18px;min-height:124px;display:block}
+.g10 .gs i{font:700 14px/1 var(--mono);letter-spacing:.2em;color:#C7372F;font-style:normal}
+.g10 .gs h3{font:800 38px/1.05 'Inter Tight',sans-serif;letter-spacing:-.03em;margin:12px 0 0;color:#0B1220}
+.g10 .gs .ck{background:#fff}
+.g10 .gs.have{background:#F2B92E}
+.g10 .gs.have i{color:#0B1220}
+.g10 .gs.have .ck{background:#0B1220;color:#F2B92E;border-color:#0B1220}
+.prog10{display:grid;grid-template-columns:auto 1fr auto;gap:34px;align-items:center;margin-top:104px}
+.prog10 .pn,.prog10 .pr{font:800 54px/1 'Inter Tight',sans-serif;letter-spacing:-.03em;color:#0B1220}
+.prog10 .pr{color:#C7372F;text-align:right}
+.prog10 small{display:block;margin-top:8px;font:700 15px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:#5b6676}
+.prog10 .pr small{color:#C7372F}
+.prog10 .track{height:30px;border:3px solid #0B1220;border-radius:99px;background:#fff;overflow:hidden;box-shadow:5px 5px 0 #0B1220}
+.prog10 .track b{display:block;height:100%;width:10%;background:#F2B92E;border-right:3px solid #0B1220}
+
+/* v11 · reveal + Christopher: one-time, this-webinar-only urgency (claims match the deck: 12 seats, ends with the clock) */
+.s-reveal.wb .wrap{transform:translateY(-63%)}
+.s-reveal .urg{position:absolute;left:120px;right:120px;bottom:140px;display:grid;grid-template-columns:repeat(3,1fr);background:#0B1220;border-radius:18px;box-shadow:6px 6px 0 rgba(11,18,32,.22);overflow:hidden}
+.s-reveal .urg>div{padding:22px 26px 24px;text-align:center;border-left:1px solid rgba(255,255,255,.16)}
+.s-reveal .urg>div:first-child{border-left:0}
+.s-reveal .urg b{display:block;font:800 42px/1 'Inter Tight',sans-serif;letter-spacing:-.02em;color:#F2B92E}
+.s-reveal .urg b i{font-style:normal}
+.s-reveal .urg span{display:block;margin-top:9px;font:500 21px/1.25 var(--sans);color:#D6DDE8}
+.s-meet .mtban{margin-top:26px;background:#0B1220;color:#fff;border-radius:16px;padding:20px 26px;font:600 30px/1.2 'Inter Tight',sans-serif;letter-spacing:-.01em}
+.s-meet .mtban b{color:#F2B92E;font-weight:800}
+.s-meet .mtban b i{font-style:normal}
+
 </style>
 </head>
 <body>
@@ -3826,6 +3854,7 @@ Then reveal the last line, slowly: "But there's still one problem."</script>
     <div class="g10 a"><div class="gs frag have"><b class="ck">✓</b><i>01</i><h3>Campaign idea</h3></div><div class="gs frag"><b class="ck"></b><i>02</i><h3>Landing page</h3></div><div class="gs frag"><b class="ck"></b><i>03</i><h3>Form</h3></div><div class="gs frag"><b class="ck"></b><i>04</i><h3>Pipeline</h3></div><div class="gs frag"><b class="ck"></b><i>05</i><h3>Calendar</h3></div><div class="gs frag"><b class="ck"></b><i>06</i><h3>Text sequence</h3></div><div class="gs frag"><b class="ck"></b><i>07</i><h3>Email sequence</h3></div><div class="gs frag"><b class="ck"></b><i>08</i><h3>Automations</h3></div><div class="gs frag"><b class="ck"></b><i>09</i><h3>Testing</h3></div><div class="gs frag"><b class="ck"></b><i>10</i><h3>Launch</h3></div>
       <div class="ring2 frag"><p class="hand">somebody still has to build all of this.</p></div>
     </div>
+    <div class="prog10 frag"><div class="pn">1 of 10<small>done</small></div><div class="track"><b></b></div><div class="pr">9 left<small>to build</small></div></div>
     <p class="hand foot3 frag">you have the idea. that's step one of ten. <small>that's where agents get stuck.</small></p>
   </div>
 <script type="text/plain" class="notes">THE IMPLEMENTATION GAP.
@@ -3860,17 +3889,28 @@ Then, slowly: "So we solved that too." Click, and stop talking for a beat.</scri
   <div class="glow2"></div>
   <div class="wrap">
     <p class="k a">But today, we're adding one more thing</p>
-    <div class="bnt a" style="margin:0 auto 34px"><span class="gift"><svg viewBox="0 0 40 40"><rect x="6" y="16" width="28" height="18" rx="2"/><rect x="4" y="11" width="32" height="7" rx="2"/><path d="M20 11v23M20 11c-3-6-10-6-9-1 1 3 9 1 9 1zM20 11c3-6 10-6 9-1-1 3-9 1-9 1z"/></svg></span>Bonus #5 · Only today</div>
+    <div class="bnt a" style="margin:0 auto 34px"><span class="gift"><svg viewBox="0 0 40 40"><rect x="6" y="16" width="28" height="18" rx="2"/><rect x="4" y="11" width="32" height="7" rx="2"/><path d="M20 11v23M20 11c-3-6-10-6-9-1 1 3 9 1 9 1zM20 11c3-6 10-6 9-1-1 3-9 1-9 1z"/></svg></span>Bonus #5 · Today's webinar only</div>
     <h1 class="a">Your Dedicated<br>GoHighLevel <em>Specialist.</em></h1>
-    <p class="a">Not a course. Not a ticket. Not a Facebook group. A specialist attached to your business.</p>
+    <p class="a">Not a course. Not a ticket. Not a Facebook group. A specialist attached to your business, who builds it.</p>
   </div>
+  <div class="urg frag"><div><b>Today only</b><span>Offered on this webinar and nowhere else</span></div><div><b><i data-spots>12</i> seats</b><span>When they're gone, it's gone</span></div><div><b>Clock ends it</b><span>When it hits zero, the specialist goes with it</span></div></div>
 <script type="text/plain" class="notes">THE REVEAL. ALMOST NO TALKING.
 
-"But today, we're adding one more thing."
+"So you get everything I just showed you. The community. The playbook. Your GoHighLevel account. David's onboarding. The automations built for you. That's the full system. And it's $147 a month."
+
+Pause.
+
+"But today, we're adding one more thing. Something we're only offering on this webinar."
 
 Click. Wait two seconds.
 
-"Your dedicated GoHighLevel specialist. Not a course. Not a support ticket. Not a Facebook group where you ask somebody how to do something. A specialist attached to your business, who builds it."</script>
+"Your dedicated GoHighLevel specialist. Not a course. Not a support ticket. Not a Facebook group where you ask somebody how to do something. A specialist attached to your business, who builds it."
+
+Click. The strip comes up. Read it plainly, no hype:
+
+"This is only on today's webinar. There are twelve seats, because that's how many people we can set up and support personally. And when the clock hits zero, it goes with it."
+
+JOHNNY, THIS ONLY WORKS IF IT'S TRUE. Before going live, confirm all three: (1) the specialist is not sold bundled like this on any other webinar or page right now, (2) the seat number is the real capacity, (3) at zero on the clock, the specialist bonus really comes off.</script>
 </section>
 
 <!-- ═══════════════════════ 36 MEET CHRISTOPHER ═══════════════════════ -->
@@ -3888,6 +3928,7 @@ Click. Wait two seconds.
           <div class="frag"><b>1,000+</b><span>Accounts on his automation</span></div>
           <div class="frag"><b>6–7</b><span>Figure businesses he runs GHL for</span></div>
         </div>
+        <div class="mtban frag">Included today. <b>Only on this webinar.</b> <b><i data-spots>12</i> seats.</b></div>
       </div>
     </div>
     <div class="stamp big2s frag"><b>$1,500</b><span>a month, on its own</span></div>
@@ -3899,6 +3940,8 @@ Click. Wait two seconds.
 "He's launched more than 800 webinar funnels. The webinar automation he built is running in over a thousand accounts. He runs GoHighLevel for six and seven-figure businesses. And he knows the insurance side, not just the software."
 
 "A specialist like this costs fifteen hundred dollars a month, on its own. That's what we charge for it by itself."
+
+Then the banner: "Today he's included. Only on this webinar. Twelve seats. When they're gone, he's not part of this."
 
 JOHNNY, CONFIRM BEFORE GOING LIVE: is every member's dedicated specialist Christopher himself, or his team? Say it the true way. These numbers are from his booking page.</script>
 </section>
