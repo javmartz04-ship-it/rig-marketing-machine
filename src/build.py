@@ -41,7 +41,7 @@ TRACK = '''<script>
     el.querySelector('b').textContent=fmt(r);
     el.classList.toggle('run', !!st.end && r>0);
     el.classList.toggle('zero', r<=0);
-    el.querySelector('.lb').textContent = r<=0 ? "Tonight's bonuses are closed" : (st.end ? "Tonight's bonuses end in" : "Press play to start the clock");
+    el.querySelector('.lb').textContent = r<=0 ? "This offer is closed" : (st.end ? "This offer ends in" : "Press play to start the clock");
     const a=document.querySelector('.slide.active');
     el.classList.toggle('on', !!(a && a.hasAttribute('data-timer')));
     if (a !== lastA){ lastA = a; if (a && a.hasAttribute('data-timer-start') && !st.end && st.left===DUR) start(); }

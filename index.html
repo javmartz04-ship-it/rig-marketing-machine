@@ -2378,6 +2378,14 @@ body.speaker #spk{display:grid;grid-template-columns:1fr 420px;gap:0;min-height:
 .s-meet .mtban b{color:#F2B92E;font-weight:800}
 .s-meet .mtban b i{font-style:normal}
 
+/* v11 · seats slide: "only time you'll see this offer" strip */
+.s-seats .once{margin-top:46px;background:#0B1220;border-radius:18px;padding:26px 34px;box-shadow:6px 6px 0 rgba(11,18,32,.22);display:flex;align-items:baseline;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.s-seats .once b{font:800 44px/1.1 'Inter Tight',sans-serif;letter-spacing:-.02em;color:#F2B92E}
+.s-seats .once span{font:500 24px/1.3 var(--sans);color:#D6DDE8}
+.s-seats .seatg{grid-template-columns:repeat(6,1fr);gap:14px}
+.s-seats .seatg i{border-radius:12px;box-shadow:4px 4px 0 #0B1220}
+.s-seats .once{margin-top:40px}
+
 </style>
 </head>
 <body>
@@ -3594,7 +3602,7 @@ Note the third one is gold. You'll come back to it.</script>
 </section>
 
 <!-- ═══════════════════════ CHAPTER · How we help ═══════════════════════ -->
-<section class="slide s-ch" data-timer data-timer-start data-kicker="How we help">
+<section class="slide s-ch" data-kicker="How we help">
   <div class="bg"><img src="assets/ch-offer-johnny.jpg" alt="Johnny Brock" style="object-position:100% 100%"></div>
   <div class="scrim"></div>
   <div class="txt">
@@ -3603,13 +3611,13 @@ Note the third one is gold. You'll come back to it.</script>
     <p class="a">The marketing, the system, and the person who builds it. Seven parts.</p>
   </div>
   
-<script type="text/plain" class="notes">THE OFFER OPENS. THE 15-MINUTE CLOCK STARTS BY ITSELF ON THIS SLIDE (top right).
+<script type="text/plain" class="notes">THE OFFER OPENS. (No clock yet. The 15-minute clock starts by itself on the "Why there's a limit" slide, after the price.)
 
 "I told you at the start there was an offer. Here it is. Seven parts. I'll show you each one and what it's worth, and then the price."</script>
 </section>
 
 <!-- ═══════════════════════ CORE 1 · THE COMMUNITY ═══════════════════════ -->
-<section class="slide wb s-core1" data-timer data-kicker="How we help · Our Skool group">
+<section class="slide wb s-core1" data-kicker="How we help · Our Skool group">
   <div class="light"></div>
   <div class="content">
     <div class="c1w">
@@ -3638,7 +3646,7 @@ Talk over the video: "This is what you log into. Today."</script>
 </section>
 
 <!-- ═══════════════════════ CORE 2 · THE CLASSROOM ═══════════════════════ -->
-<section class="slide wb s-class" data-timer data-kicker="Our Skool group · The courses">
+<section class="slide wb s-class" data-kicker="Our Skool group · The courses">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a" style="font-size:80px">Every course, <em>unlocked on day one.</em></h1>
@@ -3655,7 +3663,7 @@ Point at a few: "Start Here is your 90-day roadmap. Facebook Ads. Ancillary sale
 </section>
 
 <!-- ═══════════════════════ CORE 3 · LIVE + WINS ═══════════════════════ -->
-<section class="slide wb s-live" data-timer data-kicker="Our Skool group · The community">
+<section class="slide wb s-live" data-kicker="Our Skool group · The community">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a" style="font-size:80px">Live every business day. <em>Wins every day.</em></h1>
@@ -3690,7 +3698,7 @@ Then: "And because you stayed with me tonight, I want to do something just for y
 
 <!-- ═══════════════════════ CORE 4 · THE PRICE OF THE CORE ═══════════════════════ -->
 <!-- ═══════════════════════ GIFT · FOR STAYING ═══════════════════════ -->
-<section class="slide wb s-gift" data-timer data-kicker="A gift for staying">
+<section class="slide wb s-gift" data-kicker="A gift for staying">
   <div class="light"></div>
   <div class="content">
     <div class="gfw">
@@ -3698,24 +3706,22 @@ Then: "And because you stayed with me tonight, I want to do something just for y
         <p class="eb a">Because you stayed to the end</p>
         <h1 class="head a">We have a <em>special gift</em> for you.</h1>
         <p class="rb a">Join on this webinar today, and you get every bonus I'm about to show you. They're not on the website. They're not in the follow-up email. <b>They're only for the people here right now.</b></p>
-        <p class="hand a">the clock in the corner is already running. and we're only taking 12 people today.</p>
+        <p class="hand a">and we're only taking 12 people today.</p>
       </div>
       <div class="gfr a"><div class="tile gold big gbox"><svg viewBox="0 0 120 120"><rect x="22" y="52" width="76" height="52" rx="4"/><rect x="16" y="38" width="88" height="16" rx="4" class="f2"/><path d="M60 38v66"/><path d="M60 38c-8-16-30-18-28-4 2 9 28 4 28 4zM60 38c8-16 30-18 28-4-2 9-28 4-28 4z"/></svg></div></div>
     </div>
   </div>
-<script type="text/plain" class="notes">THE GIFT. START THE TIMER HERE.
-
-THE CLOCK IS ALREADY RUNNING. It started on its own on the "How we help" slide. Point at it. (T pauses it, Shift+T resets it.)
+<script type="text/plain" class="notes">THE GIFT.
 
 "Because you stayed to the end, we have a special gift for you. If you join on this webinar today, you get every bonus I'm about to show you."
 
-"They're not on the website. They're not in the follow-up email. They're only for the people here right now. See the clock in the corner? It's already running. And we're only taking twelve people today. I'll tell you why in a minute."
+"They're not on the website. They're not in the follow-up email. They're only for the people here right now. And we're only taking twelve people today. I'll tell you why in a minute."
 
 Then: "Not only do you get the community. If you join today, you also get..." Go.</script>
 </section>
 
 <!-- ═══════════════════════ BONUS 1 ═══════════════════════ -->
-<section class="slide wb s-bn" data-timer data-kicker="Join today · Bonus 1 of 5">
+<section class="slide wb s-bn" data-kicker="Join today · Bonus 1 of 5">
   <div class="light"></div>
   <div class="content">
     <div class="bnw">
@@ -3739,7 +3745,7 @@ Say the value once. Point at the bar at the bottom: it climbs on every slide fro
 </section>
 
 <!-- ═══════════════════════ BONUS 2 ═══════════════════════ -->
-<section class="slide wb s-bn" data-timer data-kicker="Join today · Bonus 2 of 5">
+<section class="slide wb s-bn" data-kicker="Join today · Bonus 2 of 5">
   <div class="light"></div>
   <div class="content">
     <div class="bnw">
@@ -3765,7 +3771,7 @@ $97 a month, $1,164 a year. Bonus value so far: $4,164.</script>
 </section>
 
 <!-- ═══════════════════════ BONUS 3 ═══════════════════════ -->
-<section class="slide wb s-bn" data-timer data-kicker="Join today · Bonus 3 of 5">
+<section class="slide wb s-bn" data-kicker="Join today · Bonus 3 of 5">
   <div class="light"></div>
   <div class="content">
     <div class="bnw">
@@ -3791,7 +3797,7 @@ Bonus value so far: $5,164.</script>
 </section>
 
 <!-- ═══════════════════════ BONUS 4 ═══════════════════════ -->
-<section class="slide wb s-bn" data-timer data-kicker="Join today · Bonus 4 of 5">
+<section class="slide wb s-bn" data-kicker="Join today · Bonus 4 of 5">
   <div class="light"></div>
   <div class="content">
     <div class="bnw">
@@ -3817,7 +3823,7 @@ Bonus value so far: $10,164. Then go to the recap.</script>
 </section>
 
 <!-- ═══════════════════════ RECAP · WHAT YOU GET TODAY ═══════════════════════ -->
-<section class="slide wb s-was" data-timer data-kicker="Join today">
+<section class="slide wb s-was" data-kicker="Join today">
   <div class="light"></div>
   <div class="wrap">
     <div>
@@ -3847,7 +3853,7 @@ Then reveal the last line, slowly: "But there's still one problem."</script>
 </section>
 
 <!-- ═══════════════════════ 33 THE GAP ═══════════════════════ -->
-<section class="slide wb s-gap2" data-timer data-kicker="The one problem">
+<section class="slide wb s-gap2" data-kicker="The one problem">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a" style="font-size:84px">Knowing what to build is not the same as <em>getting it built.</em></h1>
@@ -3867,7 +3873,7 @@ Then reveal the last line, slowly: "But there's still one problem."</script>
 </section>
 
 <!-- ═══════════════════════ 34 SIX PEOPLE ═══════════════════════ -->
-<section class="slide wb s-hats2" data-timer data-kicker="The one problem">
+<section class="slide wb s-hats2" data-kicker="The one problem">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a">So now you're trying to be <em>six people.</em></h1>
@@ -3884,7 +3890,7 @@ Then, slowly: "So we solved that too." Click, and stop talking for a beat.</scri
 </section>
 
 <!-- ═══════════════════════ 35 THE REVEAL ═══════════════════════ -->
-<section class="slide wb s-reveal" data-timer data-kicker="Join today · Bonus 5 of 5">
+<section class="slide wb s-reveal" data-kicker="Join today · Bonus 5 of 5">
   <div class="light"></div>
   <div class="glow2"></div>
   <div class="wrap">
@@ -3893,7 +3899,7 @@ Then, slowly: "So we solved that too." Click, and stop talking for a beat.</scri
     <h1 class="a">Your Dedicated<br>GoHighLevel <em>Specialist.</em></h1>
     <p class="a">Not a course. Not a ticket. Not a Facebook group. A specialist attached to your business, who builds it.</p>
   </div>
-  <div class="urg frag"><div><b>Today only</b><span>Offered on this webinar and nowhere else</span></div><div><b><i data-spots>12</i> seats</b><span>When they're gone, it's gone</span></div><div><b>Clock ends it</b><span>When it hits zero, the specialist goes with it</span></div></div>
+  <div class="urg frag"><div><b>One time only</b><span>The only time you'll see this offer</span></div><div><b><i data-spots>12</i> seats</b><span>That's our capacity this month</span></div><div><b>Closes tonight</b><span>Not on the website. Not in a follow-up email.</span></div></div>
 <script type="text/plain" class="notes">THE REVEAL. ALMOST NO TALKING.
 
 "So you get everything I just showed you. The community. The playbook. Your Real CRM account. David's onboarding. The automations built for you. That's the full system. And it's $147 a month."
@@ -3908,13 +3914,13 @@ Click. Wait two seconds.
 
 Click. The strip comes up. Read it plainly, no hype:
 
-"This is only on today's webinar. There are twelve seats, because that's how many people we can set up and support personally. And when the clock hits zero, it goes with it."
+"This is the only time you'll see this offer. There are twelve seats. That's our capacity this month, because that's how many people we can set up and support personally. And it closes tonight."
 
-JOHNNY, THIS ONLY WORKS IF IT'S TRUE. Before going live, confirm all three: (1) the specialist is not sold bundled like this on any other webinar or page right now, (2) the seat number is the real capacity, (3) at zero on the clock, the specialist bonus really comes off.</script>
+JOHNNY, THIS ONLY WORKS IF IT'S TRUE. Before going live, confirm all three: (1) this specialist offer is not shown or sold bundled like this on any other webinar, page or follow-up after tonight, (2) twelve is the real capacity for this month, (3) when the webinar closes, the specialist bonus really comes off the table.</script>
 </section>
 
 <!-- ═══════════════════════ 36 MEET CHRISTOPHER ═══════════════════════ -->
-<section class="slide wb s-meet" data-timer data-kicker="Join today · Bonus 5 of 5">
+<section class="slide wb s-meet" data-kicker="Join today · Bonus 5 of 5">
   <div class="light"></div>
   <div class="content">
     <div class="mtw">
@@ -3947,7 +3953,7 @@ JOHNNY, CONFIRM BEFORE GOING LIVE: is every member's dedicated specialist Christ
 </section>
 
 <!-- ═══════════════════════ 36B WHAT THE SPECIALIST BUILDS ═══════════════════════ -->
-<section class="slide wb s-req" data-timer data-kicker="Join today · Bonus 5 of 5">
+<section class="slide wb s-req" data-kicker="Join today · Bonus 5 of 5">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a" style="font-size:80px">You say what you want. <em>It gets built.</em></h1>
@@ -3974,7 +3980,7 @@ BEFORE GOING LIVE: have the internal scope written down (requests per month, tur
 
 <!-- ═══════════════════════ 37 THE DELTA ═══════════════════════ -->
 <!-- ═══════════════════════ SEPARATE · OUTSIDE THIS WEBINAR ═══════════════════════ -->
-<section class="slide wb s-sep" data-timer data-kicker="Only on this webinar">
+<section class="slide wb s-sep" data-kicker="Only on this webinar">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a">Outside this webinar, <em>it's all separate.</em></h1>
@@ -4007,7 +4013,7 @@ JOHNNY: only say this if it's how it will actually be sold after tonight.</scrip
 </section>
 
 <!-- ═══════════════════════ 38 THE PRICE ═══════════════════════ -->
-<section class="slide wb s-offer" data-timer data-kicker="The price">
+<section class="slide wb s-offer" data-kicker="The price">
   <div class="light"></div>
   <div class="wrap">
     <p class="lead a">The community, every bonus, and your specialist.</p>
@@ -4022,27 +4028,32 @@ JOHNNY: only say this if it's how it will actually be sold after tonight.</scrip
 JOHNNY: confirm the terms are true for the $300 version before going live (nothing up front, no contract, cancel anytime).</script>
 </section>
 
-<!-- ═══════════════════════ SEATS · 12 THIS WEEK ═══════════════════════ -->
-<section class="slide wb s-seats" data-timer data-kicker="Why there's a limit">
+<!-- ═══════════════════════ SEATS · 12 THIS MONTH ═══════════════════════ -->
+<section class="slide wb s-seats" data-timer data-timer-start data-kicker="Why there's a limit">
   <div class="light"></div>
   <div class="content">
     <h1 class="head a">We're only accepting <em><span data-spots>12</span> people today.</em></h1>
     <div class="stw a">
       <div class="seatg"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <div class="stx">
-        <div class="ln frag"><i>01</i><p><b>That's our onboarding capacity this week.</b> David sets up every account personally, live, one on one.</p></div>
+        <div class="ln frag"><i>01</i><p><b>That's our onboarding capacity this month.</b> David sets up every account personally, live, one on one.</p></div>
         <div class="ln frag"><i>02</i><p><b>Every seat gets a real specialist.</b> That only works if each one has a manageable number of agents.</p></div>
         <div class="ln frag"><i>03</i><p><b>When the 12 are gone, the bonuses go with them.</b> Same as when the timer hits zero.</p></div>
       </div>
     </div>
+    <div class="once frag"><b>This is the only time you'll see this offer.</b><span>It isn't on the website, and it won't be in the follow-up email.</span></div>
   </div>
 <script type="text/plain" class="notes">12 SEATS. REAL SCARCITY.
 
-"We're only accepting twelve people today. That's our onboarding capacity this week: David sets up every account personally, live, one on one. And every one of you gets a real specialist."
+"We're only accepting twelve people today. That's our onboarding capacity this month: David sets up every account personally, live, one on one. And every one of you gets a real specialist."
 
 "When the seats are gone, the bonuses go with them. Same as when that timer hits zero."
 
-THE NUMBER MUST BE REAL. Change it in one place: the SPOTS line at the top of the deck script.
+Then the strip. Say it slowly: "This is the only time you'll see this offer. It's not on the website, and it won't be in the follow-up email."
+
+THE CLOCK STARTS BY ITSELF ON THIS SLIDE (top right). Point at it. (T pauses it, Shift+T resets it.)
+
+THE NUMBER MUST BE REAL, AND SO MUST "ONLY TIME." Don't say it unless the offer really goes away after tonight. Change it in one place: the SPOTS line at the top of the deck script.
 
 As people join during Q&A, call it out: "Two gone. Ten left."</script>
 </section>
@@ -4397,7 +4408,7 @@ const NOTES = {};
     el.querySelector('b').textContent=fmt(r);
     el.classList.toggle('run', !!st.end && r>0);
     el.classList.toggle('zero', r<=0);
-    el.querySelector('.lb').textContent = r<=0 ? "Tonight's bonuses are closed" : (st.end ? "Tonight's bonuses end in" : "Press play to start the clock");
+    el.querySelector('.lb').textContent = r<=0 ? "This offer is closed" : (st.end ? "This offer ends in" : "Press play to start the clock");
     const a=document.querySelector('.slide.active');
     el.classList.toggle('on', !!(a && a.hasAttribute('data-timer')));
     if (a !== lastA){ lastA = a; if (a && a.hasAttribute('data-timer-start') && !st.end && st.left===DUR) start(); }

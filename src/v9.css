@@ -168,3 +168,11 @@
 .s-meet .mtban{margin-top:26px;background:#0B1220;color:#fff;border-radius:16px;padding:20px 26px;font:600 30px/1.2 'Inter Tight',sans-serif;letter-spacing:-.01em}
 .s-meet .mtban b{color:#F2B92E;font-weight:800}
 .s-meet .mtban b i{font-style:normal}
+
+/* v11 · seats slide: "only time you'll see this offer" strip */
+.s-seats .once{margin-top:46px;background:#0B1220;border-radius:18px;padding:26px 34px;box-shadow:6px 6px 0 rgba(11,18,32,.22);display:flex;align-items:baseline;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.s-seats .once b{font:800 44px/1.1 'Inter Tight',sans-serif;letter-spacing:-.02em;color:#F2B92E}
+.s-seats .once span{font:500 24px/1.3 var(--sans);color:#D6DDE8}
+.s-seats .seatg{grid-template-columns:repeat(6,1fr);gap:14px}
+.s-seats .seatg i{border-radius:12px;box-shadow:4px 4px 0 #0B1220}
+.s-seats .once{margin-top:40px}
