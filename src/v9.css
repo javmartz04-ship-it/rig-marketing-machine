@@ -136,3 +136,7 @@
 .cover{position:absolute;top:-30px;height:282px;border-left:4px dashed #C2362D}
 .cover span{position:absolute;top:-14px;left:12px;font-family:var(--hand);font-weight:600;font-size:36px;color:#C2362D;white-space:nowrap;transform:translateY(-100%)}
 .s-math .mfoot{margin-top:0}
+/* v10 · recap shows value so far, not a price */
+.s-was.wb .pr .v{font-size:150px;line-height:.9}
+.s-was.wb .pr .v small{display:block;font-size:52px;font-style:normal;font-weight:700;margin-top:34px;letter-spacing:-.02em}
+.s-was.wb .pr .v::after{content:none!important}
