@@ -176,3 +176,18 @@
 .s-seats .seatg{grid-template-columns:repeat(6,1fr);gap:14px}
 .s-seats .seatg i{border-radius:12px;box-shadow:4px 4px 0 #0B1220}
 .s-seats .once{margin-top:40px}
+
+/* v11 · testimonial slides (portrait phone clip + pull-quote) */
+.s-tst .tw{display:grid;grid-template-columns:1fr 405px;gap:110px;align-items:center;height:100%}
+.s-tst .tl{min-width:0}
+.s-tst .eb{font:700 17px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:#A9790A;margin:0 0 26px}
+.s-tst .head{font-size:96px;line-height:1.02;margin:0}
+.s-tst .rb{font:400 31px/1.4 var(--sans);color:#36414F;margin:34px 0 0;max-width:900px}
+.s-tst .tst-s{display:flex;gap:22px;margin-top:38px;flex-wrap:wrap}
+.s-tst .tst-s>div{background:#fff;border:3px solid #0B1220;border-radius:16px;box-shadow:6px 6px 0 #0B1220;padding:18px 26px 20px;min-width:230px}
+.s-tst .tst-s b{display:block;font:800 54px/1 'Inter Tight',sans-serif;letter-spacing:-.03em;color:#0B1220}
+.s-tst .tst-s span{display:block;margin-top:8px;font:500 22px/1.3 var(--sans);color:#5b6676}
+.s-tst .disc{margin:34px 0 0;font:500 15px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#7b8594}
+.s-tst .tph{width:405px;height:720px;border:4px solid #0B1220;border-radius:30px;box-shadow:12px 12px 0 #0B1220;overflow:hidden;background:#0B1220}
+.s-tst .tph video{display:block;width:100%;height:100%;object-fit:cover}
+.s-tst .nm{margin:20px 0 0;text-align:center;font:600 32px/1.2 var(--hand);color:var(--pen)}

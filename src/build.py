@@ -23,6 +23,11 @@ tail = tail.replace("'trig-speaker'", "'trig-mm-speaker'")
 tail = tail.replace('<span class="l">The Renewal Book</span>', '<span class="l">The Marketing Machine</span>')
 tail = tail.replace("<h3>The Renewal Book · controls</h3>", "<h3>The Marketing Machine · controls</h3>")
 tail = tail.replace("  addEventListener('storage', e=>{ if(e.key===TKEY) updateChip(); });\n", "")
+# testimonial clips (data-once): play once with sound per visit, pausable; screen-recording loops keep the old watchdog
+_old = "const playActive = ()=>{ if(isStatic) return; const s=slides[cur]; if(!s) return; s.querySelectorAll('video').forEach(v=>{ if(v.paused){ const p=v.play(); if(p&&p.catch) p.catch(()=>{}); } }); };"
+_new = "const playActive = ()=>{ if(isStatic) return; const s=slides[cur]; document.querySelectorAll('video[data-once]').forEach(v=>{ if(!s||!s.contains(v)){ if(v.dataset.started){ v.pause(); try{v.currentTime=0}catch(e){} delete v.dataset.started; } } }); if(!s) return; s.querySelectorAll('video').forEach(v=>{ if(v.hasAttribute('data-once')){ if(v.dataset.started) return; const q=v.play(); if(q&&q.then) q.then(()=>{ v.dataset.started='1'; }).catch(()=>{}); return; } if(v.paused){ const p=v.play(); if(p&&p.catch) p.catch(()=>{}); } }); };"
+assert _old in tail, 'playActive not found'
+tail = tail.replace(_old, _new)
 tail = tail.replace("NOTES[i+1] || ''", "(slides[i]?.querySelector('script.notes')?.textContent || '').trim()")
 TRACK = '''<script>
 /* 15-minute offer timer (resets on every page load, starts itself on the data-timer-start slide): T starts/pauses, Shift+T resets, or click it. Shows on slides with data-timer. */
